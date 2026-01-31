@@ -1,0 +1,749 @@
+/* NEON FLUX THEME - FINAL */
+:root {
+    --c-pink: #ff007f;
+    --c-cyan: #00f3ff;
+    --c-yellow: #ffe600;
+    --c-violet: #7000ff;
+    --bg-dark: #050510;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Exo 2', sans-serif;
+    background: var(--bg-dark);
+    color: white;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--c-cyan);
+    border-radius: 5px;
+}
+
+/* 1. Fondo Super Animado */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(125deg, #2c003e, #000000, #001a33, #1a000d);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    z-index: -2;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(var(--c-cyan) 1px, transparent 1px), radial-gradient(var(--c-pink) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: 0 0, 25px 25px;
+    opacity: 0.2;
+    animation: particleMove 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes particleMove {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* 2. Layout & Nav */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 60px;
+    /* Space for footer */
+}
+
+.neon-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.nav-logo {
+    font-family: 'Orbitron';
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.bad {
+    color: var(--c-pink);
+}
+
+.nav-items {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-btn {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    border-radius: 30px;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-btn:hover {
+    transform: scale(1.1);
+    color: #000;
+    background: white;
+}
+
+.color-1:hover {
+    background: var(--c-cyan);
+    box-shadow: 0 0 15px var(--c-cyan);
+}
+
+.color-2:hover {
+    background: var(--c-pink);
+    box-shadow: 0 0 15px var(--c-pink);
+}
+
+.color-3:hover {
+    background: var(--c-yellow);
+    box-shadow: 0 0 15px var(--c-yellow);
+}
+
+.color-4:hover {
+    background: var(--c-violet);
+    box-shadow: 0 0 15px var(--c-violet);
+    color: white !important;
+}
+
+/* 3. Hero Typography */
+.card-section {
+    margin-bottom: 80px;
+    text-align: center;
+    perspective: 1000px;
+}
+
+.top-meta {
+    letter-spacing: 3px;
+    color: var(--c-cyan);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.std-id {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.std-period {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.mega-title {
+    font-family: 'Orbitron';
+    font-size: 3.5rem;
+    background: linear-gradient(to right, var(--c-cyan), var(--c-pink), var(--c-yellow));
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+    line-height: 1.2;
+}
+
+.sub-title {
+    font-family: 'Orbitron';
+    font-size: 1.5rem;
+    color: #ddd;
+    margin-bottom: 10px;
+}
+
+.txt-highlight {
+    color: var(--c-pink);
+}
+
+.typing-container {
+    font-size: 1.2rem;
+    color: var(--c-yellow);
+    font-family: 'Orbitron';
+    margin-top: 10px;
+    margin-bottom: 20px;
+    height: 30px;
+}
+
+.cursor {
+    animation: blink 0.8s infinite;
+    color: white;
+}
+
+/* 4. Panels (Presentation) */
+.content-panel {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--c-cyan);
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    text-align: left;
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+}
+
+.panel-title {
+    color: var(--c-cyan);
+    font-family: 'Orbitron';
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.content-panel p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.txt-cyan {
+    color: var(--c-cyan);
+    font-weight: bold;
+}
+
+.txt-pink {
+    color: var(--c-pink);
+    font-weight: bold;
+}
+
+.txt-yellow {
+    color: var(--c-yellow);
+    font-weight: bold;
+}
+
+/* 5. Profile Card */
+.profile-card {
+    width: 320px;
+    height: 450px;
+    margin: 0 auto;
+    background: transparent;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.profile-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 10, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: rgba(0, 0, 0, 0.9);
+    border-color: var(--c-pink);
+}
+
+.avatar-container img {
+    border-radius: 50%;
+    border: 3px solid var(--c-cyan);
+    box-shadow: 0 0 20px var(--c-cyan);
+    width: 120px;
+    height: 120px;
+}
+
+.profile-card h3 {
+    margin-top: 15px;
+    font-family: 'Orbitron';
+    font-size: 1.3rem;
+}
+
+.alias {
+    color: var(--c-pink);
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.id-num {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.pulse-status {
+    background: var(--c-cyan);
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: auto;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+}
+
+.interests-box h4 {
+    color: var(--c-yellow);
+    margin-bottom: 10px;
+}
+
+.skill-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pill {
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: black;
+    font-size: 0.75rem;
+}
+
+.c1 {
+    background: var(--c-cyan);
+}
+
+.c2 {
+    background: var(--c-pink);
+}
+
+.c3 {
+    background: var(--c-yellow);
+}
+
+.c4 {
+    background: var(--c-violet);
+    color: white;
+}
+
+/* 6. Tech Grid */
+.tech-wrapper h3 {
+    font-family: 'Orbitron';
+    color: var(--c-violet);
+    margin-bottom: 30px;
+}
+
+.tech-dashboard {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.tech-item {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 15px;
+    width: 200px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.4s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Specific styling for the Tech Specs section where we have multiple logos */
+#tech .tech-item {
+    width: 240px;
+}
+
+.tech-item .icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+#tech .tech-item .icon {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tech-item h4 {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.tech-item p {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
+}
+
+.tech-item:hover {
+    transform: translateY(-10px);
+}
+
+.t1:hover {
+    border-color: var(--c-cyan);
+    box-shadow: 0 0 20px var(--c-cyan);
+}
+
+.t2:hover {
+    border-color: var(--c-pink);
+    box-shadow: 0 0 20px var(--c-pink);
+}
+
+.t3:hover {
+    border-color: var(--c-yellow);
+    box-shadow: 0 0 20px var(--c-yellow);
+}
+
+.t4:hover {
+    border-color: var(--c-violet);
+    box-shadow: 0 0 20px var(--c-violet);
+}
+
+/* 7. Form */
+.contact-box {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(5, 5, 20, 0.8);
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid var(--c-violet);
+    position: relative;
+}
+
+.contact-box h2 {
+    text-align: center;
+    color: white;
+    font-family: 'Orbitron';
+    margin-bottom: 50px;
+    /* Increased space to prevent overlap with floating labels */
+    font-size: 1.8rem;
+}
+
+.float-input {
+    position: relative;
+    margin-bottom: 35px;
+    /* Increased spacing between inputs */
+    text-align: left;
+}
+
+.float-input input,
+.float-input textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #555;
+    background: transparent;
+    color: white;
+    padding: 10px 0;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.float-input label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: #aaa;
+    transition: 0.3s;
+    pointer-events: none;
+    font-size: 0.9rem;
+}
+
+.float-input input:focus~label,
+.float-input input:valid~label,
+.float-input textarea:focus~label,
+.float-input textarea:valid~label {
+    top: -15px;
+    color: var(--c-cyan);
+    font-size: 0.75rem;
+}
+
+.mega-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background: var(--c-pink);
+    color: white;
+    font-weight: 900;
+    font-family: 'Orbitron';
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.mega-btn:hover {
+    transform: scale(1.02);
+    background: var(--c-cyan);
+    color: #000;
+}
+
+/* 8. Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--c-violet);
+    color: white;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 100;
+}
+
+.scrolling-text {
+    animation: scrollText 20s linear infinite;
+    font-weight: bold;
+    font-family: 'Orbitron';
+    font-size: 0.8rem;
+}
+
+@keyframes scrollText {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Animaciones de Entrada */
+.slide-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.8s forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.2s;
+}
+
+.delay-2 {
+    animation-delay: 0.4s;
+}
+
+.delay-3 {
+    animation-delay: 0.6s;
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ANIMACIONES EXTRA PARA ICONOS */
+.fa-spin-slow {
+    animation: fa-spin 5s infinite linear;
+}
+
+.bounce-hover:hover {
+    animation: fa-bounce 1s infinite;
+}
+
+@keyframes fa-bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Ajustes para el GIF */
+.avatar-container img {
+    object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .neon-nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .mega-title {
+        font-size: 2rem;
+    }
+
+    .content-panel {
+        padding: 20px;
+    }
+}
+
+/* ESTILOS PARA PDFS (Cyber-Docs) */
+.pdf-viewer-container {
+    margin-top: 20px;
+    border: 2px solid var(--c-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    position: relative;
+    transition: 0.3s;
+}
+
+.pdf-viewer-container:hover {
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+    border-color: var(--c-pink);
+}
+
+.pdf-viewer-header {
+    background: rgba(0, 243, 255, 0.1);
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--c-cyan);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Orbitron';
+    font-size: 0.9rem;
+    color: var(--c-cyan);
+}
+
+.pdf-frame {
+    width: 100%;
+    height: 500px;
+    border: none;
+    background: white;
+    /* Para que contraste con el PDF */
+}
+
+/* Tarjeta de Archivo (Alternativa al embed) */
+.file-card {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.file-card:hover {
+    border-color: var(--c-pink);
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+    transform: translateX(5px);
+    background: rgba(255, 0, 127, 0.1);
+}
+
+.file-icon {
+    font-size: 2rem;
+    color: var(--c-pink);
+    margin-right: 15px;
+}
+
+.file-info h5 {
+    margin: 0;
+    color: white;
+    font-size: 1rem;
+    font-family: 'Exo 2';
+}
+
+.file-info p {
+    margin: 0;
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.file-action {
+    margin-left: auto;
+    color: var(--c-cyan);
+    font-size: 1.2rem;
+}
