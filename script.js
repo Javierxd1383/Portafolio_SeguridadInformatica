@@ -123,4 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(sparkle);
         setTimeout(() => sparkle.remove(), 500);
     }
+
+
+
+    // --- JUEGO ANTERIOR ELIMINADO ---
+    // El nuevo juego "Cyber Runner" se maneja en game.js
+
+
 });

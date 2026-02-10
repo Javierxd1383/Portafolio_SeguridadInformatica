@@ -26,6 +26,9 @@
                 <a href="#home" class="nav-btn color-1"> INICIO</a>
                 <a href="#about" class="nav-btn color-2"> PRESENTACIÓN</a>
 
+                <!-- PD02: Nueva Sección de Actividades -->
+                <a href="actividades.html" class="nav-btn color-4"> ACTIVIDADES</a>
+
                 <!-- Menú Académico -->
                 <a href="parcial1.html" class="nav-btn color-3"> P1</a>
                 <a href="parcial2.html" class="nav-btn color-3"> P2</a>
@@ -168,6 +171,7 @@
                 </div>
             </section>
 
+
             <!-- 5. CONTACTO -->
             <section id="contact" class="card-section slide-in delay-3">
                 <div class="contact-box">
@@ -204,7 +208,34 @@
                     </form>
                 </div>
             </section>
+
+            <!-- 6. ZONA DE ENTRETENIMIENTO (JUEGO) -->
+            <section id="fun-zone" class="card-section slide-in delay-3">
+                <div class="game-container panel-style">
+                    <h2 class="game-title"><i class="fas fa-gamepad"></i> CYBER RUNNER 2077</h2>
+                    <p class="game-desc">¡EVADE LOS FIREWALLS! Salta con [ESPACIO] o [TOUCH] para evitar la detección.
+                    </p>
+
+                    <div class="canvas-wrapper">
+                        <canvas id="cyberGameCanvas"></canvas>
+                        <div id="game-overlay" class="game-overlay">
+                            <h3 id="overlay-title">LISTO PARA LA INFILTRACIÓN</h3>
+                            <p id="overlay-desc">Presiona INICIAR para comenzar<br>Récord Actual: <span
+                                    id="high-score">0</span></p>
+                            <button id="start-game-btn" class="mega-btn" style="max-width:300px; margin-top:20px;">
+                                <i class="fas fa-play"></i> INICIAR RUN
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-stats">
+                        <div class="stat-box">DISTANCIA: <span id="score">0</span>m</div>
+                    </div>
+                </div>
+            </section>
         </main>
+
+
 
         <!-- 6. PIE DE PÁGINA (Footer) -->
         <footer>
@@ -217,6 +248,7 @@
 
     <!-- Script para efectos y formulario -->
     <script src="script.js"></script>
+    <script src="game.js"></script>
 </body>
 
 </html>

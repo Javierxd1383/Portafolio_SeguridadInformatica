@@ -199,6 +199,7 @@ body {
     font-size: 3.5rem;
     background: linear-gradient(to right, var(--c-cyan), var(--c-pink), var(--c-yellow));
     -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
     text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
     line-height: 1.2;
@@ -746,4 +747,689 @@ footer {
     margin-left: auto;
     color: var(--c-cyan);
     font-size: 1.2rem;
+}
+
+/* 9. JUEGO - DEFENSA CIBERNÉTICA */
+/* 9. JUEGO - CYBER RUNNER 2077 */
+.panel-style {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--c-cyan);
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+}
+
+.game-title {
+    font-family: 'Orbitron';
+    color: var(--c-pink);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px var(--c-pink);
+}
+
+.game-desc {
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 15px;
+    font-family: 'Orbitron';
+    font-size: 1.5rem;
+}
+
+.stat-box {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border: 1px solid var(--c-yellow);
+    border-radius: 10px;
+    color: var(--c-yellow);
+    box-shadow: 0 0 10px rgba(255, 230, 0, 0.3);
+}
+
+/* CANVAS GAME STYLES */
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 400px;
+    margin: 0 auto;
+    border: 2px solid var(--c-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+canvas#cyberGameCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+}
+
+.game-overlay h3 {
+    font-family: 'Orbitron';
+    font-size: 2rem;
+    color: var(--c-cyan);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px var(--c-cyan);
+}
+
+.game-overlay p {
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* 10. BLOG SECTION (REDESIGNED) */
+.blog-section {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+}
+
+/* HOLOGRAPHIC CARD DESIGN */
+.holo-card {
+    background: rgba(5, 10, 20, 0.8);
+    border: 1px solid var(--c-cyan);
+    position: relative;
+    text-decoration: none;
+    transition: 0.4s;
+    overflow: hidden;
+    /* Corner cuts using clip-path could be added, but border-radius is simpler */
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.holo-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 40%, rgba(0, 243, 255, 0.1) 45%, transparent 50%);
+    background-size: 200% 200%;
+    opacity: 0;
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.holo-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+    border-color: var(--c-pink);
+}
+
+.holo-card:hover::before {
+    opacity: 1;
+    background-position: 100% 100%;
+}
+
+.holo-header {
+    background: rgba(0, 243, 255, 0.1);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Orbitron';
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--c-cyan);
+}
+
+.holo-id {
+    color: var(--c-cyan);
+    font-weight: bold;
+}
+
+.holo-status {
+    color: var(--c-pink);
+    animation: blink 2s infinite;
+}
+
+.holo-body {
+    padding: 25px;
+    flex-grow: 1;
+    position: relative;
+}
+
+.holo-body h3 {
+    color: white;
+    font-family: 'Orbitron';
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.holo-body p {
+    color: #aaa;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.tech-lines {
+    width: 50px;
+    height: 4px;
+    background: var(--c-cyan);
+    margin-top: 20px;
+    position: relative;
+}
+
+.tech-lines::after {
+    content: '';
+    position: absolute;
+    left: 60px;
+    width: 10px;
+    height: 4px;
+    background: var(--c-pink);
+}
+
+.holo-footer {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--c-cyan);
+    font-family: 'Orbitron';
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.holo-card:hover .holo-footer {
+    background: var(--c-cyan);
+    color: black;
+    font-weight: bold;
+}
+
+.holo-card:hover .holo-header {
+    border-color: var(--c-pink);
+}
+
+.holo-card:hover .holo-id {
+    color: var(--c-pink);
+}
+
+/* 11. ARTICLE PAGE STYLES */
+.article-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.article-header {
+    border-bottom: 2px solid var(--c-cyan);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.article-meta {
+    color: var(--c-cyan);
+    font-family: 'Orbitron';
+    margin-bottom: 10px;
+}
+
+.article-body h2 {
+    color: var(--c-pink);
+    font-family: 'Orbitron';
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-left: 4px solid var(--c-pink);
+    padding-left: 15px;
+}
+
+.article-body p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #ddd;
+    font-size: 1.05rem;
+    text-align: justify;
+}
+
+.article-body ul {
+    margin-bottom: 20px;
+    padding-left: 20px;
+    color: #ddd;
+}
+
+.article-body li {
+    margin-bottom: 10px;
+}
+
+.figure-box {
+    margin: 30px 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px dashed #555;
+}
+
+.figure-box img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.caption {
+    display: block;
+    margin-top: 10px;
+    color: #aaa;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.pdf-btn {
+    display: inline-block;
+    background: var(--c-violet);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+    font-family: 'Orbitron';
+}
+
+.pdf-btn:hover {
+    background: white;
+    color: var(--c-violet);
+}
+
+/* 13. ENHANCED ARTICLE DESIGN (ON-SCREEN ONLY) */
+.article-header {
+    background: linear-gradient(135deg, rgba(13, 13, 30, 0.9) 0%, rgba(0, 0, 0, 0.8) 100%);
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 5px solid var(--c-cyan);
+    border-right: 1px solid rgba(0, 243, 255, 0.3);
+    border-top: 1px solid rgba(0, 243, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+}
+
+.article-header::after {
+    content: "CONFIDENTIAL";
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: 'Orbitron';
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+    transform: rotate(15deg);
+}
+
+.article-body h2 {
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    /* Changed from Pink to Cyan/Violet Gradient */
+    background: linear-gradient(90deg, var(--c-cyan), var(--c-violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    border-left: none;
+    padding-left: 0;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+}
+
+.article-body h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--c-cyan);
+    box-shadow: 0 0 10px var(--c-cyan);
+}
+
+.tech-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--c-violet), transparent);
+    margin: 50px 0;
+    position: relative;
+}
+
+.tech-divider::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    background: var(--c-cyan);
+    transform: translateX(-50%) rotate(45deg);
+    box-shadow: 0 0 10px var(--c-cyan);
+}
+
+/* ON-SCREEN TABLE STYLES (Requested Improvement) */
+.tech-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.05);
+}
+
+.tech-table th {
+    background: rgba(0, 243, 255, 0.1);
+    color: var(--c-cyan);
+    padding: 15px;
+    text-align: left;
+    font-family: 'Orbitron';
+    border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tech-table td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #ddd;
+    vertical-align: top;
+}
+
+.tech-table tr:hover td {
+    background: rgba(0, 243, 255, 0.05);
+}
+
+.tech-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* GLOWING LISTS */
+.glowing-list li {
+    background: rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    border-left: 3px solid var(--c-violet);
+    transition: 0.3s;
+    list-style: none;
+    position: relative;
+}
+
+.glowing-list li:hover {
+    background: rgba(138, 43, 226, 0.1);
+    transform: translateX(5px);
+    border-left-color: var(--c-cyan);
+}
+
+.glowing-list li::before {
+    content: '>';
+    color: var(--c-violet);
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* INFO BOXES */
+.info-box {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--c-cyan);
+    border-radius: 8px;
+    padding: 25px;
+    margin: 30px 0;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.05);
+}
+
+.info-box::before {
+    content: 'INFO';
+    font-family: 'Orbitron';
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--c-dark);
+    color: var(--c-cyan);
+    padding: 0 10px;
+    font-size: 0.8rem;
+    border: 1px solid var(--c-cyan);
+    border-radius: 4px;
+}
+
+/* LINK STYLES */
+.article-body a {
+    color: var(--c-cyan);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--c-cyan);
+    transition: 0.3s;
+}
+
+.article-body a:hover {
+    color: white;
+    text-shadow: 0 0 5px var(--c-cyan);
+}
+
+
+
+
+/* Image Grid for Multimedia Section */
+.figure-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.figure-grid .figure-box {
+    margin: 0;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+}
+
+.figure-grid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--c-cyan);
+    transition: 0.3s;
+}
+
+.figure-grid img:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    position: relative;
+    box-shadow: 0 0 15px var(--c-cyan);
+}
+
+/* Print Styles for PDF Export */
+/* High Quality Print Styles */
+@media print {
+    @page {
+        margin: 2cm;
+        size: A4;
+    }
+
+    body {
+        background: white !important;
+        color: #111 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Hide Navigation and unnecessary elements */
+    .animated-bg,
+    .particles,
+    .neon-nav,
+    footer,
+    .pdf-btn,
+    .read-more {
+        display: none !important;
+    }
+
+    .app-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .article-container {
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    /* Professional Header for Print */
+    .article-header {
+        border-bottom: 2px solid #000 !important;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #000 !important;
+        font-size: 24pt !important;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    .article-meta {
+        color: #555 !important;
+        font-size: 10pt;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    /* Typography for Reading */
+    .article-body p,
+    .article-body li {
+        color: #222 !important;
+        font-size: 11pt;
+        line-height: 1.5;
+        text-align: justify;
+    }
+
+    h2 {
+        color: #1a237e !important;
+        /* Dark Blue for professional look */
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+        margin-top: 25px;
+        font-size: 16pt !important;
+        page-break-after: avoid;
+    }
+
+    h3 {
+        color: #333 !important;
+        font-size: 14pt !important;
+        margin-top: 20px;
+        page-break-after: avoid;
+    }
+
+    /* Table Design for PDF */
+    .table-responsive {
+        margin: 20px 0;
+        page-break-inside: avoid;
+    }
+
+    .tech-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #000 !important;
+        font-size: 10pt;
+        background: #fff !important;
+    }
+
+    .tech-table th {
+        background-color: #f0f0f0 !important;
+        color: #000 !important;
+        font-weight: bold;
+        text-transform: uppercase;
+        border: 1px solid #000;
+        padding: 8px;
+    }
+
+    .tech-table td {
+        border: 1px solid #000;
+        padding: 8px;
+        color: #000 !important;
+        background: #fff !important;
+    }
+
+    .tech-table tr:nth-child(even) td {
+        background-color: #f9f9f9 !important;
+    }
+
+    /* Images and Figures */
+    .figure-box {
+        border: 1px solid #ccc;
+        background: #fff !important;
+        text-align: center;
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+        height: auto;
+    }
+
+    .caption {
+        color: #555 !important;
+        font-style: italic;
+    }
+
+    /* Team Box Specifics */
+    .team-box {
+        border: 1px solid #000 !important;
+        background: #fdfdfd !important;
+        color: #000 !important;
+        padding: 10px !important;
+    }
+
+    .team-box h4 {
+        color: #000 !important;
+    }
+
+    .team-box li {
+        color: #000 !important;
+    }
+
+    a {
+        text-decoration: none;
+        color: #000;
+    }
 }
