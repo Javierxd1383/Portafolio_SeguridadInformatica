@@ -212,24 +212,25 @@
             <!-- 6. ZONA DE ENTRETENIMIENTO (JUEGO) -->
             <section id="fun-zone" class="card-section slide-in delay-3">
                 <div class="game-container panel-style">
-                    <h2 class="game-title"><i class="fas fa-gamepad"></i> CYBER RUNNER 2077</h2>
-                    <p class="game-desc">¡EVADE LOS FIREWALLS! Salta con [ESPACIO] o [TOUCH] para evitar la detección.
+                    <h2 class="game-title"><i class="fas fa-bomb"></i> CYBER BOMBER</h2>
+                    <p class="game-desc">¡DEMOLES LOS MUROS! Muévete con [FLECHAS] y pon BOMBAS con [ESPACIO].
                     </p>
 
                     <div class="canvas-wrapper">
                         <canvas id="cyberGameCanvas"></canvas>
                         <div id="game-overlay" class="game-overlay">
-                            <h3 id="overlay-title">LISTO PARA LA INFILTRACIÓN</h3>
+                            <h3 id="overlay-title">MODO DE COMBATE ACTIVO</h3>
                             <p id="overlay-desc">Presiona INICIAR para comenzar<br>Récord Actual: <span
                                     id="high-score">0</span></p>
                             <button id="start-game-btn" class="mega-btn" style="max-width:300px; margin-top:20px;">
-                                <i class="fas fa-play"></i> INICIAR RUN
+                                <i class="fas fa-play"></i> INICIAR MISIÓN
                             </button>
                         </div>
                     </div>
 
                     <div class="game-stats">
-                        <div class="stat-box">DISTANCIA: <span id="score">0</span>m</div>
+                        <div class="stat-box">PUNTOS: <span id="score">0</span></div>
+                        <div class="stat-box" style="margin-left: 20px;">TIEMPO: <span id="timer">3:00</span></div>
                     </div>
                 </div>
             </section>
