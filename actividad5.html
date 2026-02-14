@@ -246,41 +246,57 @@
             const btn = document.querySelector('.pdf-btn');
             const originalText = btn.innerHTML;
 
-            // Visual Feedback
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GENERANDO PDF... (Puede tardar)';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GENERANDO PDF...';
             btn.disabled = true;
 
-            // Options optimized for mobile
+            // Clone the element to manipulate it for PDF generation without affecting the view
+            const clone = element.cloneNode(true);
+
+            // Create a temporary container to hold the clone
+            const container = document.createElement('div');
+            container.style.position = 'absolute';
+            container.style.top = '-9999px';
+            container.style.left = '0';
+            container.style.width = '800px'; // Fixed width for A4 consistency
+            container.style.backgroundColor = '#050510'; // Match theme background
+            container.appendChild(clone);
+            document.body.appendChild(container);
+
+            // Adjust styles on the clone for perfect PDF rendering
+            clone.style.width = '100%';
+            clone.style.maxWidth = '100%';
+            clone.style.margin = '0 auto';
+            clone.style.padding = '20px';
+            clone.style.boxSizing = 'border-box';
+
             const opt = {
-                margin: [10, 10, 10, 10], // top, left, bottom, right
+                margin: [10, 10, 10, 10],
                 filename: document.title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: {
-                    scale: 2, // Good quality
-                    useCORS: true, // Handle images better
-                    scrollY: 0, // Help with scrolling issues
-                    windowWidth: 1200 // Force desktop rendering width to avoid mobile layout stacking
+                    scale: 2,
+                    useCORS: true,
+                    windowWidth: 800, // Match container width
+                    scrollY: 0
                 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Avoid breaking elements awkwardly
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
             };
 
-            // Workaround for mobile overflow clipping
-            const originalOverflow = document.body.style.overflow;
-            document.body.style.overflow = 'visible';
-
-            html2pdf().set(opt).from(element).save().then(() => {
+            html2pdf().set(opt).from(clone).save().then(() => {
                 btn.innerHTML = originalText;
                 btn.disabled = false;
-                document.body.style.overflow = originalOverflow;
+                document.body.removeChild(container);
             }).catch(err => {
                 console.error(err);
                 btn.innerHTML = '❌ ERROR';
-                document.body.style.overflow = originalOverflow;
                 setTimeout(() => {
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                 }, 3000);
+                if (document.body.contains(container)) {
+                    document.body.removeChild(container);
+                }
             });
         }
     </script>
