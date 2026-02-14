@@ -53,7 +53,7 @@
                             </ul>
                         </div>
 
-                        <button onclick="window.print()" class="pdf-btn">
+                        <button onclick="downloadPDF()" class="pdf-btn">
                             <i class="fas fa-file-pdf"></i> EXPORTAR INFORME PDF
                         </button>
                     </header>
@@ -406,6 +406,31 @@
 </footer>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    function downloadPDF() {
+        const element = document.querySelector('.article-container');
+        const opt = {
+            margin: 10,
+            filename: document.title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        const btn = document.querySelector('.pdf-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GENERANDO PDF...';
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            btn.innerHTML = originalText;
+        }).catch(err => {
+            console.error(err);
+            btn.innerHTML = '❌ ERROR';
+            setTimeout(() => btn.innerHTML = originalText, 3000);
+        });
+    }
+</script>
 </body>
 
 </html>
