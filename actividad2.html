@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 02 :: Servicios de Seguridad</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Fondo Animado -->
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <!-- Navegación -->
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> VOLVER A LISTA</a>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+
+                    <!-- ENCABEZADO DEL ARTÍCULO -->
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 02 | SERVICIOS DE SEGURIDAD</div>
+                        <h1 style="font-family:'Orbitron'; font-size: 2.2rem; margin-bottom: 10px;">ANÁLISIS DE
+                            SERVICIOS DE SEGURIDAD (X.800 Y RFC 4949)</h1>
+                        <p style="color:#aaa;">Informe Ejecutivo</p>
+
+                        <div class="team-box"
+                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid var(--c-cyan);">
+                            <h4 style="color: var(--c-cyan); margin-bottom: 5px;">ESTUDIANTE:</h4>
+                            <ul
+                                style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-wrap: wrap; gap: 15px;">
+                                <li><i class="fas fa-user-check"></i> Francisco Javier Cruz Juarez (177622)</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="window.print()" class="pdf-btn">
+                            <i class="fas fa-file-pdf"></i> EXPORTAR INFORME PDF
+                        </button>
+                    </header>
+
+
+                    <!-- CONTENIDO DEL ARTÍCULO -->
+                    <article class="article-body">
+
+                        <!-- INTRODUCCIÓN -->
+                        <h2><i class="fas fa-terminal"></i> 01. INTRODUCCIÓN</h2>
+                        <div class="info-box">
+                            <p>
+                                El presente informe tiene como propósito analizar diversos escenarios de incidentes de
+                                seguridad informática mediante la aplicación de los seis servicios de seguridad
+                                definidos en el estándar <strong>ITU-T X.800</strong>. Este marco conceptual es
+                                fundamental para
+                                identificar qué capacidad de seguridad ha sido vulnerada en una red de comunicaciones.
+                            </p>
+                            <p>
+                                Para asegurar una comunicación técnica estandarizada y profesional, se integra la
+                                terminología establecida en el <strong>RFC 4949</strong>. La relevancia de este análisis
+                                radica en
+                                fortalecer la capacidad de documentar vulneraciones en contextos reales, permitiendo a
+                                los especialistas proponer medidas de control coherentes y viables.
+                            </p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- FICHA TÉCNICA -->
+                        <h2><i class="fas fa-table"></i> 02. FICHA TÉCNICA DE ANÁLISIS DE ESCENARIOS</h2>
+
+                        <div class="table-responsive">
+                            <table class="tech-table">
+                                <thead>
+                                    <tr>
+                                        <th>Escenarios</th>
+                                        <th>Elemento</th>
+                                        <th>Análisis de Caso: Respuesta Técnica</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- ESCENARIO 01 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 01</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Confidencialidad, Integridad y Disponibilidad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Multi-stage attack:</strong> Ataque ejecutado en fases secuenciales.
+                                            <strong>Data breach:</strong> Divulgación no autorizada de información
+                                            sensible. <strong>Availability attack:</strong> Objetivo de impedir el
+                                            acceso legítimo a recursos.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Externa (Cibercrimen organizado).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Cifrado masivo de servidores, pérdida de acceso a sistemas críticos y alto
+                                            riesgo reputacional.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Implementación de respaldos inmutables y sistemas de cifrado de datos en
+                                            reposo.</td>
+                                    </tr>
+
+                                    <!-- ESCENARIO 02 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 02</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Confidencialidad y Control de acceso.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Misconfiguration:</strong> Configuración incorrecta que introduce
+                                            vulnerabilidades. <strong>Exposure:</strong> Condición donde la información
+                                            queda accesible sin protección.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Externa por error interno (falla pasiva).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Exposición pública de datos sensibles y posibles sanciones legales.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Monitoreo continuo de accesos y auditorías de configuraciones de nube.</td>
+                                    </tr>
+
+                                    <!-- ESCENARIO 03 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 03</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Integridad y Confidencialidad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Supply chain attack:</strong> Ataque vía proveedor confiable.
+                                            <strong>Trust exploitation:</strong> Abuso de una relación de confianza para
+                                            acciones no autorizadas.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Externa (vía terceros).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Instalación de código malicioso en múltiples organizaciones y ruptura de
+                                            confianza en el proveedor.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Verificación de integridad de actualizaciones y uso de firmas digitales
+                                            obligatorias.</td>
+                                    </tr>
+
+                                    <!-- ESCENARIO 04 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 04</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Autenticación y Control de acceso.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Phishing:</strong> Ingeniería social para obtener información.
+                                            <strong>Credential compromise:</strong> Robo de credenciales válidas por un
+                                            atacante.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Externa.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Acceso persistente no detectado y robo masivo de información personal.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Implementación de doble factor de autenticación (MFA) y detección de
+                                            patrones inusuales.</td>
+                                    </tr>
+
+                                    <!-- ESCENARIO 05 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 05</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Disponibilidad e Integridad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Data destruction:</strong> Eliminación intencional de información.
+                                            <strong>Availability attack:</strong> Servicios en peligro por falta de
+                                            accesibilidad.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Externa.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Pérdidas económicas críticas por manipulación y borrado de respaldos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Diversificación de medios de respaldo y pruebas periódicas de restauración.
+                                        </td>
+                                    </tr>
+
+                                    <!-- ESCENARIO 06 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 06</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Confidencialidad y Control de acceso.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Insider threat:</strong> Amenaza originada por un individuo con
+                                            acceso legítimo a la red.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Interna.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Fuga masiva de bases de datos críticas para venta a terceros; falla de
+                                            confianza institucional.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Aplicación del principio de mínimo privilegio y auditoría estricta de
+                                            privilegios de usuario.</td>
+                                    </tr>
+
+                                    <!-- ESCENARIO 07 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 07</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Integridad y No repudio.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Evidentiary integrity:</strong> Violación de la integridad de las
+                                            pruebas. <strong>Audit trail:</strong> Compromiso del rastro de auditoría.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Externa (Anti-forense).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Incapacidad legal para demostrar responsabilidades; impacto probatorio y
+                                            legal severo.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Centralización de logs en servidores de solo lectura y protección
+                                            criptográfica de registros.</td>
+                                    </tr>
+
+                                    <!-- ESCENARIO 08 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 08</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Disponibilidad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Operational failure:</strong> Caída de servicios por errores en
+                                            procesos operativos internos.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Interna accidental.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Caída simultánea de servicios globales; parálisis operativa masiva.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Protocolos estrictos de pruebas de pre-producción y planes de reversión
+                                            (rollback).</td>
+                                    </tr>
+
+                                    <!-- ESCENARIO 09 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 09</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Autenticación y Confidencialidad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Masquerade:</strong> Suplantación de identidad.
+                                            <strong>Phishing:</strong> Engaño para recolectar datos sensibles.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Externa (Ingeniería social).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Recolección ilícita de datos de ciudadanos; pérdida de credibilidad
+                                            institucional.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Autenticación de dominio (DMARC) y campañas de concienciación ciudadana.
+                                        </td>
+                                    </tr>
+
+                                    <!-- ESCENARIO 10 -->
+                                    <tr>
+                                        <td rowspan="5" class="scenario-cell">Escenario 10</td>
+                                        <td><strong>Servicios X.800 comprometidos:</strong></td>
+                                        <td>Confidencialidad, Integridad y Disponibilidad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Definición(es) RFC 4949:</strong></td>
+                                        <td>
+                                            <strong>Destructive attack:</strong> Acción orientada a la destrucción total
+                                            de sistemas y rastros.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo de amenaza:</strong></td>
+                                        <td>Externa (Ataque total).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Impacto técnico/operativo:</strong></td>
+                                        <td>Daño irreversible a la infraestructura y eliminación total de evidencia
+                                            forense.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Medida de control:</strong></td>
+                                        <td>Implementación de segmentación de red y sistemas de respuesta rápida ante
+                                            incidentes.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- EVIDENCIA MULTIMEDIA -->
+                        <h2><i class="fas fa-images"></i> 03. EVIDENCIA MULTIMEDIA</h2>
+                        <div class="info-box" style="border-color: var(--c-violet);">
+                            <p><strong><i class="fas fa-camera"></i> Galería de Escenarios:</strong> Representación
+                                gráfica
+                                de los vectores de ataque analizados.</p>
+                        </div>
+
+                        <div class="figure-grid">
+                            <div class="figure-box">
+                                <img src="img/actividad2/diagram1.png" alt="Esquema OSI X.800">
+                                <span class="caption">Fig 1. Modelo de Referencia de Seguridad X.800.</span>
+                            </div>
+                            <div class="figure-box">
+                                <img src="img/actividad2/attack_vector.png" alt="Vector de Ataque">
+                                <span class="caption">Fig 2. Diagrama de flujo de un ataque de Phishing (Escenario
+                                    09).</span>
+                            </div>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- CONCLUSIÓN / REFLEXIÓN -->
+                        <h2><i class="fas fa-brain"></i> 04. REFLEXIÓN TÉCNICA Y CONCLUSIÓN</h2>
+                        <div class="info-box">
+                            <p>
+                                El análisis detallado revela que la mayoría de los incidentes en el entorno
+                                latinoamericano derivan de una gestión insuficiente de los servicios de autenticación y
+                                control de acceso. La sofisticación de ataques como el supply chain attack o las
+                                amenazas internas (insider threats) demuestra que las organizaciones deben transitar
+                                hacia modelos de "Confianza Cero" (Zero Trust), donde la integridad de los datos y la
+                                disponibilidad se protejan no solo con barreras perimetrales, sino con monitoreo
+                                continuo y robustecimiento de procesos operativos.
+                            </p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- REFERENCIAS -->
+                        <h3><i class="fas fa-book"></i> 04. REFERENCIAS</h3>
+                        <ol class="glowing-list" style="font-size: 0.9rem;">
+                            <li>
+                                Shirey, R. W. (2026). <em>RFC 4949: Internet Security Glossary, Version 2</em>. IETF
+                                Datatracker.
+                                <a href="https://datatracker.ietf.org/doc/html/rfc4949" target="_blank"
+                                    style="color: var(--c-cyan);">https://datatracker.ietf.org/doc/html/rfc4949</a>
+                            </li>
+                            <li>
+                                tsbmail. (2019). <em>X.800 : Arquitectura de seguridad de la interconexión de sistemas
+                                    abiertos para aplicaciones del CCITT</em>. Itu.int.
+                                <a href="https://www.itu.int/rec/t-rec-x.800-199103-i/es" target="_blank"
+                                    style="color: var(--c-cyan);">https://www.itu.int/rec/t-rec-x.800-199103-i/es</a>
+                            </li>
+                        </ol>
+
+                    </article>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > FRANCISCO JAVIER CRUZ JUAREZ (177622) > ACTIVIDAD 02 > SERVICIOS DE SEGURIDAD >
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>

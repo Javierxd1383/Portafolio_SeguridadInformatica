@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 05 :: Metodologías de Pentesting</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Fondo Animado -->
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <!-- Navegación -->
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> VOLVER A LISTA</a>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+
+                    <!-- ENCABEZADO DEL ARTÍCULO -->
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 05 | ESTÁNDARES Y FRAMEWORKS</div>
+                        <h1 style="font-family:'Orbitron'; font-size: 2.0rem; margin-bottom: 10px;">CARTOGRAFIANDO EL
+                            PENTESTING</h1>
+                        <p style="color:#aaa;">Análisis Comparativo de Metodologías - CNO V Seguridad Informática</p>
+
+                        <div class="team-box"
+                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid var(--c-purple);">
+                            <h4 style="color: var(--c-purple); margin-bottom: 5px;">ESTUDIANTE:</h4>
+                            <ul
+                                style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-wrap: wrap; gap: 15px;">
+                                <li><i class="fas fa-user-check"></i> Francisco Javier Cruz Juarez (177622)</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="window.print()" class="pdf-btn">
+                            <i class="fas fa-file-pdf"></i> EXPORTAR RESULTADOS PDF
+                        </button>
+                    </header>
+
+
+                    <!-- CONTENIDO DEL ARTÍCULO -->
+                    <article class="article-body">
+
+                        <!-- INTRODUCCIÓN -->
+                        <h2><i class="fas fa-book-open"></i> 01. INTRODUCCIÓN</h2>
+                        <div class="info-box">
+                            <p>
+                                El presente documento realiza un análisis comparativo de las principales metodologías y
+                                marcos de referencia utilizados en la industria de la ciberseguridad. El objetivo es
+                                identificar las características, fases y objetivos de cada estándar para determinar su
+                                aplicabilidad según distintos escenarios de evaluación técnica y cumplimiento normativo.
+                            </p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- DESARROLLO TÉCNICO -->
+                        <h2><i class="fas fa-table"></i> 02. TABLA COMPARATIVA DE METODOLOGÍAS</h2>
+                        <p>A continuación se presenta el análisis detallado de los frameworks seleccionados.</p>
+
+                        <div class="table-responsive">
+                            <table class="tech-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metodología</th>
+                                        <th>A. Descripción</th>
+                                        <th>B. Fases de Implementación</th>
+                                        <th>C. Objetivo Principal</th>
+                                        <th>D. Escenarios de Uso</th>
+                                        <th>H. Certificaciones</th>
+                                        <th>I. Versión</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- MITRE ATT&CK -->
+                                    <tr>
+                                        <td class="scenario-cell">MITRE ATT&CK</td>
+                                        <td>Base de conocimientos de Tácticas y Técnicas basadas en ataques reales.</td>
+                                        <td>Tácticas, Técnicas y Procedimientos (TTPs).</td>
+                                        <td>Clasificar comportamientos de adversarios.</td>
+                                        <td>SOC, Threat Hunting y emulación de ataques.</td>
+                                        <td>CDE</td>
+                                        <td>v14</td>
+                                    </tr>
+                                    <!-- OWASP WSTG -->
+                                    <tr>
+                                        <td class="scenario-cell">OWASP WSTG</td>
+                                        <td>Marco integral para pruebas de seguridad en aplicaciones web.</td>
+                                        <td>1. Recolección de información, 2. Configuración, 3. Identidad, 4.
+                                            Autenticación, 5. Autorización, etc.</td>
+                                        <td>Evaluación técnica de controles en software web.</td>
+                                        <td>Auditorías web, móviles y de APIs.</td>
+                                        <td>GWAPT, OSWE</td>
+                                        <td>v4.2</td>
+                                    </tr>
+                                    <!-- NIST SP 800-115 -->
+                                    <tr>
+                                        <td class="scenario-cell">NIST SP 800-115</td>
+                                        <td>Guía técnica federal para realizar pruebas y exámenes de seguridad.</td>
+                                        <td>1. Planificación, 2. Descubrimiento, 3. Ejecución, 4. Post-ejecución.</td>
+                                        <td>Estandarizar pruebas técnicas y reportes.</td>
+                                        <td>Entornos gubernamentales y regulados.</td>
+                                        <td>Security+, CISSP</td>
+                                        <td>Final</td>
+                                    </tr>
+                                    <!-- OSSTMM -->
+                                    <tr>
+                                        <td class="scenario-cell">OSSTMM</td>
+                                        <td>Estándar científico para la verificación de seguridad operacional.</td>
+                                        <td>1. Inducción, 2. Interacción, 3. Interrogación, 4. Evaluación.</td>
+                                        <td>Medición métrica de la seguridad (RAVs).</td>
+                                        <td>Redes, Wireless, Física e Ingeniería Social.</td>
+                                        <td>OPST, OPSA</td>
+                                        <td>3.0</td>
+                                    </tr>
+                                    <!-- PTES -->
+                                    <tr>
+                                        <td class="scenario-cell">PTES</td>
+                                        <td>Estándar que define las etapas mínimas de un pentest de calidad.</td>
+                                        <td>1. Pre-engagement, 2. Intel, 3. Modelado, 4. Análisis, 5. Explotación, 6.
+                                            Post-Exp, 7. Reporte.</td>
+                                        <td>Estandarizar el proceso comercial y técnico del pentest.</td>
+                                        <td>Auditorías profundas de infraestructura.</td>
+                                        <td>OSCP, CPTS</td>
+                                        <td>1.1</td>
+                                    </tr>
+                                    <!-- ISSAF -->
+                                    <tr>
+                                        <td class="scenario-cell">ISSAF</td>
+                                        <td>Marco detallado que vincula la técnica con la gestión y auditoría.</td>
+                                        <td>1. Planificación, 2. Evaluación, 3. Informes, 4. Limpieza, 5. Destrucción.
+                                        </td>
+                                        <td>Guía técnica paso a paso para auditorías completas.</td>
+                                        <td>Auditorías integrales de sistemas complejos.</td>
+                                        <td>CISA (Base)</td>
+                                        <td>v0.2.1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- EVIDENCIA MULTIMEDIA -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-images"></i> 03. EVIDENCIA MULTIMEDIA</h2>
+                        <div class="info-box" style="border-color: var(--c-violet);">
+                            <p><strong><i class="fas fa-chart-network"></i> Ciclo de Vida del Pentesting:</strong>
+                                Representación gráfica de las fases comunes.</p>
+                        </div>
+                        <div class="figure-grid">
+                            <div class="figure-box">
+                                <!-- Placeholder for framework logos/diagram -->
+                                <div
+                                    style="height: 200px; background: #111; display: flex; align-items: center; justify-content: center; color: #333;">
+                                    <i class="fas fa-sitemap fa-3x"></i>
+                                </div>
+                                <span class="caption">Fig 1. Comparativa visual de fases por metodología.</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- REFLEXIÓN TÉCNICA -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-brain"></i> 04. REFLEXIÓN TÉCNICA Y CONCLUSIÓN</h2>
+                        <div class="info-box" style="background: rgba(0, 255, 0, 0.05); border-color: #0f0;">
+                            <h4 style="margin-top:0; color: #0f0;">SELECCIÓN DE METODOLOGÍA:</h4>
+                            <p>
+                                Tras analizar los distintos marcos, concluyo que no existe una "bala de plata". La
+                                elección depende enteramente del alcance. Para una <strong>aplicación web</strong>
+                                crítica, <strong>OWASP WSTG</strong> es insustituible. Sin embargo, para un
+                                <strong>ejercicio de Red Team</strong> completo, <strong>MITRE ATT&CK</strong> es el
+                                estándar para modelar amenazas.
+                            </p>
+                            <p>
+                                En un entorno profesional, la combinación de <strong>PTES</strong> para la gestión del
+                                proyecto y <strong>OSSTMM</strong> para la métrica operativa ofrece un equilibrio sólido
+                                entre calidad técnica y valor de negocio.
+                            </p>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- REFERENCIAS -->
+                    <article class="article-body">
+                        <h3><i class="fas fa-book"></i> 05. REFERENCIAS TÉCNICAS</h3>
+                        <ol class="glowing-list" style="font-size: 0.9rem;">
+                            <li>
+                                Harper, A., et al. (2022). <em>Gray Hat Hacking: The Ethical Hacker's Handbook</em> (6th
+                                ed.). McGraw-Hill Education.
+                            </li>
+                            <li>
+                                National Institute of Standards and Technology. (2008). <em>Technical Guide to
+                                    Information Security Testing and Assessment (SP 800-115)</em>. U.S. Department of
+                                Commerce.
+                            </li>
+                            <li>
+                                MITRE Corporation. (2023). <em>ATT&CK Design and Philosophy</em>. Recuperado de <a
+                                    href="https://attack.mitre.org" target="_blank"
+                                    style="color: var(--c-cyan);">https://attack.mitre.org</a>
+                            </li>
+                            <li>
+                                OWASP Foundation. (2023). <em>Web Security Testing Guide (WSTG)</em>. Recuperado de <a
+                                    href="https://owasp.org" target="_blank"
+                                    style="color: var(--c-cyan);">https://owasp.org</a>
+                            </li>
+                        </ol>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > FRANCISCO JAVIER CRUZ JUAREZ (177622) > ACTIVIDAD 05 > PENTESTING FRAMEWORKS >
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>

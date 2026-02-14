@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 04 :: Defensa en Red</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Fondo Animado -->
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <!-- Navegación -->
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> VOLVER A LISTA</a>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+
+                    <!-- ENCABEZADO DEL ARTÍCULO -->
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 04 | DEFENSA EN PROFUNDIDAD</div>
+                        <h1 style="font-family:'Orbitron'; font-size: 2.0rem; margin-bottom: 10px;">MECANISMOS DE
+                            DEFENSA EN RED</h1>
+                        <p style="color:#aaa;">Configuración de Firewall Perimetral - CNO V Seguridad Informática</p>
+
+                        <div class="team-box"
+                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid var(--c-purple);">
+                            <h4 style="color: var(--c-purple); margin-bottom: 5px;">ESTUDIANTE:</h4>
+                            <ul
+                                style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-wrap: wrap; gap: 15px;">
+                                <li><i class="fas fa-user-check"></i> Francisco Javier Cruz Juarez (177622)</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="window.print()" class="pdf-btn">
+                            <i class="fas fa-file-pdf"></i> EXPORTAR RESULTADOS PDF
+                        </button>
+                    </header>
+
+
+                    <!-- CONTENIDO DEL ARTÍCULO -->
+                    <article class="article-body">
+
+                        <!-- INTRODUCCIÓN -->
+                        <h2><i class="fas fa-book-open"></i> 01. INTRODUCCIÓN</h2>
+                        <div class="info-box">
+                            <p>
+                                La defensa en red se basa en la implementación de controles estrictos sobre el flujo de
+                                información entre zonas de diferente nivel de confianza (Internet, DMZ, LAN).
+                                En esta actividad, se configuran reglas específicas de <strong>iptables</strong> para
+                                filtrar tráfico en un firewall perimetral, protegiendo servicios críticos como correo
+                                (SMTP), web (HTTP) y resolución de nombres (DNS).
+                            </p>
+                            <p>
+                                Se aplica el principio de <em>Mínimo Privilegio</em>, donde todo lo que no está
+                                explícitamente permitido, está prohibido.
+                            </p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- DESARROLLO TÉCNICO -->
+                        <h2><i class="fas fa-shield-alt"></i> 02. REGLAS DE FILTRADO (IPTABLES)</h2>
+                        <p>A continuación se detallan las reglas aplicadas según la topología de red analizada.</p>
+
+                        <div class="table-responsive">
+                            <table class="tech-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px;">#</th>
+                                        <th style="width: 200px;">Acción Solicitada</th>
+                                        <th>Regla de iptables</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Regla 1 -->
+                                    <tr>
+                                        <td class="scenario-cell">1</td>
+                                        <td><strong>Política Restrictiva</strong></td>
+                                        <td>
+                                            <code class="cmd-small">iptables -P INPUT DROP</code><br>
+                                            <code class="cmd-small">iptables -P FORWARD DROP</code><br>
+                                            <code class="cmd-small">iptables -P OUTPUT DROP</code>
+                                        </td>
+                                    </tr>
+                                    <!-- Regla 2 -->
+                                    <tr>
+                                        <td class="scenario-cell">2</td>
+                                        <td><strong>Tráfico Establecido</strong></td>
+                                        <td>
+                                            <code
+                                                class="cmd-small">iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT</code>
+                                        </td>
+                                    </tr>
+                                    <!-- Regla 3 -->
+                                    <tr>
+                                        <td class="scenario-cell">3</td>
+                                        <td><strong>DNS (TCP) saliente de LAN</strong></td>
+                                        <td>
+                                            <code
+                                                class="cmd-small">iptables -A FORWARD -p tcp -s 192.1.2.0/24 -d 0.0.0.0/0 --dport 53 -m state --state NEW -j ACCEPT</code>
+                                        </td>
+                                    </tr>
+                                    <!-- Regla 4 -->
+                                    <tr>
+                                        <td class="scenario-cell">4</td>
+                                        <td><strong>Correo entrante (SMTP)</strong></td>
+                                        <td>
+                                            <code
+                                                class="cmd-small">iptables -A FORWARD -p tcp -s 0.0.0.0/0 -d 192.1.2.10 --dport 25 -m state --state NEW -j ACCEPT</code>
+                                        </td>
+                                    </tr>
+                                    <!-- Regla 5 -->
+                                    <tr>
+                                        <td class="scenario-cell">5</td>
+                                        <td><strong>Correo saliente (SMTP)</strong></td>
+                                        <td>
+                                            <code
+                                                class="cmd-small">iptables -A FORWARD -p tcp -s 192.1.2.10 -d 0.0.0.0/0 --dport 25 -m state --state NEW -j ACCEPT</code>
+                                        </td>
+                                    </tr>
+                                    <!-- Regla 6 -->
+                                    <tr>
+                                        <td class="scenario-cell">6</td>
+                                        <td><strong>HTTP entrante a Web</strong></td>
+                                        <td>
+                                            <code
+                                                class="cmd-small">iptables -A FORWARD -p tcp -s 0.0.0.0/0 -d 192.1.2.11 --dport 80 -m state --state NEW -j ACCEPT</code>
+                                        </td>
+                                    </tr>
+                                    <!-- Regla 7 -->
+                                    <tr>
+                                        <td class="scenario-cell">7</td>
+                                        <td><strong>HTTP saliente de LAN</strong></td>
+                                        <td>
+                                            <code
+                                                class="cmd-small">iptables -A FORWARD -p tcp -s 192.1.2.0/24 -d 0.0.0.0/0 --dport 80 -m state --state NEW -j ACCEPT</code>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- EVIDENCIA MULTIMEDIA -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-images"></i> 03. EVIDENCIA MULTIMEDIA</h2>
+                        <div class="info-box" style="border-color: var(--c-violet);">
+                            <p><strong><i class="fas fa-project-diagram"></i> Topología de Red:</strong> Esquema de la
+                                infraestructura protegida.</p>
+                        </div>
+                        <div class="figure-grid">
+                            <div class="figure-box">
+                                <!-- Placeholder for topology image -->
+                                <div
+                                    style="height: 200px; background: #111; display: flex; align-items: center; justify-content: center; color: #333;">
+                                    <i class="fas fa-network-wired fa-3x"></i>
+                                </div>
+                                <span class="caption">Fig 1. Topología de Red con DMZ y LAN protegida.</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- REFLEXIÓN TÉCNICA -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-brain"></i> 04. REFLEXIÓN TÉCNICA Y CONCLUSIÓN</h2>
+                        <div class="info-box" style="background: rgba(0, 255, 0, 0.05); border-color: #0f0;">
+                            <h4 style="margin-top:0; color: #0f0;">ANÁLISIS DE ESTRATEGIA:</h4>
+                            <p>
+                                La configuración realizada demuestra una postura de seguridad robusta. Al establecer
+                                políticas <strong>DROP</strong> por defecto en todas las cadenas, garantizamos que solo
+                                los flujos de tráfico legítimos (DNS, SMTP, HTTP) definidos en la planeación puedan
+                                atravesar el firewall.
+                            </p>
+                            <p>
+                                Es crucial notar el uso del módulo <strong>state</strong>. Permitir el tráfico
+                                <strong>ESTABLISHED,RELATED</strong> en la regla 2 es vital; sin ella, los paquetes de
+                                retorno de las conexiones legítimas serían bloqueados, rompiendo la comunicación. Esta
+                                es la base de un firewall <em>Stateful</em> (con estado).
+                            </p>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- REFERENCIAS -->
+                    <article class="article-body">
+                        <h3><i class="fas fa-book"></i> 05. REFERENCIAS TÉCNICAS</h3>
+                        <ol class="glowing-list" style="font-size: 0.9rem;">
+                            <li>
+                                Netfilter Project. (2024). <em>iptables(8) - Linux man page</em>.
+                                <a href="https://linux.die.net/man/8/iptables" target="_blank"
+                                    style="color: var(--c-cyan);">https://linux.die.net/man/8/iptables</a>
+                            </li>
+                            <li>
+                                Institucional. (2025). <em>Material de Clase: Mecanismos de Defensa en Red</em>.
+                                Universidad Politécnica de San Luis Potosí.
+                            </li>
+                        </ol>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > FRANCISCO JAVIER CRUZ JUAREZ (177622) > ACTIVIDAD 04 > DEFENSA EN RED >
+            </div>
+        </footer>
+    </div>
+
+    <style>
+        .cmd-small {
+            display: block;
+            background: #000;
+            color: #0f0;
+            padding: 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            border: 1px solid #333;
+            font-size: 0.8rem;
+            margin-bottom: 2px;
+        }
+    </style>
+
+</body>
+
+</html>

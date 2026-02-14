@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 03 :: Iptables Firewall</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Fondo Animado -->
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <!-- Navegación -->
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> VOLVER A LISTA</a>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+
+                    <!-- ENCABEZADO DEL ARTÍCULO -->
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 03 | FILTRADO DE RED</div>
+                        <h1 style="font-family:'Orbitron'; font-size: 2.0rem; margin-bottom: 10px;">INTERPRETACIÓN Y
+                            TRADUCCIÓN DE POLÍTICAS CON IPTABLES</h1>
+                        <p style="color:#aaa;">Hoja de Trabajo Resuelta - CNO V Seguridad Informática</p>
+
+                        <div class="team-box"
+                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid var(--c-purple);">
+                            <h4 style="color: var(--c-purple); margin-bottom: 5px;">ESTUDIANTE:</h4>
+                            <ul
+                                style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-wrap: wrap; gap: 15px;">
+                                <li><i class="fas fa-user-check"></i> Francisco Javier Cruz Juarez (177622)</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="window.print()" class="pdf-btn">
+                            <i class="fas fa-file-pdf"></i> EXPORTAR RESULTADOS PDF
+                        </button>
+                    </header>
+
+
+                    <!-- CONTENIDO DEL ARTÍCULO -->
+                    <article class="article-body">
+
+                        <!-- INTRODUCCIÓN -->
+                        <h2><i class="fas fa-book-open"></i> 01. INTRODUCCIÓN</h2>
+                        <div class="info-box">
+                            <p>
+                                El filtrado de paquetes es una de las técnicas fundamentales para la defensa de redes.
+                                En esta actividad, se explora el uso de <strong>iptables</strong>, una herramienta
+                                estándar en sistemas Linux para definir reglas de firewall.
+                            </p>
+                            <p>
+                                El objetivo es comprender cómo fluyen los datos a través de las distintas tablas y
+                                cadenas del kernel, así como traducir políticas de seguridad teóricas en comandos
+                                técnicos ejecutables.
+                            </p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- SECCIÓN 1: CONCEPTOS -->
+                        <h2><i class="fas fa-network-wired"></i> 02. FLUJO DE PAQUETES</h2>
+                        <div class="info-box">
+                            <p><strong>Pregunta 1:</strong> Completa los espacios conforme se explica el flujo del
+                                paquete.</p>
+                            <p class="answer-text">
+                                "Cuando un paquete llega al sistema, primero pasa por una
+                                <span class="highlight-ans">Tabla</span>, después por una
+                                <span class="highlight-ans">Cadena</span> y finalmente se ejecuta una
+                                <span class="highlight-ans">Acción/Regla</span>."
+                            </p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- SECCIÓN 2: TABLAS -->
+                        <h2><i class="fas fa-table"></i> 03. TABLAS DE IPTABLES</h2>
+                        <div class="table-responsive">
+                            <table class="tech-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tabla</th>
+                                        <th>Propósito Principal</th>
+                                        <th>Ejemplo de Uso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="scenario-cell">FILTER</td>
+                                        <td>Filtrado de paquetes (Aceptar/Rechazar).</td>
+                                        <td>Proteger Servidor Web.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="scenario-cell">NAT</td>
+                                        <td>Traducción de Direcciones de Red.</td>
+                                        <td>Compartir Internet (Masquerade).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="scenario-cell">MANGLE</td>
+                                        <td>Alteración de cabeceras de paquetes.</td>
+                                        <td>Calidad de Servicio (QoS/TOS).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="scenario-cell">RAW</td>
+                                        <td>Configuración antes del seguimiento de conexiones.</td>
+                                        <td>Exención (NOTRACK).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="scenario-cell">SECURITY</td>
+                                        <td>Control de acceso obligatorio (MAC).</td>
+                                        <td>Soporte SELinux.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- SECCIÓN 3: ANATOMÍA -->
+                        <h2><i class="fas fa-microscope"></i> 04. ANATOMÍA DE UN COMANDO</h2>
+                        <div class="code-block" style="background: #111; padding: 15px; border-radius: 5px;">
+                            <code
+                                style="color: #0f0;">iptables -A <span class="bad">[INPUT]</span> -p tcp -m <span class="bad">[multiport]</span> --dports 80,443 -j <span class="bad">[ACCEPT]</span></code>
+                        </div>
+                        <p style="margin-top:10px;"><strong>4. Este comando permite:</strong></p>
+                        <div class="info-box answer-box">
+                            <p>Aceptar tráfico TCP entrante destinado específicamente a los puertos <strong>80
+                                    (HTTP)</strong> y <strong>443 (HTTPS)</strong>, utilizado típicamente para
+                                servidores web.</p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- SECCIÓN 5: VARIABLES Y OPCIONES -->
+                        <h2><i class="fas fa-sliders-h"></i> 05. VARIABLES Y OPCIONES COMUNES</h2>
+                        <ul class="glowing-list">
+                            <li><strong>a) Limitar intentos por minuto:</strong> <code>-m limit --limit X/min</code>
+                            </li>
+                            <li><strong>b) Filtrar por IP de origen:</strong>
+                                <code>-S ó --SOURCE / -s 192.168.0.1/24</code>
+                            </li>
+                            <li><strong>c) Ver solo números (sin DNS):</strong> <code>-L -n</code></li>
+                            <li><strong>d) Ver reglas con contadores:</strong> <code>-L -v</code> (verbose)</li>
+                        </ul>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- SECCIÓN 6: ANÁLISIS DE REGLA -->
+                        <h2><i class="fas fa-search"></i> 06. ANÁLISIS DE REGLA</h2>
+                        <div class="code-block">
+                            <code>iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 \
+-m state --state NEW,ESTABLISHED -j ACCEPT</code>
+                        </div>
+                        <p><strong>¿Qué hace esta regla?</strong></p>
+                        <div class="info-box answer-box">
+                            <p>Permite el tráfico entrante a través de la interfaz <strong>eth0</strong>, usando el
+                                protocolo <strong>TCP</strong> hacia los puertos <strong>22 (SSH), 80 (HTTP) y 443
+                                    (HTTPS)</strong>. Adicionalmente, restringe la aceptación solo a conexiones que sean
+                                <strong>NUEVAS</strong> o que ya estén <strong>ESTABLECIDAS</strong>.
+                            </p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- SECCIÓN 7-11: TRADUCCIÓN DE POLÍTICAS -->
+                        <h2><i class="fas fa-code"></i> 07. TRADUCCIÓN DE POLÍTICAS</h2>
+
+                        <div class="policy-grid">
+
+                            <!-- Ejercicio 7 -->
+                            <div class="policy-item">
+                                <h4>7. Permitir tráfico HTTP entrante</h4>
+                                <code class="cmd">iptables -A INPUT -p tcp --dport 80 -j ACCEPT</code>
+                            </div>
+
+                            <!-- Ejercicio 8 -->
+                            <div class="policy-item">
+                                <h4>8. Permitir todo el tráfico saliente</h4>
+                                <code class="cmd">iptables -A OUTPUT -j ACCEPT</code>
+                                <small style="color:#aaa;">(Política por defecto)</small>
+                            </div>
+
+                            <!-- Ejercicio 9 -->
+                            <div class="policy-item">
+                                <h4>9. Permitir SSH solo desde la IP 192.168.1.50</h4>
+                                <code class="cmd">iptables -A INPUT -p tcp -s 192.168.1.50 --dport 22 -j ACCEPT</code>
+                            </div>
+
+                            <!-- Ejercicio 10 -->
+                            <div class="policy-item">
+                                <h4>10. Permitir tráfico TCP entrante a puertos 80 y 443 solo si es conexión establecida
+                                    o relacionada</h4>
+                                <code
+                                    class="cmd">iptables -A INPUT -p tcp -m multiport --dports 80,443 -m state --state ESTABLISHED,RELATED -j ACCEPT</code>
+                            </div>
+
+                            <!-- Ejercicio 11 -->
+                            <div class="policy-item">
+                                <h4>11. Permitir tráfico entrante por eth0 a 22, 80, 443 + registrar intentos + solo
+                                    NEW/ESTABLISHED</h4>
+                                <p style="font-size:0.8rem; color:#aaa; margin-bottom:5px;">Requiere dos reglas (Log y
+                                    Aceptar):</p>
+                                <code
+                                    class="cmd">iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j LOG --log-prefix "ACCESO_PERMITIDO: "</code>
+                                <div style="margin-top:5px;"></div>
+                                <code
+                                    class="cmd">iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT</code>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- EVIDENCIA MULTIMEDIA -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-images"></i> 08. EVIDENCIA MULTIMEDIA</h2>
+                        <div class="info-box" style="border-color: var(--c-violet);">
+                            <p><strong><i class="fas fa-terminal"></i> Capturas de Pantalla:</strong> Validación de
+                                reglas en entorno de laboratorio.</p>
+                        </div>
+                        <div class="figure-grid">
+                            <div class="figure-box">
+                                <img src="img/actividad3/iptables_list.png" alt="Listado de Reglas">
+                                <span class="caption">Fig 1. Verificación de reglas activas (iptables -L -n -v).</span>
+                            </div>
+                            <div class="figure-box">
+                                <img src="img/actividad3/connection_test.png" alt="Prueba de Conexión">
+                                <span class="caption">Fig 2. Prueba de conexión SSH permitida desde IP
+                                    autorizada.</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- REFLEXIÓN TÉCNICA -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-brain"></i> 09. REFLEXIÓN TÉCNICA</h2>
+                        <div class="info-box" style="background: rgba(0, 255, 0, 0.05); border-color: #0f0;">
+                            <h4 style="margin-top:0; color: #0f0;">ANÁLISIS DE APRENDIZAJE:</h4>
+                            <p>
+                                La implementación de políticas en <strong>iptables</strong> requiere un entendimiento
+                                profundo no solo de la sintaxis del comando, sino del modelo TCP/IP.
+                                Un error común es olvidar permitir el tráfico de respuesta (ESTABLISHED), lo que puede
+                                cortar la conexión del propio administrador.
+                            </p>
+                            <p>
+                                Esta actividad refuerza la importancia del principio de <em>"Denegar por defecto"</em>
+                                (DROP policy), abriendo únicamente los puertos estrictamente necesarios para reducir la
+                                superficie de ataque.
+                            </p>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- REFERENCIAS -->
+                    <article class="article-body">
+                        <h3><i class="fas fa-book"></i> 10. REFERENCIAS TÉCNICAS</h3>
+                        <ol class="glowing-list" style="font-size: 0.9rem;">
+                            <li>
+                                Netfilter Project. (2024). <em>iptables(8) - Linux man page</em>.
+                                <a href="https://linux.die.net/man/8/iptables" target="_blank"
+                                    style="color: var(--c-cyan);">https://linux.die.net/man/8/iptables</a>
+                            </li>
+                            <li>
+                                Andreasson, O. (2006). <em>Iptables Tutorial 1.2.2</em>.
+                                <a href="https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html"
+                                    target="_blank"
+                                    style="color: var(--c-cyan);">https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html</a>
+                            </li>
+                        </ol>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > FRANCISCO JAVIER CRUZ JUAREZ (177622) > ACTIVIDAD 03 > FILTRADO IPTABLES >
+            </div>
+        </footer>
+    </div>
+
+    <style>
+        .highlight-ans {
+            color: var(--c-cyan);
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .answer-box {
+            border-left: 3px solid #0f0;
+            background: rgba(0, 255, 0, 0.05);
+        }
+
+        .bad {
+            color: var(--c-pink);
+            font-weight: bold;
+        }
+
+        .cmd {
+            display: block;
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            border: 1px solid #333;
+            font-size: 0.9rem;
+        }
+
+        .policy-item {
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .policy-item h4 {
+            margin-top: 0;
+            color: var(--c-cyan);
+        }
+    </style>
+
+</body>
+
+</html>
