@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PR01 :: Walkthrough - De la Teoría a la Práctica</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .rubric-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .rubric-table th {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--c-cyan);
+            padding: 10px;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .rubric-table td {
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            vertical-align: top;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        .rubric-table tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .rubric-table .criterion {
+            font-weight: 700;
+            color: var(--c-cyan);
+        }
+
+        .rubric-table .excelente {
+            color: #0f0;
+        }
+
+        .rubric-table .bueno {
+            color: var(--c-cyan);
+        }
+
+        .rubric-table .regular {
+            color: #ffb703;
+        }
+
+        .rubric-table .insuficiente {
+            color: var(--c-pink);
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--c-pink);
+            border-radius: 0 8px 8px 0;
+            padding: 15px 20px;
+            margin-bottom: 16px;
+        }
+
+        .step-card h4 {
+            color: var(--c-pink);
+            margin: 0 0 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .step-num {
+            display: inline-block;
+            background: var(--c-pink);
+            color: #000;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            line-height: 24px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+
+        .tool-badge {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.25);
+            border: 1px solid var(--c-purple);
+            color: var(--c-violet);
+            border-radius: 4px;
+            padding: 3px 10px;
+            font-size: 0.78rem;
+            margin: 3px 2px;
+            font-family: monospace;
+        }
+
+        .vm-link {
+            display: inline-block;
+            background: rgba(0, 255, 255, 0.07);
+            border: 1px solid var(--c-cyan);
+            border-radius: 6px;
+            padding: 10px 20px;
+            color: var(--c-cyan);
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            word-break: break-all;
+        }
+
+        .vm-link:hover {
+            background: rgba(0, 255, 255, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> VOLVER A LISTA</a>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+
+                    <!-- ENCABEZADO -->
+                    <header class="article-header">
+                        <div class="article-meta" style="color:var(--c-pink);">PROYECTO PR01 | PENTESTING PRÁCTICO</div>
+                        <h1
+                            style="font-family:'Orbitron'; font-size: 1.9rem; margin-bottom: 10px; color:var(--c-pink);">
+                            DE LA TEORÍA A LA PRÁCTICA:<br>
+                            <span style="color:#fff;">WALKTHROUGH EN ACCIÓN</span>
+                        </h1>
+                        <p style="color:#aaa;">Guía técnica y video explicativo de pentesting en máquina virtual - CNO V
+                            Seguridad Informática</p>
+
+                        <div class="team-box"
+                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid var(--c-pink);">
+                            <h4 style="color: var(--c-pink); margin-bottom: 5px;">DATOS DEL PROYECTO:</h4>
+                            <ul
+                                style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-wrap: wrap; gap: 15px;">
+                                <li><i class="fas fa-user-check"></i> Francisco Javier Cruz Juarez (177622)</li>
+                                <li><i class="fas fa-chalkboard-teacher"></i> Maestro: Servando López Contreras</li>
+                                <li><i class="fas fa-clock"></i> Duración estimada: ~07 horas</li>
+                            </ul>
+                        </div>
+
+                        <!-- Máquina Virtual -->
+                        <div style="margin-top: 18px;">
+                            <p style="color:var(--c-cyan); margin-bottom:8px;"><i class="fas fa-server"></i> <strong>URL
+                                    de Máquina Virtual:</strong></p>
+                            <a href="https://www.vulnhub.com/entry/digitalworld.local-snakeoil,738/" target="_blank"
+                                class="vm-link">
+                                <i class="fas fa-external-link-alt" style="margin-right:8px;"></i>
+                                https://www.vulnhub.com/entry/digitalworld.local-snakeoil,738/
+                            </a>
+                        </div>
+
+                        <a href="Pdfs/pr01.pdf" target="_blank" class="pdf-btn"
+                            style="text-decoration: none; display: inline-block; padding: 10px 20px; text-align: center; margin-top:15px; border-color:var(--c-pink); color:var(--c-pink);">
+                            <i class="fas fa-file-pdf"></i> VER PDF ORIGINAL
+                        </a>
+                    </header>
+
+                    <!-- 1. INTRODUCCIÓN -->
+                    <article class="article-body" id="intro">
+                        <h2><i class="fas fa-book-open"></i> 1. INTRODUCCIÓN</h2>
+                        <div class="info-box" style="border-color:var(--c-pink);">
+                            <h4 style="color:var(--c-pink); margin-top:0;">Objetivo General:</h4>
+                            <p>
+                                Demostrar la capacidad de aplicar conocimientos teóricos de seguridad informática en un
+                                entorno práctico, mediante la realización de un <strong>walkthrough detallado</strong> y
+                                la explicación de las técnicas y metodologías utilizadas para vulnerar una máquina
+                                virtual.
+                            </p>
+                        </div>
+
+                        <div class="info-box" style="border-color: var(--c-violet); margin-top:15px;">
+                            <h4 style="color:var(--c-violet); margin-top:0;"><i class="fas fa-list-check"></i> Objetivos
+                                Específicos:</h4>
+                            <ul class="glowing-list">
+                                <li>Configurar un entorno de virtualización aislado para realizar las pruebas de
+                                    penetración de forma segura.</li>
+                                <li>Utilizar herramientas de escaneo de puertos y servicios para identificar posibles
+                                    vectores de ataque.</li>
+                                <li>Enumerar los servicios y aplicaciones en ejecución para obtener información
+                                    detallada sobre el sistema objetivo.</li>
+                                <li>Investigar las vulnerabilidades conocidas asociadas con los servicios identificados.
+                                </li>
+                                <li>Evaluar el riesgo y la viabilidad de explotar cada vulnerabilidad.</li>
+                                <li>Seleccionar y adaptar los exploits adecuados para las vulnerabilidades encontradas.
+                                </li>
+                                <li>Escalar privilegios para obtener acceso administrativo.</li>
+                                <li>Registrar cada paso del proceso, incluyendo comandos utilizados, resultados
+                                    obtenidos y capturas de pantalla.</li>
+                                <li>Explicar las técnicas y metodologías utilizadas en cada etapa del ataque.</li>
+                                <li>Grabar un video de la pantalla durante el proceso de ataque.</li>
+                                <li>Explicar cada paso del proceso en detalle, utilizando un lenguaje claro y conciso.
+                                </li>
+                                <li>Definir y explicar los términos técnicos utilizados durante el walkthrough.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- RÚBRICA -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-clipboard-check"></i> 2. RÚBRICA DE EVALUACIÓN</h2>
+                        <div class="table-responsive">
+                            <table class="rubric-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%">Criterio</th>
+                                        <th class="excelente">Excelente</th>
+                                        <th class="bueno">Bueno</th>
+                                        <th class="regular">Regular</th>
+                                        <th class="insuficiente">Insuficiente</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="criterion">Metodología y Ejecución Técnica</td>
+                                        <td>Demuestra un dominio excepcional de la metodología de pentesting. Ejecuta
+                                            cada fase con precisión y eficiencia. Utiliza herramientas y técnicas
+                                            avanzadas. <strong class="excelente">Valor (02)</strong></td>
+                                        <td>Sigue la metodología de pentesting de manera adecuada. Pequeñas omisiones o
+                                            errores. <strong class="bueno">Valor (01)</strong></td>
+                                        <td>Muestra comprensión básica pero la ejecución es inconsistente o incompleta.
+                                            <strong class="regular">Valor (0.5)</strong>
+                                        </td>
+                                        <td>No demuestra comprensión de la metodología. La ejecución es confusa y llena
+                                            de errores. <strong class="insuficiente">Valor (0)</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="criterion">Explicación Teórica y Conceptos</td>
+                                        <td>Conocimiento profundo de los conceptos teóricos. Explica claramente los
+                                            términos técnicos y relaciona las técnicas con los fundamentos. <strong
+                                                class="excelente">Valor (02)</strong></td>
+                                        <td>Buen entendimiento. Explica los términos de manera adecuada y relaciona las
+                                            técnicas con los fundamentos. <strong class="bueno">Valor (01)</strong></td>
+                                        <td>Las explicaciones son vagas o incompletas. Dificultad para relacionar con
+                                            teoría. <strong class="regular">Valor (0.5)</strong></td>
+                                        <td>No demuestra comprensión. Las explicaciones son confusas o incorrectas.
+                                            <strong class="insuficiente">Valor (0)</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="criterion">Documentación e Informe</td>
+                                        <td>Informe exhaustivo, claro y bien estructurado. Todos los pasos, comandos y
+                                            capturas de pantalla de alta calidad. <strong class="excelente">Valor
+                                                (03)</strong></td>
+                                        <td>Informe completo y bien organizado. Incluye la mayoría de pasos. <strong
+                                                class="bueno">Valor (02)</strong></td>
+                                        <td>Informe incompleto o desorganizado. Faltan pasos o resultados importantes.
+                                            <strong class="regular">Valor (01)</strong>
+                                        </td>
+                                        <td>Informe muy incompleto, desorganizado o ausente. <strong
+                                                class="insuficiente">Valor (0)</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="criterion">Video Explicativo</td>
+                                        <td>Video de alta calidad, claro y bien editado. Explicación detallada y
+                                            concisa. Gráficos para resaltar puntos clave. <strong
+                                                class="excelente">Valor (03)</strong></td>
+                                        <td>Video claro y bien explicado. La mayoría de los pasos son fáciles de seguir.
+                                            <strong class="bueno">Valor (02)</strong>
+                                        </td>
+                                        <td>Video confuso o difícil de seguir en algunas partes. Edición deficiente.
+                                            <strong class="regular">Valor (01)</strong>
+                                        </td>
+                                        <td>Video incomprensible, mal editado o ausente. <strong
+                                                class="insuficiente">Valor (0)</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- 2. DESARROLLO TÉCNICO -->
+                    <article class="article-body" id="desarrollo">
+                        <h2><i class="fas fa-terminal"></i> 3. DESARROLLO TÉCNICO</h2>
+
+                        <div class="info-box" style="border-color:var(--c-pink); margin-bottom:20px;">
+                            <p>El proyecto busca, en primer lugar, preparar un entorno de pruebas seguro, seleccionando
+                                y
+                                configurando una máquina virtual vulnerable adecuada. A continuación, se realizará un
+                                <strong>reconocimiento exhaustivo</strong> del sistema objetivo, escaneando y enumerando
+                                los servicios en ejecución para identificar posibles vectores de ataque.
+                            </p>
+                            <p style="margin-top:10px;">Se <strong>analizarán las vulnerabilidades</strong> presentes,
+                                investigando las conocidas y evaluando el riesgo de su explotación. Posteriormente, se
+                                procederá a <strong>explotar las vulnerabilidades</strong> identificadas para obtener
+                                acceso al sistema. Una vez obtenido el acceso, se realizarán actividades de
+                                <strong>post-explotación</strong> para demostrar el control del sistema, estableciendo
+                                persistencia y escalando privilegios.
+                            </p>
+                        </div>
+
+                        <!-- Fases del Pentesting -->
+                        <h3 style="color:var(--c-cyan);"><i class="fas fa-sitemap"></i> Fases de Ejecución</h3>
+
+                        <div class="step-card">
+                            <h4><span class="step-num">1</span> RECONOCIMIENTO Y PREPARACIÓN DEL ENTORNO</h4>
+                            <p>Configuración de VirtualBox/VMware con la máquina <strong>SnakeOil
+                                    (Digitalworld.local)</strong>
+                                en red NAT-only. Validación de conectividad y confirmación del objetivo.</p>
+                            <div style="margin-top:10px;">
+                                <span class="tool-badge">VirtualBox / VMware</span>
+                                <span class="tool-badge">nmap</span>
+                                <span class="tool-badge">arp-scan</span>
+                                <span class="tool-badge">netdiscover</span>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <h4><span class="step-num">2</span> ESCANEO DE PUERTOS Y ENUMERACIÓN DE SERVICIOS</h4>
+                            <p>Identificación de puertos abiertos, versiones de servicios y sistema operativo mediante
+                                escaneo activo.</p>
+                            <div
+                                style="background:#111; padding:12px; border-radius:5px; font-family:monospace; color:#0f0; margin-top:10px; font-size:0.85rem;">
+                                nmap -sV -sC -O -p- --min-rate 5000 &lt;IP_OBJETIVO&gt;<br>
+                                nmap -sU --top-ports 100 &lt;IP_OBJETIVO&gt;
+                            </div>
+                            <div style="margin-top:10px;">
+                                <span class="tool-badge">nmap</span>
+                                <span class="tool-badge">whatweb</span>
+                                <span class="tool-badge">nikto</span>
+                                <span class="tool-badge">gobuster</span>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <h4><span class="step-num">3</span> ANÁLISIS DE VULNERABILIDADES</h4>
+                            <p>Investigación de CVEs asociados a los servicios identificados. Evaluación de vectores de
+                                acceso inicial.</p>
+                            <div style="margin-top:10px;">
+                                <span class="tool-badge">searchsploit</span>
+                                <span class="tool-badge">Metasploit</span>
+                                <span class="tool-badge">CVEdetails</span>
+                                <span class="tool-badge">NVD NIST</span>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <h4><span class="step-num">4</span> EXPLOTACIÓN</h4>
+                            <p>Selección y adaptación del exploit adecuado. Obtención de acceso inicial al sistema
+                                objetivo.</p>
+                            <div
+                                style="background:#111; padding:12px; border-radius:5px; font-family:monospace; color:#a6e22e; margin-top:10px; font-size:0.85rem;">
+                                # Ejemplo de uso con Metasploit:<br>
+                                msfconsole<br>
+                                use exploit/[modulo_identificado]<br>
+                                set RHOSTS &lt;IP_OBJETIVO&gt;<br>
+                                run
+                            </div>
+                            <div style="margin-top:10px;">
+                                <span class="tool-badge">Metasploit</span>
+                                <span class="tool-badge">Burp Suite</span>
+                                <span class="tool-badge">SQLmap</span>
+                                <span class="tool-badge">Hydra</span>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <h4><span class="step-num">5</span> POST-EXPLOTACIÓN Y ESCALADA DE PRIVILEGIOS</h4>
+                            <p>Demostración del control del sistema, establecimiento de persistencia y escalada hasta
+                                tener acceso root/administrador.</p>
+                            <div
+                                style="background:#111; padding:12px; border-radius:5px; font-family:monospace; color:#66d9ef; margin-top:10px; font-size:0.85rem;">
+                                # Verificar usuario actual y permisos<br>
+                                id && whoami<br>
+                                sudo -l<br>
+                                find / -perm -4000 -type f 2>/dev/null # SUID binaries<br>
+                                cat /etc/crontab # Cron jobs
+                            </div>
+                            <div style="margin-top:10px;">
+                                <span class="tool-badge">LinPEAS</span>
+                                <span class="tool-badge">GTFObins</span>
+                                <span class="tool-badge">Meterpreter</span>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <h4><span class="step-num">6</span> DOCUMENTACIÓN Y VIDEO WALKTHROUGH</h4>
+                            <p>Registro detallado de cada paso con capturas de pantalla, comandos y resultados.
+                                Grabación del video explicativo con narración de cada técnica utilizada.</p>
+                            <div style="margin-top:10px;">
+                                <span class="tool-badge">OBS Studio</span>
+                                <span class="tool-badge">Flameshot</span>
+                                <span class="tool-badge">KeepNote</span>
+                                <span class="tool-badge">CherryTree</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- 3. EVIDENCIA MULTIMEDIA -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-images"></i> 4. EVIDENCIA MULTIMEDIA</h2>
+                        <div class="info-box" style="border-color: var(--c-violet);">
+                            <p><strong><i class="fas fa-camera"></i> Capturas de Pantalla del Proceso:</strong>
+                                A continuación se presentan las evidencias visuales de cada fase ejecutada durante el
+                                walkthrough.</p>
+                        </div>
+
+                        <div class="figure-grid" style="margin-top:15px;">
+                            <div class="figure-box">
+                                <img src="img/pr01/reconocimiento.png" alt="Escaneo nmap"
+                                    style="width:100%; border-radius:6px;"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div
+                                    style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                    <i class="fas fa-terminal fa-2x"></i><span style="font-size:0.8rem;">Escaneo
+                                        Nmap</span>
+                                </div>
+                                <span class="caption">Fig 1. Resultado del escaneo de puertos (nmap -sV)</span>
+                            </div>
+                            <div class="figure-box">
+                                <img src="img/pr01/explotacion.png" alt="Explotación"
+                                    style="width:100%; border-radius:6px;"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div
+                                    style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                    <i class="fas fa-bug fa-2x"></i><span style="font-size:0.8rem;">Exploit
+                                        ejecutado</span>
+                                </div>
+                                <span class="caption">Fig 2. Ejecución del exploit y obtención de shell</span>
+                            </div>
+                            <div class="figure-box">
+                                <img src="img/pr01/privesc.png" alt="Escalada de privilegios"
+                                    style="width:100%; border-radius:6px;"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div
+                                    style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                    <i class="fas fa-user-shield fa-2x"></i><span style="font-size:0.8rem;">Escalada de
+                                        privilegios</span>
+                                </div>
+                                <span class="caption">Fig 3. Escalada de privilegios — acceso root obtenido</span>
+                            </div>
+                            <div class="figure-box">
+                                <img src="img/pr01/flag.png" alt="Captura de flag"
+                                    style="width:100%; border-radius:6px;"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div
+                                    style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                    <i class="fas fa-flag fa-2x" style="color:var(--c-pink);"></i><span
+                                        style="font-size:0.8rem;">Flag capturada</span>
+                                </div>
+                                <span class="caption">Fig 4. Captura de la flag — objetivo completado</span>
+                            </div>
+                        </div>
+
+                        <!-- Video -->
+                        <div class="info-box" style="border-color:var(--c-pink); margin-top:20px; text-align:center;">
+                            <p><i class="fas fa-video" style="color:var(--c-pink); font-size:1.5rem;"></i></p>
+                            <p><strong>Video Explicativo del Walkthrough</strong></p>
+                            <p style="color:#aaa; font-size:0.9rem;">El video demostrativo del proceso completo de
+                                pentesting
+                                se encuentra disponible en el siguiente enlace (se actualizará al completar el
+                                proyecto):</p>
+                            <a href="#" style="color:var(--c-pink); font-family:monospace;">
+                                <i class="fas fa-play-circle"></i> Ver video en YouTube / Drive
+                            </a>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- CONCLUSIÓN -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-flag-checkered"></i> 5. CONCLUSIÓN</h2>
+                        <div class="info-box" style="background: rgba(0,255,0,0.05); border-color: #0f0;">
+                            <p>
+                                Este proyecto integra de manera práctica todos los conocimientos adquiridos a lo largo
+                                del
+                                curso de Seguridad Informática. La máquina virtual <strong>SnakeOil</strong> de
+                                VulnHub ofrece un entorno realista para aplicar la metodología completa de pentesting,
+                                desde el reconocimiento inicial hasta la escalada de privilegios.
+                            </p>
+                            <p style="margin-top:10px;">
+                                El proceso demuestra que la seguridad de un sistema no depende únicamente de firewalls o
+                                antivirus, sino de una <strong>configuración correcta de los servicios</strong>,
+                                actualizaciones periódicas y el principio de mínimo privilegio. Cada vulnerabilidad
+                                encontrada representa una lección sobre cómo mejorar la postura de seguridad de sistemas
+                                reales.
+                            </p>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- 4. REFLEXIÓN TÉCNICA -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-brain"></i> 6. REFLEXIÓN TÉCNICA DEL ESTUDIANTE</h2>
+                        <div class="info-box" style="background: rgba(0,255,0,0.05); border-color: #0f0;">
+                            <h4 style="margin-top:0; color: #0f0;"><i class="fas fa-user-graduate"></i> OPINIÓN
+                                PERSONAL:</h4>
+                            <p>
+                                Realizar este walkthrough me ha permitido entender que el pentesting es mucho más que
+                                ejecutar herramientas automáticas. Requiere <strong>pensamiento crítico y
+                                    lateral</strong>:
+                                saber interpretar la información obtenida, encadenar vulnerabilidades aparentemente
+                                pequeñas para lograr un impacto mayor y documentar cada decisión de forma que pueda
+                                reproducirse y entenderse.
+                            </p>
+                            <p style="margin-top:10px;">
+                                Lo que más me sorprendió fue la fase de escalada de privilegios. Los mecanismos como los
+                                <strong>SUID binaries</strong> o las <strong>cron jobs mal configuradas</strong>
+                                demuestran
+                                que un atacante con acceso limitado puede convertirse en superusuario si el sistema no
+                                está correctamente endurecido (<em>hardening</em>).
+                            </p>
+                            <p style="margin-top:10px;">
+                                Vinculando con la práctica profesional: los administradores de sistemas que conozcan
+                                estas
+                                técnicas pueden proactivamente revisar sus propios sistemas usando <strong>herramientas
+                                    como LinPEAS, Lynis o OpenVAS</strong> para identificar configuraciones peligrosas
+                                antes
+                                de que un atacante real las explote.
+                            </p>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- 5. REFERENCIAS -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-book"></i> 7. REFERENCIAS TÉCNICAS</h2>
+                        <ol class="glowing-list" style="font-size: 0.9rem; line-height: 2rem;">
+                            <li>VulnHub. (2024). <em>DigitalWorld.Local: SnakeOil</em>. <a
+                                    href="https://www.vulnhub.com/entry/digitalworld.local-snakeoil,738/"
+                                    target="_blank" style="color:var(--c-cyan);">vulnhub.com</a></li>
+                            <li>Offensive Security. (2024). <em>Metasploit Unleashed — Free Ethical Hacking Course</em>.
+                                <a href="https://www.offsec.com/metasploit-unleashed/" target="_blank"
+                                    style="color:var(--c-cyan);">offsec.com</a>
+                            </li>
+                            <li>GTFObins. (2024). <em>Curated list of Unix binaries that can be used to bypass security
+                                    restrictions</em>. <a href="https://gtfobins.github.io" target="_blank"
+                                    style="color:var(--c-cyan);">gtfobins.github.io</a></li>
+                            <li>Lyon, G. (2009). <em>Nmap Network Scanning: The Official Nmap Project Guide</em>.
+                                Insecure.com LLC.</li>
+                            <li>MITRE ATT&CK. (2024). <em>Enterprise Matrix — Tactics, Techniques and Procedures</em>.
+                                <a href="https://attack.mitre.org" target="_blank"
+                                    style="color:var(--c-cyan);">attack.mitre.org</a>
+                            </li>
+                        </ol>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > FRANCISCO JAVIER CRUZ JUAREZ (177622) > PR01 > WALKTHROUGH PENTESTING > DIGITALWORLD SNAKEOIL >
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Static page — PDF export opens pre-generated document.
+    </script>
+</body>
+
+</html>

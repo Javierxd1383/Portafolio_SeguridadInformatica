@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -48,9 +48,10 @@
                             </ul>
                         </div>
 
-                        <button onclick="downloadPDF()" class="pdf-btn">
-                            <i class="fas fa-file-pdf"></i> EXPORTAR INFORME PDF
-                        </button>
+                        <a href="Pdfs/actividad2.pdf" target="_blank" class="pdf-btn"
+                            style="text-decoration: none; display: inline-block; padding: 10px 20px; text-align: center;">
+                            <i class="fas fa-file-pdf"></i> VER PDF ORIGINAL
+                        </a>
                     </header>
 
 
@@ -387,11 +388,11 @@
 
                         <div class="figure-grid">
                             <div class="figure-box">
-                                <img src="img/actividad2/diagram1.png" alt="Esquema OSI X.800">
+                                <img src="img/actividad2/imagen1.jpg" alt="Esquema OSI X.800">
                                 <span class="caption">Fig 1. Modelo de Referencia de Seguridad X.800.</span>
                             </div>
                             <div class="figure-box">
-                                <img src="img/actividad2/attack_vector.png" alt="Vector de Ataque">
+                                <img src="img/actividad2/imagen2.jpg" alt="Vector de Ataque">
                                 <span class="caption">Fig 2. Diagrama de flujo de un ataque de Phishing (Escenario
                                     09).</span>
                             </div>
@@ -445,66 +446,8 @@
         </footer>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
-        function downloadPDF() {
-            const element = document.querySelector('.article-container');
-            const btn = document.querySelector('.pdf-btn');
-            const originalText = btn.innerHTML;
-
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GENERANDO PDF...';
-            btn.disabled = true;
-
-            // Clone the element to manipulate it for PDF generation without affecting the view
-            const clone = element.cloneNode(true);
-
-            // Create a temporary container to hold the clone
-            const container = document.createElement('div');
-            container.style.position = 'absolute';
-            container.style.top = '-9999px';
-            container.style.left = '0';
-            container.style.width = '800px'; // Fixed width for A4 consistency
-            container.style.backgroundColor = '#050510'; // Match theme background
-            container.appendChild(clone);
-            document.body.appendChild(container);
-
-            // Adjust styles on the clone for perfect PDF rendering
-            clone.style.width = '100%';
-            clone.style.maxWidth = '100%';
-            clone.style.margin = '0 auto';
-            clone.style.padding = '20px';
-            clone.style.boxSizing = 'border-box';
-
-            const opt = {
-                margin: [10, 10, 10, 10],
-                filename: document.title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    windowWidth: 800, // Match container width
-                    scrollY: 0
-                },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-            };
-
-            html2pdf().set(opt).from(clone).save().then(() => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                document.body.removeChild(container);
-            }).catch(err => {
-                console.error(err);
-                btn.innerHTML = '❌ ERROR';
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                }, 3000);
-                if (document.body.contains(container)) {
-                    document.body.removeChild(container);
-                }
-            });
-        }
+        // PDF Export is now static; functionality removed to prevent HTML2PDF bugs.
     </script>
 </body>
 

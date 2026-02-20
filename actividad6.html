@@ -1,0 +1,918 @@
+﻿<!DOCTYPE html>
+<!-- Updated: Evidence 6 and 7 now use real PDF screenshots -->
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 06 :: Implementación IPSec VPN</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> VOLVER A LISTA</a>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+
+                    <!-- ENCABEZADO -->
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 06 | SEGURIDAD PERIMETRAL</div>
+                        <h1 style="font-family:'Orbitron'; font-size: 2.0rem; margin-bottom: 10px;">IMPLEMENTACIÓN IPSEC
+                            VPN</h1>
+                        <p style="color:#aaa;">Configuración de VPN Sitio a Sitio - CNO V Seguridad Informática</p>
+                        <div class="team-box"
+                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid var(--c-purple);">
+                            <h4 style="color: var(--c-purple); margin-bottom: 5px;">DATOS:</h4>
+                            <ul
+                                style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-wrap: wrap; gap: 15px;">
+                                <li><i class="fas fa-user-check"></i> Francisco Javier Cruz Juarez (177622)</li>
+                                <li><i class="fas fa-chalkboard-teacher"></i> Maestro: Servando López Contreras</li>
+                                <li><i class="fas fa-book"></i> Seguridad Informática</li>
+                            </ul>
+                        </div>
+                        <a href="Pdfs/actividad6.pdf" target="_blank" class="pdf-btn"
+                            style="text-decoration: none; display: inline-block; padding: 10px 20px; text-align: center; margin-top: 15px;">
+                            <i class="fas fa-file-pdf"></i> VER PDF ORIGINAL
+                        </a>
+                    </header>
+
+                    <!-- ÍNDICE -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-list-ol"></i> ÍNDICE</h2>
+                        <div class="info-box" style="border-color: var(--c-violet);">
+                            <ol style="line-height: 2.2rem; color: #ccc; font-size: 0.95rem;">
+                                <li><a href="#intro" style="color: var(--c-cyan);">Introducción</a></li>
+                                <li><a href="#objetivos" style="color: var(--c-cyan);">Objetivos Principales</a></li>
+                                <li><a href="#desarrollo" style="color: var(--c-cyan);">Desarrollo Técnico</a>
+                                    <ul style="list-style: none; margin-left: 18px; margin-top: 5px;">
+                                        <li><a href="#p1" style="color: #aaa;">Paso 1: Crear la Topología</a></li>
+                                        <li><a href="#p2" style="color: #aaa;">Paso 2: Configuración de Direcciones
+                                                IP</a>
+                                            <ul style="list-style: none; margin-left: 18px;">
+                                                <li><a href="#ev1" style="color: #888;">• Evidencia 1: Activación de la
+                                                        Licencia de Seguridad (K9)</a></li>
+                                                <li><a href="#ev2" style="color: #888;">• Evidencia 2: Configuración de
+                                                        Interfaces y Ruteo Estático en R1</a></li>
+                                                <li><a href="#ev3" style="color: #888;">• Evidencia 3: Configuración de
+                                                        interfaces en el Router ISP</a></li>
+                                                <li><a href="#ev4" style="color: #888;">• Evidencia 4: Configuración
+                                                        inicial de interfaces y ruteo en el Router R3</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#p3" style="color: #aaa;">Paso 3: Configurar las PCs</a>
+                                            <ul style="list-style: none; margin-left: 18px;">
+                                                <li><a href="#ev5" style="color: #888;">• Evidencia 5: Acceso y
+                                                        Ejecución de Pruebas de Red en PC-A</a></li>
+                                                <li><a href="#ev6" style="color: #888;">• Evidencia 6: Configuración de
+                                                        Direccionamiento IP en PC-C</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#p4" style="color: #aaa;">Paso 4: Activación de Licencias de
+                                                Seguridad R1 Y R3</a>
+                                            <ul style="list-style: none; margin-left: 18px;">
+                                                <li><a href="#ev7" style="color: #888;">• Evidencia 7: Activación de
+                                                        Licencias de Seguridad R1</a></li>
+                                                <li><a href="#ev8" style="color: #888;">• Evidencia 8: Finalización
+                                                        exitosa R1</a></li>
+                                                <li><a href="#ev9" style="color: #888;">• Evidencia 9: Activación de
+                                                        Licencias de Seguridad R3</a></li>
+                                                <li><a href="#ev10" style="color: #888;">• Evidencia 10: Lógica de
+                                                        seguridad aplicada al Router R3 para establecer el túnel con el
+                                                        Router R1</a></li>
+                                                <li><a href="#ev11" style="color: #888;">• Evidencia 11: La
+                                                        configuración final de seguridad en el Router R1</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#p5" style="color: #aaa;">Paso 5: Acceso a herramientas de red en
+                                                la PC-A</a>
+                                            <ul style="list-style: none; margin-left: 18px;">
+                                                <li><a href="#ev12" style="color: #888;">• Evidencia 12: Acceso a
+                                                        herramientas de red en la PC-A</a></li>
+                                                <li><a href="#ev13" style="color: #888;">• Evidencia 13: Acceso a
+                                                        herramientas de red en la PC-A</a></li>
+                                                <li><a href="#ev14" style="color: #888;">• Evidencia 14: Validación
+                                                        final desde el extremo remoto PC-C</a></li>
+                                                <li><a href="#ev15" style="color: #888;">• Evidencia 15: Interfaz Física
+                                                        de PC-C</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#p7" style="color: #aaa;">Paso 7: Verificación final de la
+                                                seguridad del túnel</a>
+                                            <ul style="list-style: none; margin-left: 18px;">
+                                                <li><a href="#ev16" style="color: #888;">• Evidencia 16: Verificación
+                                                        final de la seguridad del túnel</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#p8" style="color: #aaa;">Paso 8: Visualización de la Topología
+                                                Final</a>
+                                            <ul style="list-style: none; margin-left: 18px;">
+                                                <li><a href="#ev17" style="color: #888;">• Evidencia 17: Visualización
+                                                        de la Topología Final</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="#conclusion" style="color: var(--c-cyan);">Conclusión</a></li>
+                            </ol>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- INTRODUCCIÓN -->
+                    <article class="article-body" id="intro">
+                        <h2><i class="fas fa-book-open"></i> 1. Introducción</h2>
+                        <div class="info-box">
+                            <p>En el presente documento se detalla la configuración y validación de una red privada
+                                virtual (VPN) de sitio a sitio utilizando el protocolo <strong>IPSec</strong>. El
+                                proyecto simula la interconexión de dos redes locales (LAN) a través de una
+                                infraestructura de red pública (ISP), garantizando la confidencialidad, integridad y
+                                disponibilidad de los datos mediante técnicas avanzadas de cifrado.</p>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- OBJETIVOS -->
+                    <article class="article-body" id="objetivos">
+                        <h2><i class="fas fa-crosshairs"></i> 2. Objetivos Principales</h2>
+                        <ul class="glowing-list">
+                            <li><strong>Habilitación de Servicios de Seguridad:</strong> Activar el paquete de licencias
+                                securityk9 en routers Cisco 1941 para permitir funciones criptográficas.</li>
+                            <li><strong>Establecimiento de Conectividad Base:</strong> Configurar el direccionamiento IP
+                                y rutas estáticas hacia el ISP para permitir el alcance entre los gateways de cada
+                                sitio.</li>
+                            <li><strong>Implementación de Túnel IPsec:</strong> Configurar las fases 1 (ISAKMP) y 2
+                                (IPsec) para establecer un túnel seguro entre R1 y R3.</li>
+                            <li><strong>Verificación de Tráfico Seguro:</strong> Validar mediante pruebas de ping y
+                                comandos de diagnóstico que el tráfico entre las redes 192.168.1.0 y 192.168.3.0 viaja
+                                encriptado.</li>
+                        </ul>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- DESARROLLO TÉCNICO -->
+                    <article class="article-body" id="desarrollo">
+                        <h2><i class="fas fa-laptop-code"></i> 3. Desarrollo Técnico</h2>
+
+                        <!-- PASO 1 -->
+                        <h3 id="p1">Paso 1: Crear la Topología</h3>
+                        <p>Coloca los siguientes dispositivos en el lienzo de Packet Tracer:</p>
+                        <ul class="glowing-list">
+                            <li><strong>Routers:</strong> 3 unidades del modelo <strong>1941</strong>. (Nómbralos R1,
+                                ISP y R3).</li>
+                            <li><strong>Switches:</strong> 2 unidades del modelo <strong>2960</strong>.</li>
+                            <li><strong>PCs:</strong> 2 unidades (PC-A y PC-C).</li>
+                        </ul>
+                        <p><strong>Conexiones:</strong></p>
+                        <ul class="glowing-list">
+                            <li>Usa cable cruzado (o automático) para conectar los Routers entre sí por sus puertos
+                                <strong>GigabitEthernet 0/0</strong>.
+                            </li>
+                            <li>Conecta los Routers a los Switches por <strong>GigabitEthernet 0/1</strong>.</li>
+                            <li>Conecta las PCs a los Switches por <strong>FastEthernet</strong>.</li>
+                        </ul>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- PASO 2 -->
+                        <h3 id="p2">Paso 2: Configuración de Direcciones IP</h3>
+                        <p>Para que la VPN funcione, primero necesitamos "alcanzabilidad" básica. Entra a la consola
+                            (CLI) de cada dispositivo y aplica estos comandos:</p>
+
+                        <!-- Evidencia 1 -->
+                        <div class="info-box" style="border-color: var(--c-cyan); margin-top: 20px;" id="ev1">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-cyan);"></i> Evidencia 1:
+                                    Activación de la Licencia de Seguridad (K9)</strong></p>
+                            <p><strong>Descripción Técnica:</strong> Se realizó la activación del paquete de seguridad
+                                securityk9 en el router Cisco 1941. Este paso es indispensable en la carrera de ITI para
+                                habilitar el motor criptográfico del IOS, permitiendo el uso de comandos crypto
+                                necesarios para túneles VPN. La captura muestra la aceptación de los términos de la
+                                licencia de evaluación de 60 días.</p>
+                            <div class="figure-grid" style="margin-top: 10px;">
+                                <div class="figure-box">
+                                    <img src="img/actividad6/evidencia1.png" alt="Evidencia 1 - Activación Licencia K9"
+                                        style="width:100%; border-radius:6px;"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div
+                                        style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                        <i class="fas fa-image fa-2x"></i><span style="font-size:0.8rem;">evidencia1.png</span>
+                                    </div>
+                                    <span class="caption">Fig. Evidencia 1 — Activación de Licencia K9</span>
+                                </div>
+                            </div>
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#a6e22e;">
+                                Router(config)# license boot module c1900 technology-package securityk9<br>
+                                # Confirmar con "yes" la aceptación de términos<br>
+                                Router# write memory<br>
+                                Router# reload
+                            </div>
+                        </div>
+
+                        <!-- Evidencia 2 -->
+                        <div class="info-box" style="border-color: var(--c-purple); margin-top: 15px;" id="ev2">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-purple);"></i> Evidencia 2:
+                                    Configuración de Interfaces y Ruteo Estático en R1</strong></p>
+                            <p><strong>Descripción Técnica:</strong> En esta captura se observa la configuración inicial
+                                del Router R1 en el modo de configuración global. Se asignaron direcciones IP a dos
+                                interfaces: la GigabitEthernet0/0 (interfaz WAN) con la IP pública 209.165.100.1 y la
+                                GigabitEthernet0/1 (interfaz LAN) con la IP privada 192.168.1.1. Finalmente, se
+                                configuró una ruta estática predeterminada hacia el salto del ISP (209.165.100.2) para
+                                permitir que el router pueda enviar tráfico hacia redes externas y establecer el túnel
+                                VPN.</p>
+                            <div class="figure-grid" style="margin-top: 10px;">
+                                <div class="figure-box">
+                                    <img src="img/actividad6/evidencia2.png" alt="Evidencia 2"
+                                        style="width:100%; border-radius:6px;"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div
+                                        style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                        <i class="fas fa-image fa-2x"></i><span style="font-size:0.8rem;">evidencia2.png</span>
+                                    </div>
+                                    <span class="caption">Fig. Evidencia 2 — Configuración R1</span>
+                                </div>
+                            </div>
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#66d9ef;">
+                                Router>enable<br>
+                                Router#configure terminal<br>
+                                Router(config)#interface g0/0<br>
+                                Router(config-if)#ip address 209.165.100.1 255.255.255.252<br>
+                                Router(config-if)#no shutdown<br>
+                                Router(config-if)#interface g0/1<br>
+                                Router(config-if)#ip address 192.168.1.1 255.255.255.0<br>
+                                Router(config-if)#no shutdown<br>
+                                Router(config-if)#exit<br>
+                                Router(config)#ip route 0.0.0.0 0.0.0.0 209.165.100.2
+                            </div>
+                        </div>
+
+                        <!-- Evidencia 3 -->
+                        <div class="info-box" style="border-color: var(--c-violet); margin-top: 15px;" id="ev3">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-violet);"></i> Evidencia 3:
+                                    Configuración de interfaces en el Router ISP</strong></p>
+                            <ul class="glowing-list">
+                                <li><strong>Interfaz GigabitEthernet0/0:</strong> Se configuró con la IP 209.165.100.2
+                                    para establecer el enlace con el Router R1.</li>
+                                <li><strong>Interfaz GigabitEthernet0/1:</strong> Se configuró con la IP 209.165.200.2
+                                    para establecer el enlace con el Router R3.</li>
+                                <li><strong>Activación:</strong> Se utilizó el comando no shutdown en ambas interfaces,
+                                    lo que provocó el cambio de estado a up (activo), permitiendo el flujo de datos
+                                    físico.</li>
+                            </ul>
+                            <div class="figure-grid" style="margin-top: 10px;">
+                                <div class="figure-box">
+                                    <img src="img/actividad6/evidencia3.png" alt="Evidencia 3"
+                                        style="width:100%; border-radius:6px;"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div
+                                        style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                        <i class="fas fa-image fa-2x"></i><span style="font-size:0.8rem;">evidencia3.png</span>
+                                    </div>
+                                    <span class="caption">Fig. Evidencia 3 — Router ISP</span>
+                                </div>
+                            </div>
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#fd971f;">
+                                Router(config)#interface g0/0<br>
+                                Router(config-if)#ip address 209.165.100.2 255.255.255.252<br>
+                                Router(config-if)#no shutdown<br>
+                                Router(config-if)#exit<br>
+                                Router(config)#interface g0/1<br>
+                                Router(config-if)#ip address 209.165.200.2 255.255.255.252<br>
+                                Router(config-if)#no shutdown<br>
+                                Router(config-if)#exit
+                            </div>
+                        </div>
+
+                        <!-- Evidencia 4 -->
+                        <div class="info-box" style="border-color: var(--c-cyan); margin-top: 15px;" id="ev4">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-cyan);"></i> Evidencia 4:
+                                    Configuración inicial de interfaces y ruteo en el Router R3</strong></p>
+                            <ul class="glowing-list">
+                                <li><strong>Interfaz GigabitEthernet0/0 (WAN):</strong> IP pública 209.165.200.1 máscara
+                                    /30, conectado directamente al ISP.</li>
+                                <li><strong>Interfaz GigabitEthernet0/1 (LAN):</strong> IP privada 192.168.3.1 máscara
+                                    /24, puerta de enlace para la PC-C.</li>
+                                <li><strong>Ruta Estática Predeterminada:</strong> ip route 0.0.0.0 0.0.0.0
+                                    209.165.200.2 hacia el ISP.</li>
+                            </ul>
+                            <div class="figure-grid" style="margin-top: 10px;">
+                                <div class="figure-box">
+                                    <img src="img/actividad6/evidencia4.png" alt="Evidencia 4"
+                                        style="width:100%; border-radius:6px;"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div
+                                        style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                        <i class="fas fa-image fa-2x"></i><span style="font-size:0.8rem;">evidencia4.png</span>
+                                    </div>
+                                    <span class="caption">Fig. Evidencia 4 — Router R3</span>
+                                </div>
+                            </div>
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#a6e22e;">
+                                Router(config)#interface g0/0<br>
+                                Router(config-if)#ip address 209.165.200.1 255.255.255.252<br>
+                                Router(config-if)#no shutdown<br>
+                                Router(config-if)#exit<br>
+                                Router(config)#interface g0/1<br>
+                                Router(config-if)#ip address 192.168.3.1 255.255.255.0<br>
+                                Router(config-if)#no shutdown<br>
+                                Router(config-if)#exit<br>
+                                Router(config)#ip route 0.0.0.0 0.0.0.0 209.165.200.2
+                            </div>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- PASO 3 -->
+                        <h3 id="p3">Paso 3: Configurar las PCs</h3>
+
+                        <!-- Evidencia 5 -->
+                        <div class="info-box" style="border-color: var(--c-purple); margin-top: 20px;" id="ev5">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-purple);"></i> Evidencia 5: Acceso
+                                    y Ejecución de Pruebas de Red en PC-A</strong></p>
+                            <p><strong>Descripción del Proceso:</strong></p>
+                            <ol class="glowing-list">
+                                <li>Se inicia haciendo clic izquierdo sobre el ícono de la PC-A en la topología.</li>
+                                <li>En la ventana que aparece, se selecciona la pestaña superior
+                                    <strong>Desktop</strong>.
+                                </li>
+                                <li>Posteriormente, se entra a la opción <strong>IP Configuration</strong>. Es aquí
+                                    donde se definen los parámetros de red necesarios para que el equipo se comunique
+                                    con su puerta de enlace (R1).</li>
+                                <li>Se selecciona el modo <strong>Static</strong> y se ingresan los datos
+                                    correspondientes a la LAN 1.</li>
+                            </ol>
+                            <p><strong>Detalle Técnico:</strong></p>
+                            <ul class="glowing-list">
+                                <li>IP Address: <strong>192.168.1.10</strong></li>
+                                <li>Subnet Mask: <strong>255.255.255.0</strong></li>
+                                <li>Default Gateway: <strong>192.168.1.1</strong> (interfaz g0/1 del Router R1)</li>
+                            </ul>
+                            <div class="figure-grid" style="margin-top: 10px;">
+                                <div class="figure-box">
+                                    <img src="img/actividad6/evidencia5.png" alt="Evidencia 5"
+                                        style="width:100%; border-radius:6px;"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div
+                                        style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                        <i class="fas fa-image fa-2x"></i><span style="font-size:0.8rem;">evidencia5.png</span>
+                                    </div>
+                                    <span class="caption">Fig. Evidencia 5 — Configuración PC-A</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Evidencia 6 -->
+                        <div class="info-box" style="border-color: var(--c-violet); margin-top: 15px;" id="ev6">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-violet);"></i> Evidencia 6:
+                                    Configuración de Direccionamiento IP en PC-C</strong></p>
+                            <ol class="glowing-list">
+                                <li>Se inicia haciendo clic izquierdo sobre el ícono de la PC-C en la topología.</li>
+                                <li>En la ventana que aparece, se selecciona la pestaña superior
+                                    <strong>Desktop</strong>.
+                                </li>
+                                <li>Se entra a la opción <strong>IP Configuration</strong> para definir los parámetros
+                                    de red para comunicarse con su puerta de enlace (R3).</li>
+                                <li>Se selecciona el modo <strong>Static</strong> y se ingresan los datos
+                                    correspondientes a la LAN 3.</li>
+                            </ol>
+                            <img src="img/actividad6/evidencia6.png" alt="Evidencia 6 - PC-C IP Configuration"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                            <p style="margin-top:10px;"><strong>Detalle Técnico:</strong></p>
+                            <ul class="glowing-list">
+                                <li>IP Address: <strong>192.168.3.10</strong></li>
+                                <li>Subnet Mask: <strong>255.255.255.0</strong></li>
+                                <li>Default Gateway: <strong>192.168.3.1</strong> (interfaz g0/1 del Router R3)</li>
+                            </ul>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- PASO 4 -->
+                        <h3 id="p4">Paso 4: Activación de Licencias de Seguridad R1 Y R3</h3>
+
+                        <!-- Evidencia 7 -->
+                        <div class="info-box" style="border-color: var(--c-cyan); margin-top: 20px;" id="ev7">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-cyan);"></i> Evidencia 7:
+                                    Activación de Licencias de Seguridad R1</strong></p>
+                            <p><strong>Descripción Técnica:</strong> En esta ventana del CLI del Router R1, se observa
+                                el proceso de actualización del software para soportar seguridad avanzada:</p>
+                            <ol class="glowing-list">
+                                <li><strong>Comando de Activación:</strong> Se ejecutó
+                                    <code>license boot module c1900 technology-package securityk9</code>, que prepara al
+                                    router para cargar el conjunto de características de seguridad en el próximo
+                                    reinicio.
+                                </li>
+                                <li><strong>Acuerdo de Licencia:</strong> El sistema despliega el EULA con términos
+                                    legales y restricciones de exportación para uso de tecnología criptográfica.</li>
+                                <li><strong>Aceptación:</strong> La captura termina en el prompt
+                                    <code>ACCEPT? [yes/no]:</code> donde el administrador debe confirmar.
+                                </li>
+                            </ol>
+                            <img src="img/actividad6/evidencia7.png" alt="Evidencia 7 - Router R1 EULA/Licencia"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#a6e22e;">
+                                Router>enable<br>
+                                Router#configure terminal<br>
+                                Router(config)#license boot module c1900 technology-package securityk9<br>
+                                # Al aparecer el texto de la licencia, escribir "yes" para confirmar<br>
+                                ACCEPT? [yes/no]: yes<br>
+                                Router(config)#exit<br>
+                                Router#write memory<br>
+                                Router#reload
+                            </div>
+                        </div>
+
+                        <!-- Evidencia 8 -->
+                        <div class="info-box" style="border-color: var(--c-purple); margin-top: 15px;" id="ev8">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-purple);"></i> Evidencia 8:
+                                    Finalización exitosa R1</strong></p>
+                            <p><strong>Descripción Técnica:</strong> En esta ventana del CLI, se observa el cierre del
+                                proceso legal y técnico de licenciamiento:</p>
+                            <ul class="glowing-list">
+                                <li><strong>Aceptación de Términos:</strong> El administrador ingresó yes en respuesta a
+                                    ACCEPT? [yes/no], indicando la conformidad con el contrato de licencia de Cisco para
+                                    funciones criptográficas.</li>
+                                <li><strong>Confirmación del Sistema:</strong> El router genera el mensaje
+                                    <code>%IOS_LICENSE_IMAGE_APPLICATION-6-LICENSE_LEVEL</code> confirmando que el nivel
+                                    de licencia cambiará a <strong>securityk9</strong>.
+                                </li>
+                                <li><strong>Condición de Aplicación:</strong> El cambio tendrá efecto en el próximo
+                                    arranque (Next reboot level = securityk9).</li>
+                            </ul>
+                            <div class="figure-grid" style="margin-top: 10px;">
+                                <div class="figure-box">
+                                    <img src="img/actividad6/evidencia8.png" alt="Evidencia 8"
+                                        style="width:100%; border-radius:6px;"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div
+                                        style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                        <i class="fas fa-image fa-2x"></i><span style="font-size:0.8rem;">evidencia8.png</span>
+                                    </div>
+                                    <span class="caption">Fig. Evidencia 8 — Finalización R1</span>
+                                </div>
+                            </div>
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#66d9ef;">
+                                Router(config)# license boot module c1900 technology-package securityk9<br>
+                                # ... (Lectura de términos)<br>
+                                ACCEPT? [yes/no]: yes<br>
+                                # % use 'write' command to make license boot config take effect on next boot.<br>
+                                Router(config)# exit<br>
+                                Router# write memory<br>
+                                Router# reload
+                            </div>
+                        </div>
+
+                        <!-- Evidencia 9 -->
+                        <div class="info-box" style="border-color: var(--c-violet); margin-top: 15px;" id="ev9">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-violet);"></i> Evidencia 9:
+                                    Activación de Licencias de Seguridad R3</strong></p>
+                            <ul class="glowing-list">
+                                <li><strong>Descripción Técnica:</strong> En el CLI de R3, se observa la parte final del
+                                    proceso de licenciamiento.</li>
+                                <li><strong>Aceptación de Términos:</strong> Al igual que en R1, se ingresó yes para
+                                    aceptar el contrato de licencia de Cisco.</li>
+                                <li><strong>Sincronización de Extremos:</strong> Este paso es vital porque un túnel VPN
+                                    no puede establecerse si uno de los routers no soporta los algoritmos de cifrado
+                                    (AES o SHA) definidos en la política ISAKMP.</li>
+                                <li><strong>Estado Programado:</strong> El router queda listo para activar el paquete
+                                    securityk9 tras guardar y reiniciar.</li>
+                            </ul>
+                            <div class="figure-grid" style="margin-top: 10px;">
+                                <div class="figure-box">
+                                    <img src="img/actividad6/evidencia9.png" alt="Evidencia 9"
+                                        style="width:100%; border-radius:6px;"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div
+                                        style="display:none; height:150px; background:#111; align-items:center; justify-content:center; flex-direction:column; border-radius:6px; color:#444; gap:8px;">
+                                        <i class="fas fa-image fa-2x"></i><span style="font-size:0.8rem;">evidencia9.png</span>
+                                    </div>
+                                    <span class="caption">Fig. Evidencia 9 — Licencias R3</span>
+                                </div>
+                            </div>
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#fd971f;">
+                                R3>enable<br>
+                                R3#configure terminal<br>
+                                R3(config)#license boot module c1900 technology-package securityk9<br>
+                                # ... (Lectura de términos del EULA)<br>
+                                ACCEPT? [yes/no]: yes<br>
+                                R3(config)#exit<br>
+                                R3#write memory<br>
+                                R3#reload
+                            </div>
+                        </div>
+
+                        <!-- Evidencia 10 -->
+                        <div class="info-box" style="border-color: var(--c-cyan); margin-top: 15px;" id="ev10">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-cyan);"></i> Evidencia 10: Lógica
+                                    de seguridad aplicada al Router R3 para establecer el túnel con el Router
+                                    R1</strong></p>
+                            <p><strong>Descripción Técnica:</strong> En el CLI de R3, se observa la configuración
+                                detallada de las dos fases de IPsec y la definición del tráfico que debe ser protegido:
+                            </p>
+                            <ol class="glowing-list">
+                                <li><strong>Fase 1 (ISAKMP Policy):</strong> Se definieron los parámetros de seguridad
+                                    para el intercambio de llaves, con encriptación <strong>AES</strong>, hashing
+                                    <strong>SHA</strong> y grupo Diffie-Hellman 2. Se estableció la clave compartida
+                                    (cisco123) para autenticarse con R1 (209.165.100.1).
+                                </li>
+                                <li><strong>Fase 2 (Transform-set):</strong> Se creó el conjunto de transformación
+                                    <strong>ESP-AES-SHA</strong> para encriptar los datos reales que viajen por el
+                                    túnel.
+                                </li>
+                                <li><strong>Definición de Tráfico (ACL 110):</strong> Se configuró una lista de acceso
+                                    para permitir únicamente el tráfico que va desde la red local de R3 (192.168.3.0)
+                                    hacia
+                                    la red remota de R1 (192.168.1.0).</li>
+                                <li><strong>Crypto Map:</strong> Se unificaron todos los pasos anteriores en un mapa
+                                    llamado <strong>CMAP</strong> y se aplicó a la interfaz de salida g0/0. El sistema
+                                    confirma el éxito con el mensaje: <code>ISAKMP is ON</code>.</li>
+                            </ol>
+                            <img src="img/actividad6/evidencia10.png" alt="Evidencia 10 - R3 IPSec config"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#a6e22e;">
+                                Router(config)#crypto isakmp policy 10<br>
+                                Router(config-isakmp)# encryption aes<br>
+                                Router(config-isakmp)# hash sha<br>
+                                Router(config-isakmp)# authentication pre-share<br>
+                                Router(config-isakmp)# group 2<br>
+                                Router(config-isakmp)# exit<br>
+                                Router(config)#crypto isakmp key cisco123 address 209.165.100.1<br>
+                                Router(config)#crypto ipsec transform-set ESP-AES-SHA esp-aes esp-sha-hmac<br>
+                                Router(config)#access-list 110 permit ip 192.168.3.0 0.0.0.255 192.168.1.0 0.0.0.255<br>
+                                Router(config)#crypto map CMAP 10 ipsec-isakmp<br>
+                                Router(config-crypto-map)# set peer 209.165.100.1<br>
+                                Router(config-crypto-map)# set transform-set ESP-AES-SHA<br>
+                                Router(config-crypto-map)# match address 110<br>
+                                Router(config-crypto-map)# exit<br>
+                                Router(config)#interface g0/0<br>
+                                Router(config-if)# crypto map CMAP
+                            </div>
+                        </div>
+
+                        <!-- Evidencia 11 -->
+                        <div class="info-box" style="border-color: var(--c-purple); margin-top: 15px;" id="ev11">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-purple);"></i> Evidencia 11: La
+                                    configuración final de seguridad en el Router R1</strong></p>
+                            <p><strong>Descripción Técnica:</strong> En esta ventana del CLI de <strong>R1</strong>, se
+                                detallan los pasos finales de la implementación de la VPN:</p>
+                            <ol class="glowing-list">
+                                <li><strong>Clave Compartida:</strong> Se definió la
+                                    <code>crypto isakmp key cisco123</code> apuntando a la dirección IP pública de R3
+                                    (209.165.200.1) para la autenticación mutua de los dispositivos.
+                                </li>
+                                <li><strong>Fase 2 (Transform-set):</strong> Se configuró el conjunto de transformación
+                                    <strong>ESP-AES-SHA</strong> para el cifrado de datos.
+                                </li>
+                                <li><strong>Definición de Tráfico de Interés:</strong> Se configuró la <strong>ACL
+                                        110</strong> para identificar el tráfico que debe protegerse, permitiendo el
+                                    flujo desde la LAN local de R1 (192.168.1.0) hacia la LAN remota de R3
+                                    (192.168.3.0).</li>
+                                <li><strong>Aplicación del Crypto Map:</strong> Se creó el mapa CMAP vinculando el par
+                                    remoto, el conjunto de transformación y la lista de acceso. Finalmente, se aplicó a
+                                    la interfaz de salida g0/0, tras lo cual el sistema generó el mensaje de
+                                    confirmación: <code>ISAKMP is ON</code>.</li>
+                            </ol>
+                            <img src="img/actividad6/evidencia11.png" alt="Evidencia 11 - R1 final config"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#66d9ef;">
+                                Router(config)#crypto isakmp key cisco123 address 209.165.200.1<br>
+                                Router(config)#crypto ipsec transform-set ESP-AES-SHA esp-aes esp-sha-hmac<br>
+                                Router(config)#access-list 110 permit ip 192.168.1.0 0.0.0.255 192.168.3.0 0.0.0.255<br>
+                                Router(config)#crypto map CMAP 10 ipsec-isakmp<br>
+                                Router(config-crypto-map)# set peer 209.165.200.1<br>
+                                Router(config-crypto-map)# set transform-set ESP-AES-SHA<br>
+                                Router(config-crypto-map)# match address 110<br>
+                                Router(config-crypto-map)# exit<br>
+                                Router(config)#interface g0/0<br>
+                                Router(config-if)# crypto map CMAP
+                            </div>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- PASO 5 -->
+                        <h3 id="p5">Paso 5: Acceso a herramientas de red en la PC-A</h3>
+
+                        <!-- Evidencia 12 -->
+                        <div class="info-box" style="border-color: var(--c-violet); margin-top: 20px;" id="ev12">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-violet);"></i> Evidencia 12: Acceso
+                                    a herramientas de red en la PC-A</strong></p>
+                            <p><strong>Descripción del Proceso:</strong></p>
+                            <ol class="glowing-list">
+                                <li><strong>Navegación de Interfaz:</strong> Tras verificar la parte física, se
+                                    selecciona la pestaña superior <strong>Desktop (Escritorio)</strong> dentro de la
+                                    ventana de configuración de la PC-A.</li>
+                                <li><strong>Entorno de Aplicaciones:</strong> Se despliega el panel de herramientas
+                                    disponibles en el sistema operativo simulado de Packet Tracer.</li>
+                                <li><strong>Selección de la Herramienta:</strong> Se hace clic en el ícono de
+                                    <strong>Command Prompt</strong> (Símbolo del sistema). Esta es la aplicación
+                                    fundamental para ejecutar comandos de diagnóstico de red como <code>ping</code> y
+                                    <code>tracert</code>.
+                                </li>
+                                <li><strong>Objetivo Técnico:</strong> El acceso a esta terminal permitirá comprobar si
+                                    la red local tiene salida hacia el router perimetral y si el tráfico puede alcanzar
+                                    el extremo remoto (PC-C) a través del túnel IPsec previamente configurado.</li>
+                            </ol>
+                            <img src="img/actividad6/evidencia12.png" alt="Evidencia 12 - PC-A Desktop"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#66d9ef;">
+                                # Para verificar la IP local configurada:<br>
+                                C:\> ipconfig<br><br>
+                                # Para probar la comunicación segura con la PC-C:<br>
+                                C:\> ping 192.168.3.10
+                            </div>
+                        </div>
+
+                        <!-- Evidencia 13 -->
+                        <div class="info-box" style="border-color: var(--c-cyan); margin-top: 15px;" id="ev13">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-cyan);"></i> Evidencia 13: Acceso a
+                                    herramientas de red en la PC-A</strong></p>
+                            <p><strong>Descripción del Proceso:</strong></p>
+                            <ol class="glowing-list">
+                                <li><strong>Selección del Dispositivo:</strong> Se inicia haciendo clic izquierdo sobre
+                                    el ícono de la PC-A en la topología.</li>
+                                <li><strong>Navegación de Interfaz:</strong> Se selecciona la pestaña superior Desktop
+                                    (Escritorio) dentro de la ventana de configuración.</li>
+                                <li><strong>Entorno de Aplicaciones:</strong> Se despliega el panel de herramientas
+                                    disponibles, donde se visualizan íconos como "IP Configuration", "Terminal" y "Web
+                                    Browser".</li>
+                                <li><strong>Selección de la Herramienta:</strong> Se hace clic en el ícono de
+                                    <strong>Command Prompt</strong> (Símbolo del sistema). Esta es la aplicación
+                                    fundamental para ejecutar comandos de diagnóstico como <code>ping</code>.
+                                </li>
+                            </ol>
+                            <img src="img/actividad6/evidencia13.png" alt="Evidencia 13 - Ping Result PC-A"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                        </div>
+
+                        <!-- Evidencia 14 -->
+                        <div class="info-box" style="border-color: var(--c-purple); margin-top: 15px;" id="ev14">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-purple);"></i> Evidencia 14:
+                                    Validación final desde el extremo remoto PC-C</strong></p>
+                            <p><strong>Descripción del Proceso:</strong></p>
+                            <ol class="glowing-list">
+                                <li><strong>Selección del Dispositivo:</strong> Se hace clic izquierdo sobre la PC-C en
+                                    la topología (extremo derecho).</li>
+                                <li><strong>Navegación al Escritorio:</strong> Dentro de la ventana de configuración, se
+                                    selecciona la pestaña Desktop.</li>
+                                <li><strong>Entorno de Aplicaciones:</strong> Se visualiza el panel de herramientas
+                                    disponibles para el usuario final en la red 192.168.3.0.</li>
+                                <li><strong>Acceso a la Terminal:</strong> Se selecciona el ícono de <strong>Command
+                                        Prompt</strong>. Desde aquí se realizará la prueba de fuego: enviar tráfico de
+                                    regreso hacia la PC-A para asegurar que el túnel IPsec funciona correctamente en
+                                    ambos sentidos.</li>
+                            </ol>
+                            <div class="info-box"
+                                style="border-color: var(--c-cyan); background: rgba(0,255,255,0.03); margin-top: 10px;">
+                                <p style="color:var(--c-cyan);"><i class="fas fa-bullseye"></i> <strong>Objetivo Técnico
+                                        de la Captura:</strong></p>
+                                <p>En esta etapa, el entorno está listo para ejecutar el comando de diagnóstico final.
+                                    Esto sirve para validar que la <strong>ACL 110</strong> configurada en el Router R3
+                                    identifica correctamente el tráfico "interesante" y lo encapsula hacia el Router R1.
+                                </p>
+                                <p style="margin-top:8px;"><strong>Valores a validar:</strong></p>
+                                <ul class="glowing-list">
+                                    <li>IP de origen (PC-C): <strong>192.168.3.10</strong></li>
+                                    <li>IP de destino (PC-A): <strong>192.168.1.10</strong></li>
+                                </ul>
+                            </div>
+                            <img src="img/actividad6/evidencia14.png" alt="Evidencia 14 - PC-C Desktop"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                        </div>
+
+                        <!-- Evidencia 15 -->
+                        <div class="info-box" style="border-color: var(--c-violet); margin-top: 15px;" id="ev15">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-violet);"></i> Evidencia 15:
+                                    Interfaz Física de PC-C</strong></p>
+                            <p><strong>Descripción del Proceso:</strong></p>
+                            <ol class="glowing-list">
+                                <li>Se inicia haciendo clic izquierdo sobre el ícono de la <strong>PC-C</strong> en el
+                                    área de trabajo (lado derecho de la topología).</li>
+                                <li>Al abrirse la ventana, se visualiza por defecto la pestaña
+                                    <strong>Physical</strong>, donde se muestra el chasis de la computadora.
+                                </li>
+                                <li>En esta vista se valida que el equipo esté encendido y que el cable de red esté
+                                    conectado correctamente al puerto FastEthernet.</li>
+                            </ol>
+                            <img src="img/actividad6/evidencia15.png" alt="Evidencia 15 - PC-C Ping Exitoso"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                            <div class="info-box"
+                                style="border-color: var(--c-cyan); background: rgba(0,255,255,0.03); margin-top: 10px;">
+                                <p style="color:var(--c-cyan);"><i class="fas fa-check-circle"></i> <strong>Valores de
+                                        Referencia:</strong></p>
+                                <ul class="glowing-list">
+                                    <li>IP Address: <strong>192.168.3.10</strong></li>
+                                    <li>Default Gateway: <strong>192.168.3.1</strong></li>
+                                    <li>Resultado del Ping a PC-A (192.168.1.10): <strong style="color:var(--c-cyan);">4
+                                            Received, 0 Lost (100% success)</strong> — ✅ Túnel IPsec funcionando</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- PASO 7 -->
+                        <h3 id="p7">Paso 7: Verificación final de la seguridad del túnel</h3>
+
+                        <!-- Evidencia 16 -->
+                        <div class="info-box" style="border-color: var(--c-cyan); margin-top: 20px;" id="ev16">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-cyan);"></i> Evidencia 16:
+                                    Verificación final de la seguridad del túnel</strong></p>
+                            <p><strong>Descripción Técnica:</strong> Esta captura muestra la ejecución del comando de
+                                diagnóstico avanzado en el Router R1 para auditar el estado de la Asociación de
+                                Seguridad (SA) de IPsec. Los puntos clave que validan el éxito de la práctica son:</p>
+                            <ul class="glowing-list">
+                                <li><strong>Identificación del Túnel:</strong> Se confirma que el tráfico "protegido"
+                                    corresponde al flujo entre la red local <strong>192.168.1.0/24</strong> (origen) y
+                                    la red remota <strong>192.168.3.0/24</strong> (destino).</li>
+                                <li><strong>Puntos Finales (Endpoints):</strong> Se identifica correctamente al par
+                                    remoto con la dirección IP pública <strong>209.165.200.1</strong> (Router R3) a
+                                    través del puerto 500.</li>
+                                <li><strong>Prueba de Cifrado Real:</strong> La evidencia más importante son los
+                                    contadores de paquetes: se registran <strong>7 paquetes encapsulados y
+                                        encriptados</strong> (#pkts encaps: 7, #pkts encrypt: 7) y <strong>6 paquetes
+                                        recibidos y descifrados</strong> (#pkts decaps: 6, #pkts decrypt: 6). Esto
+                                    demuestra que el ping realizado anteriormente no viajó como texto plano, sino que
+                                    fue procesado por el motor de seguridad del router.</li>
+                                <li><strong>Protocolo de Seguridad:</strong> Se confirma el uso de <strong>ESP</strong>
+                                    (Encapsulating Security Payload) mediante la presencia de los identificadores de
+                                    seguridad de entrada y salida (inbound/outbound esp sas).</li>
+                            </ul>
+                            <img src="img/actividad6/evidencia16.png" alt="Evidencia 16 - show crypto ipsec sa"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                            <p style="margin-top:10px;"><strong>Código Utilizado:</strong></p>
+                            <div
+                                style="background:#1e1e1e; padding:15px; border-radius:5px; font-family:monospace; color:#66d9ef;">
+                                Router>enable<br>
+                                Router#show crypto ipsec sa<br>
+                                # Este comando permite visualizar los contadores de encriptación<br>
+                                # y confirmar que el túnel está procesando tráfico de forma segura.
+                            </div>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- PASO 8 -->
+                        <h3 id="p8">Paso 8: Visualización de la Topología Final</h3>
+
+                        <!-- Evidencia 17 -->
+                        <div class="info-box" style="border-color: var(--c-purple); margin-top: 20px;" id="ev17">
+                            <p><strong><i class="fas fa-camera" style="color:var(--c-purple);"></i> Evidencia 17:
+                                    Visualización de la Topología Final</strong></p>
+                            <p><strong>Descripción del Proceso:</strong></p>
+                            <ol class="glowing-list">
+                                <li>Se muestra la vista general del área de trabajo en Cisco Packet Tracer con la
+                                    topología <strong>completamente operativa</strong>.</li>
+                                <li><strong>La red se compone de tres segmentos principales:</strong> la LAN 1 (Sitio
+                                    R1), la Nube/ISP (Sitio Central) y la LAN 3 (Sitio R3).</li>
+                                <li>Se integró un elemento gráfico (rectángulo verde) etiquetado como <strong>"IPSec VPN
+                                        Tunnel"</strong> para representar la conexión lógica segura que se estableció
+                                    entre los routers perimetrales a través de la infraestructura pública.</li>
+                            </ol>
+                            <img src="img/actividad6/evidencia17.png" alt="Evidencia 17 - Topología Final"
+                                style="width:100%; border-radius:8px; margin-top:12px;">
+                            <p style="margin-top:12px;"><strong>Análisis Técnico de la Red:</strong></p>
+                            <ul class="glowing-list">
+                                <li><strong>Estado de los Enlaces:</strong> Todos los indicadores de las interfaces
+                                    (triángulos verdes) se encuentran en estado <strong>UP</strong>, lo que confirma que
+                                    la capa física y de enlace de datos está funcionando correctamente.</li>
+                                <li><strong>Direccionamiento:</strong> Se validan las puertas de enlace (192.168.1.1 y
+                                    192.168.3.1) y las IPs de los terminales (192.168.1.10 y 192.168.3.10) que fueron
+                                    configuradas en los pasos previos.</li>
+                                <li><strong>Simulación de Tráfico:</strong> Se observa un sobre de color rosa en el
+                                    Switch0, indicando que hay tráfico de red activo fluyendo hacia el túnel para ser
+                                    encapsulado por el Router R1.</li>
+                            </ul>
+                        </div>
+
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- CONCLUSIÓN -->
+                    <article class="article-body" id="conclusion">
+                        <h2><i class="fas fa-brain"></i> Conclusión</h2>
+                        <div class="info-box" style="background: rgba(0,255,0,0.05); border-color: #0f0;">
+                            <p>Con la implementación de este proyecto, se logró interconectar dos redes privadas
+                                geográficamente distribuidas de manera segura. Mediante la configuración de políticas
+                                ISAKMP y el uso de IPSec, se garantizó la confidencialidad e integridad de los datos,
+                                demostrando que es posible utilizar una red pública (ISP) para el transporte de
+                                información sensible sin comprometer la seguridad de la organización.</p>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- 4. REFLEXIÓN TÉCNICA DEL ESTUDIANTE (Requisito Rúbrica) -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-brain"></i> 4. REFLEXIÓN TÉCNICA DEL ESTUDIANTE</h2>
+                        <div class="info-box" style="background: rgba(0,255,0,0.05); border-color: #0f0;">
+                            <h4 style="margin-top:0; color: #0f0;"><i class="fas fa-user-graduate"></i> OPINIÓN
+                                PERSONAL:</h4>
+                            <p>
+                                La implementación de una VPN IPsec Site-to-Site me permitió comprender a fondo cómo
+                                funciona la seguridad perimetral en entornos reales. Más allá de los comandos, entendí
+                                que la <strong>criptografía no es opcional</strong>: cualquier organización que
+                                transmita
+                                datos sensibles entre sitios sin cifrado está exponiendo su información a
+                                interceptaciones
+                                pasivas en la red pública.
+                            </p>
+                            <p style="margin-top:10px;">
+                                Lo más desafiante fue configurar correctamente las <strong>fases ISAKMP e IPsec</strong>
+                                en
+                                ambos extremos. Descubrí que cualquier discrepancia mínima — como usar AES-128 en R1 y
+                                AES-256 en R3, o definir la ACL en dirección contraria — hace que el túnel simplemente
+                                no se establezca, sin un mensaje de error claro. Esta experiencia me enseñó la
+                                importancia
+                                de la <strong>documentación precisa y la verificación sistemática</strong> en
+                                administración
+                                de redes.
+                            </p>
+                            <p style="margin-top:10px;">
+                                Vinculando esto con escenarios reales: empresas como PEMEX, bancos o instituciones de
+                                salud usan exactamente este tipo de tecnología para proteger comunicaciones entre
+                                sucursales. Sin VPNs correctamente configuradas, un atacante con acceso a la red del ISP
+                                podría realizar un ataque <strong>Man-in-the-Middle</strong> y leer el tráfico en texto
+                                plano.
+                            </p>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- 5. REFERENCIAS TÉCNICAS (Requisito Rúbrica) -->
+                    <article class="article-body">
+                        <h2><i class="fas fa-book"></i> 5. REFERENCIAS TÉCNICAS</h2>
+                        <ol class="glowing-list" style="font-size: 0.9rem; line-height: 2rem;">
+                            <li>Cisco Systems. (2023). <em>Cisco IOS Security Command Reference: Commands A to C</em>.
+                                Cisco Press. <a
+                                    href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book.html"
+                                    target="_blank" style="color:var(--c-cyan);">cisco.com</a></li>
+                            <li>Stallings, W. (2017). <em>Cryptography and Network Security: Principles and
+                                    Practice</em> (7th ed.). Pearson Education.</li>
+                            <li>RFC 4301 — Kent, S. & Seo, K. (2005). <em>Security Architecture for the Internet
+                                    Protocol (IPsec)</em>. Internet Engineering Task Force (IETF). <a
+                                    href="https://datatracker.ietf.org/doc/html/rfc4301" target="_blank"
+                                    style="color:var(--c-cyan);">datatracker.ietf.org</a></li>
+                            <li>RFC 2409 — Harkins, D. & Carrel, D. (1998). <em>The Internet Key Exchange (IKE)</em>.
+                                IETF.</li>
+                            <li>Cisco Networking Academy. (2024). <em>CCNA Security: Implementing Network Security</em>.
+                                Cisco Press.</li>
+                        </ol>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > FRANCISCO JAVIER CRUZ JUAREZ (177622) > ACTIVIDAD 06 > IPSEC VPN >
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // PDF Export: opens the static pre-generated PDF.
+    </script>
+</body>
+
+</html>
