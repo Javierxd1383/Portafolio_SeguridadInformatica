@@ -603,9 +603,17 @@
                                 <span><i class="fas fa-check-circle" style="color:var(--c-green);"></i> <strong
                                         style="color:var(--c-green);">3</strong> / 18 Labs</span>
                             </div>
-                            <button onclick="dlPDF()" id="bpdf" class="pdf-btn"
-                                style="display:inline-flex;align-items:center;gap:7px;cursor:pointer;border:none;padding:9px 18px;font-family:'Orbitron';font-size:.75rem;"><i
-                                    class="fas fa-file-pdf"></i> DESCARGAR PDF</button>
+                            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                                <button onclick="dlPDF()" id="bpdf" class="pdf-btn"
+                                    style="display:inline-flex;align-items:center;gap:7px;cursor:pointer;border:none;padding:9px 18px;font-family:'Orbitron';font-size:.75rem;"><i
+                                        class="fas fa-file-pdf"></i> GENERAR PDF</button>
+                                <a href="Pdfs/act08_Equipo4.pdf" download="act08_Equipo4.pdf"
+                                    style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-family:'Orbitron';font-size:.75rem;border-radius:8px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.3);color:#00d4ff;text-decoration:none;transition:all .2s;"
+                                    onmouseover="this.style.background='rgba(0,212,255,.15)'"
+                                    onmouseout="this.style.background='rgba(0,212,255,.08)'">
+                                    <i class="fas fa-download"></i> VER PDF ORIGINAL
+                                </a>
+                            </div>
                         </header>
                         <div class="tech-divider"></div>
                         <div class="lab-progress-wrap">
