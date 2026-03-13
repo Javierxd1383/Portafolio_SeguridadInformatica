@@ -198,7 +198,8 @@
     /* ── QUIZ ── */
     .qz-wrap {
       max-width: 720px;
-      margin: 0 auto
+      margin: 0 auto;
+      position: relative
     }
 
     .qz-progress-track {
@@ -927,6 +928,123 @@
       transform: translateY(-2px)
     }
 
+    /* \u2500\u2500 GOOGLE-STYLE TOOLTIP CARD \u2500\u2500 */
+    .qz-modal-overlay {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding: 0 0 16px 0;
+      pointer-events: none
+    }
+    .qz-modal-overlay.open {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start
+    }
+    .qz-modal-card {
+      pointer-events: all;
+      background: #fff;
+      border-radius: 16px;
+      max-width: 360px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.12);
+      animation: tooltipSlideUp .3s cubic-bezier(.34,1.56,.64,1);
+      border-left: 4px solid #4285f4;
+      overflow: hidden
+    }
+    .qz-modal-card.ok   { border-left-color: #34a853 }
+    .qz-modal-card.fail { border-left-color: #ea4335 }
+    .qz-modal-card.timeout { border-left-color: #fbbc04 }
+    @keyframes tooltipSlideUp {
+      from { opacity:0; transform: translateY(20px) }
+      to   { opacity:1; transform: translateY(0) }
+    }
+    .qz-modal-body {
+      padding: 18px 20px 14px
+    }
+    .qz-modal-verdict-title {
+      font-size: .78rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-family: 'Exo 2', sans-serif;
+      letter-spacing: .5px
+    }
+    .qz-modal-verdict-title.ok      { color: #34a853 }
+    .qz-modal-verdict-title.fail    { color: #ea4335 }
+    .qz-modal-verdict-title.timeout { color: #f4a200 }
+    .qz-modal-summary {
+      font-size: .84rem;
+      color: #3c4043;
+      line-height: 1.65;
+      font-family: 'Exo 2', Arial, sans-serif;
+      margin-bottom: 14px
+    }
+    .qz-modal-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 14px
+    }
+    .qz-modal-step {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      opacity: 0;
+      animation: stepIn .35s forwards
+    }
+    @keyframes stepIn {
+      to { opacity: 1 }
+    }
+    .qz-modal-step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .62rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-family: 'Exo 2', sans-serif
+    }
+    .qz-modal-step-num.ok      { background: #e6f4ea; color: #34a853 }
+    .qz-modal-step-num.fail    { background: #fce8e6; color: #ea4335 }
+    .qz-modal-step-num.timeout { background: #fef7e0; color: #f4a200 }
+    .qz-modal-step-text {
+      font-size: .8rem;
+      color: #5f6368;
+      line-height: 1.55;
+      padding-top: 2px;
+      font-family: 'Exo 2', Arial, sans-serif
+    }
+    .qz-modal-footer {
+      padding: 0 20px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end
+    }
+    .qz-modal-continue {
+      background: #1a73e8;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 24px;
+      font-size: .84rem;
+      font-weight: 600;
+      font-family: 'Exo 2', sans-serif;
+      cursor: pointer;
+      transition: background .2s, box-shadow .2s;
+      letter-spacing: .3px
+    }
+    .qz-modal-continue:hover {
+      background: #1557b0;
+      box-shadow: 0 2px 8px rgba(26,115,232,.35)
+    }
+
     /* Results */
     .qz-result {
       text-align: center;
@@ -1293,9 +1411,27 @@
       transition: .2s
     }
 
+    .rk-email-cell {
+      display: inline-block;
+      max-width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      font-size: .72rem;
+      color: #888;
+    }
+
+    #rk-body {
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(244, 162, 0, .3) transparent;
+      padding-bottom: 5px;
+    }
+
     .rk-pos {
       font-family: 'Orbitron', sans-serif;
-      font-size: .85rem;
+      font-size: .75rem;
       color: #555
     }
 
@@ -2118,8 +2254,13 @@
                         personales. Resultados guardados de forma an&#243;nima en tu navegador (localStorage).</div>
                     </div>
                     <div class="qz-name-wrap">
-                      <label for="qz-pname">Nombre para el ranking (opcional):</label>
-                      <input id="qz-pname" type="text" maxlength="20" placeholder="Participante an&#243;nimo"
+                      <label for="qz-pname">Nombre <span style="color:var(--pink)">*</span></label>
+                      <input id="qz-pname" type="text" maxlength="40" placeholder="Tu nombre"
+                        class="qz-name-input">
+                    </div>
+                    <div class="qz-name-wrap">
+                      <label for="qz-pemail">Correo electr&#243;nico <span style="color:var(--pink)">*</span></label>
+                      <input id="qz-pemail" type="email" maxlength="60" placeholder="ejemplo@correo.com"
                         class="qz-name-input">
                     </div>
                     <button class="qz-btn-start" onclick="startQ()"><i class="fas fa-play"></i> INICIAR QUIZ</button>
@@ -2156,14 +2297,7 @@
                       <span class="qz-btn-sublabel">Es un mensaje real</span>
                     </button>
                   </div>
-                  <div class="qz-feedback" id="qz-feedback">
-                    <div class="qz-fb-head" id="qz-fb-head">
-                      <span class="qz-fb-icon" id="qz-fb-icon"></span>
-                      <span class="qz-fb-title" id="qz-fb-title"></span>
-                    </div>
-                    <div class="qz-fb-body" id="qz-fb-body"></div>
-                  </div>
-                  <button class="qz-btn-next" id="qz-btn-next" onclick="nextQ()"></button>
+                  <!-- MODAL FEEDBACK: opened by pickA() -->
                 </div>
 
                 <!-- RESULTS -->
@@ -2209,6 +2343,29 @@
                   </div>
                 </div>
 
+              </div>
+
+              <!-- MODAL FEEDBACK POPUP -->
+              <div class="qz-modal-overlay" id="qz-modal-overlay" onclick="handleOverlayClick(event)">
+                <div class="qz-modal-card" id="qz-modal-card">
+                  <div class="qz-modal-header" id="qz-modal-header">
+                    <div class="qz-modal-icon" id="qz-modal-icon"></div>
+                    <div class="qz-modal-verdict">
+                      <div class="qz-modal-verdict-title" id="qz-modal-verdict-title"></div>
+                      <div class="qz-modal-verdict-sub" id="qz-modal-verdict-sub"></div>
+                    </div>
+                  </div>
+                  <div class="qz-modal-body">
+                    <div class="qz-modal-summary" id="qz-modal-summary"></div>
+                    <div class="qz-modal-steps-lbl">&#x1F50D; AN&#193;LISIS PASO A PASO</div>
+                    <div class="qz-modal-steps" id="qz-modal-steps"></div>
+                    <div class="qz-modal-vector" id="qz-modal-vector"></div>
+                  </div>
+                  <div class="qz-modal-footer">
+                    <div class="qz-modal-pts-badge" id="qz-modal-pts-badge"></div>
+                    <button class="qz-modal-continue" id="qz-modal-continue" onclick="closeModal()"></button>
+                  </div>
+                </div>
               </div>
             </article>
           </div>
@@ -2349,7 +2506,7 @@
       }
     ];
 
-    let cQ = 0, score = 0, tmr = null, tLeft = 30, results = [], pname = '', t0 = 0;
+    let cQ = 0, score = 0, tmr = null, tLeft = 30, results = [], pname = '', pemail = '', t0 = 0;
 
     function showTab(id, btn) {
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
@@ -2360,7 +2517,12 @@
     }
 
     function startQ() {
-      pname = document.getElementById('qz-pname').value.trim() || 'Participante';
+      const nameVal = document.getElementById('qz-pname').value.trim();
+      const emailVal = document.getElementById('qz-pemail').value.trim();
+      if (!nameVal) { alert('Por favor ingresa tu nombre completo.'); document.getElementById('qz-pname').focus(); return; }
+      if (!emailVal || !/^[^@]+@[^@]+\.[^@]+$/.test(emailVal)) { alert('Por favor ingresa un correo electr\u00f3nico v\u00e1lido.'); document.getElementById('qz-pemail').focus(); return; }
+      pname = nameVal;
+      pemail = emailVal;
       document.getElementById('qz-start-box').style.display = 'none';
       document.getElementById('qz-active-box').style.display = 'block';
       cQ = 0; score = 0; results = [];
@@ -2375,12 +2537,6 @@
       document.getElementById('qz-tag').innerHTML = q.tag;
       document.getElementById('qz-question').innerHTML = q.title;
       document.getElementById('qz-content-inner').innerHTML = q.html;
-      const fb = document.getElementById('qz-feedback');
-      fb.className = 'qz-feedback';
-      document.getElementById('qz-fb-head').className = 'qz-fb-head';
-      const nb = document.getElementById('qz-btn-next');
-      nb.className = 'qz-btn-next';
-      nb.textContent = cQ < 9 ? 'Siguiente escenario →' : 'Ver mis resultados →';
       ['btn-phish', 'btn-legit'].forEach(id => {
         const b = document.getElementById(id);
         b.disabled = false;
@@ -2415,26 +2571,70 @@
       if (chosen === 1) document.getElementById('btn-phish').classList.add('sel');
       if (chosen === 0) document.getElementById('btn-legit').classList.add('sel');
       document.getElementById('qz-pts').textContent = score + ' pts';
-      const icon = ok ? '&#x2705;' : (chosen === -1 ? '&#x23F1;&#xFE0F;' : '&#x274C;');
-      const state = ok ? 'ok' : (chosen === -1 ? 'timeout' : 'fail');
-      const title = ok ? '&#161;Correcto!' : (chosen === -1 ? 'Tiempo agotado' : 'Incorrecto');
-      const head = document.getElementById('qz-fb-head');
-      head.className = 'qz-fb-head ' + state;
-      document.getElementById('qz-fb-icon').innerHTML = icon;
-      const ft = document.getElementById('qz-fb-title');
-      ft.className = 'qz-fb-title ' + state;
-      ft.innerHTML = title;
-      let bodyHTML = (ok ? q.fc : q.fw);
-      if (q.flags && q.flags.length) {
-        bodyHTML += '<div class="qz-flags">' + (q.flags.map(f => `<div class="qz-flag"><i class="fas fa-exclamation-triangle qz-flag-icon"></i>${f}</div>`).join('')) + '</div>';
-      }
-      bodyHTML += `<div class="qz-vector"><i class="fas fa-tag"></i> Vector: <b>${q.vector}</b> &bull; Tiempo: ${elapsed}s</div>`;
-      document.getElementById('qz-fb-body').innerHTML = bodyHTML;
-      document.getElementById('qz-feedback').classList.add('show');
-      document.getElementById('qz-btn-next').classList.add('show');
+
+      const state   = ok ? 'ok' : (chosen === -1 ? 'timeout' : 'fail');
+      const verdict = ok ? '&#x2705; &#161;Correcto!' : (chosen === -1 ? '&#x23F1; Se acab&#243; el tiempo' : '&#x274C; Incorrecto');
+
+      // Force re-animation by cloning the card
+      const overlay = document.getElementById('qz-modal-overlay');
+      const oldCard = document.getElementById('qz-modal-card');
+      const clone = oldCard.cloneNode(false); // shallow clone — we'll fill it
+      clone.id = 'qz-modal-card';
+      clone.className = 'qz-modal-card ' + state;
+
+      // Verdict title
+      const vt = document.createElement('div');
+      vt.className = 'qz-modal-verdict-title ' + state;
+      vt.innerHTML = verdict;
+
+      // Summary
+      const sm = document.createElement('div');
+      sm.className = 'qz-modal-summary';
+      sm.innerHTML = ok ? q.fc : q.fw;
+
+      // Steps
+      const stepsEl = document.createElement('div');
+      stepsEl.className = 'qz-modal-steps';
+      const steps = (q.flags && q.flags.length) ? q.flags : ['Revisa siempre el remitente del mensaje.', 'Verifica que el dominio sea oficial.', 'Nunca act\u00faes bajo urgencia sin verificar por otro canal.'];
+      steps.forEach((step, i) => {
+        const row = document.createElement('div');
+        row.className = 'qz-modal-step';
+        row.style.animationDelay = (i * 0.1 + 0.05) + 's';
+        row.innerHTML = `<div class="qz-modal-step-num ${state}">${i + 1}</div><div class="qz-modal-step-text">${step}</div>`;
+        stepsEl.appendChild(row);
+      });
+
+      // Continue button
+      const footer = document.createElement('div');
+      footer.className = 'qz-modal-footer';
+      const btn = document.createElement('button');
+      btn.className = 'qz-modal-continue';
+      btn.textContent = cQ < 9 ? 'Siguiente \u2192' : 'Ver resultados \u2192';
+      btn.onclick = closeModal;
+      footer.appendChild(btn);
+
+      // Assemble body
+      const body = document.createElement('div');
+      body.className = 'qz-modal-body';
+      body.appendChild(vt);
+      body.appendChild(sm);
+      body.appendChild(stepsEl);
+      clone.appendChild(body);
+      clone.appendChild(footer);
+
+      oldCard.parentNode.replaceChild(clone, oldCard);
+      overlay.classList.add('open');
     }
 
-    function nextQ() { cQ++; if (cQ < 10) renderQ(); else showResults(); }
+    function closeModal() {
+      document.getElementById('qz-modal-overlay').classList.remove('open');
+      cQ++;
+      if (cQ < 10) renderQ(); else showResults();
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('qz-modal-overlay')) closeModal();
+    }
 
     function showResults() {
       document.getElementById('qz-active-box').style.display = 'none';
@@ -2472,7 +2672,7 @@
       // Control de intentos: contar cuantas veces ha jugado este alias
       const prevAttempts = rk.filter(r => r.n === pname).length;
       const attempts = prevAttempts + 1;
-      rk.push({ n: pname, s: score, d: new Date().toLocaleDateString('es-MX'), r: results.map(x => x.ok ? 1 : 0), t: avgTime, a: attempts });
+      rk.push({ n: pname, e: pemail, s: score, d: new Date().toLocaleDateString('es-MX'), r: results.map(x => x.ok ? 1 : 0), t: avgTime, a: attempts });
       rk.sort((a, b) => b.s - a.s);
       if (rk.length > 20) rk = rk.slice(0, 20);
       localStorage.setItem('pq_rk', JSON.stringify(rk));
@@ -2500,14 +2700,15 @@
         document.getElementById('rk-hard').textContent = '#' + (fails.indexOf(Math.max(...fails)) + 1);
       } else document.getElementById('rk-hard').textContent = '&#8212;';
       const medals = ['&#x1F947;', '&#x1F948;', '&#x1F949;'];
-      document.getElementById('rk-body').innerHTML = `<table class="rk-table"><thead><tr><th>#</th><th>Participante</th><th>Puntaje</th><th>Nivel</th><th>T.Prom</th><th>Intentos</th><th>Racha</th><th>Fecha</th></tr></thead><tbody>${rk.map((r, i) => {
+      document.getElementById('rk-body').innerHTML = `<table class="rk-table"><thead><tr><th>#</th><th>Participante</th><th>Correo</th><th>Puntaje</th><th>Nivel</th><th>T.Prom</th><th>Intentos</th><th>Racha</th><th>Fecha</th></tr></thead><tbody>${rk.map((r, i) => {
         const dot = r.s >= 80 ? 'var(--green)' : r.s >= 50 ? 'var(--gold)' : 'var(--red)';
         const lvl = r.s >= 80 ? 'Bajo Riesgo' : r.s >= 50 ? 'Riesgo Medio' : 'Alto Riesgo';
         const pos = i < 3 ? medals[i] : '#' + (i + 1);
         const tprom = r.t != null ? r.t + 's' : '&#8212;';
         const att = r.a || 1;
         const minibar = r.r ? '<div class="rk-mini-bar">' + r.r.map(v => `<div class="rk-mini-sq ${v ? 'ok' : 'fail'}"></div>`).join('') + '</div>' : [''];
-        return `<tr><td><span class="rk-pos">${pos}</span></td><td style="color:#ddd">${r.n}</td><td><span class="rk-score">${r.s} pts</span></td><td><span class="rk-dot" style="background:${dot}"></span><span style="font-size:.75rem">${lvl}</span></td><td style="color:#aaa;font-size:.8rem;font-family:monospace">${tprom}</td><td style="text-align:center"><span style="background:rgba(0,255,255,.06);border:1px solid rgba(0,255,255,.18);border-radius:999px;padding:2px 8px;font-size:.72rem;color:var(--cyan)">${att}</span></td><td>${minibar}</td><td style="color:#666;font-size:.73rem">${r.d}</td></tr>`;
+        const emailCell = r.e ? `<span class="rk-email-cell" title="${r.e}">${r.e}</span>` : '<span style="color:#555">&#8212;</span>';
+        return `<tr><td><span class="rk-pos">${pos}</span></td><td style="color:#ddd;white-space:nowrap">${r.n}</td><td>${emailCell}</td><td><span class="rk-score">${r.s} pts</span></td><td><span class="rk-dot" style="background:${dot}"></span><span style="font-size:.75rem;white-space:nowrap">${lvl}</span></td><td style="color:#aaa;font-size:.8rem;font-family:monospace">${tprom}</td><td style="text-align:center"><span style="background:rgba(0,255,255,.06);border:1px solid rgba(0,255,255,.18);border-radius:999px;padding:2px 8px;font-size:.72rem;color:var(--cyan)">${att}</span></td><td>${minibar}</td><td style="color:#666;font-size:.73rem;white-space:nowrap">${r.d}</td></tr>`;
       }).join('')
         }</tbody></table>`;
     }
