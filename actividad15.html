@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 15 :: Campaña de Phishing SET</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Fondo Animado -->
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <!-- Navegación -->
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> ACTIVIDADES</a>
+                <a href="proyectos.html" class="nav-btn color-3"> PROYECTOS</a>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+
+                    <!-- ENCABEZADO DEL ARTÍCULO -->
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 15 | RED TEAM REPORT</div>
+                        <h1 style="font-family:'Orbitron'; font-size: 2.0rem; margin-bottom: 10px; color: #ff4444;">CREANDO UNA CAMPAÑA DE PHISHING: SET</h1>
+                        <p style="color:#aaa;">(Social Engineer Toolkit)</p>
+
+                        <div class="team-box" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid #ff4444;">
+                            <h4 style="color: #ff4444; margin-bottom: 10px;">PRESENTADO POR: EQUIPO 4</h4>
+                            <ul style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                                <li><i class="fas fa-user-check" style="color: #ff4444;"></i> <strong>179033</strong> - Alonso Castillo Omar Karim</li>
+                                <li><i class="fas fa-user-check" style="color: #ff4444;"></i> <strong>177622</strong> - Cruz Juárez Francisco Javier</li>
+                                <li><i class="fas fa-user-check" style="color: #ff4444;"></i> <strong>175031</strong> - Espinoza Aguilar Brian Salvador</li>
+                                <li><i class="fas fa-user-check" style="color: #ff4444;"></i> <strong>177685</strong> - Martínez Lara Santiago de la Cruz</li>
+                                <li><i class="fas fa-user-check" style="color: #ff4444;"></i> <strong>173030</strong> - Sánchez Ramírez Mayeli</li>
+                                <li><i class="fas fa-user-check" style="color: #ff4444;"></i> <strong>177263</strong> - Sánchez Zavala Alan Gilberto</li>
+                            </ul>
+                            <div style="font-size: 0.9rem; color: #ddd; display: flex; flex-direction: column; gap: 5px;">
+                                <p><strong>Materia:</strong> Seguridad Informática</p>
+                                <p><strong>Profesor:</strong> Servando Contreras López</p>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 20px; padding: 15px; border-left: 3px solid var(--c-cyan); background: rgba(0, 255, 255, 0.05); border-radius: 8px;">
+                            <p style="margin: 0; font-style: italic; color: var(--c-cyan);">"La ingeniería social es la herramienta, el conocimiento es la defensa, la seguridad es nuestra prioridad."</p>
+                        </div>
+
+                        <div style="text-align: right; margin-top: 20px;">
+                            <a href="Pdfs/actividad15.pdf" target="_blank" class="pdf-btn" style="text-decoration: none; display: inline-block; padding: 10px 20px; text-align: center;">
+                                <i class="fas fa-file-pdf"></i> VER PDF ORIGINAL
+                            </a>
+                        </div>
+                        
+                    </header>
+
+                    <!-- CONTENIDO DEL ARTÍCULO -->
+                    <article class="article-body">
+
+                        <!-- 2. RESUMEN EJECUTIVO -->
+                        <h2><i class="fas fa-file-alt"></i> 2. Resumen Ejecutivo</h2>
+                        <div class="info-box">
+                            <p>El presente documento detalla la ejecución de una prueba de concepto (PoC) enfocada en la simulación de una campaña de <em>phishing</em> utilizando <strong>Social-Engineer Toolkit (SET)</strong>. El objetivo principal de esta práctica es demostrar cómo un atacante puede aprovechar servicios legítimos de retransmisión SMTP (en este caso, <strong>Brevo</strong>) para falsificar la identidad de un remitente corporativo ("Soporte Técnico") y enviar correos electrónicos engañosos.</p>
+                            <p>A través de este ejercicio, se evalúa la efectividad de los filtros de correo no deseado actuales y se exponen las vulnerabilidades asociadas con la ingeniería social, concluyendo con recomendaciones estratégicas para mitigar este vector de ataque en entornos organizacionales.</p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- 3. ALCANCE -->
+                        <h2><i class="fas fa-crosshairs"></i> 3. Alcance (Scope)</h2>
+                        <div class="info-box" style="border-color: var(--c-purple);">
+                            <p>Esta simulación está estrictamente limitada a un entorno de pruebas controlado con fines académicos y de concienciación en ciberseguridad.</p>
+                            <ul class="glowing-list">
+                                <li><strong>Vectores evaluados:</strong> Envío de correo electrónico falsificado (E-mail Spoofing) mediante <em>Mass Mailer Attack</em> en SEToolkit.</li>
+                                <li><strong>Herramientas utilizadas:</strong> Kali Linux, Social-Engineer Toolkit (SET), y el servicio de SMTP Relay gratuito de Brevo.</li>
+                                <li><strong>Objetivos:</strong> Un buzón de correo de prueba predeterminado para auditar la recepción y clasificación del mensaje malicioso. No se interactuó con infraestructura crítica, ni se recolectaron credenciales reales de terceros.</li>
+                            </ul>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- 4. METODOLOGÍA -->
+                        <h2><i class="fas fa-project-diagram"></i> 4. Metodología aplicada</h2>
+                        <p>Para la realización de esta prueba de concepto, se siguió una metodología de auditoría de caja blanca (White-box) estructurada en las siguientes fases:</p>
+                        <ol class="glowing-list" style="margin-top: 15px;">
+                            <li><strong>Preparación de Infraestructura:</strong> Registro y verificación de una cuenta en Brevo utilizando el correo remitente (soporte.interno2026@gmail.com) para validar la identidad ante el servicio de <em>relay</em> y asegurar el paso de los correos.</li>
+                            <li><strong>Configuración del Payload:</strong> Uso de SEToolkit en Kali Linux para orquestar el ataque, seleccionando plantillas predefinidas que apelan al sentido de urgencia del usuario.</li>
+                            <li><strong>Ejecución (Delivery):</strong> Inyección de los parámetros de falsificación (remitente falso) y credenciales SMTP en SEToolkit para realizar el envío hacia el objetivo.</li>
+                            <li><strong>Análisis de Resultados:</strong> Verificación de la bandeja de entrada del objetivo para evaluar el comportamiento del proveedor de correo (filtrado, advertencias, clasificación en Spam).</li>
+                        </ol>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- 5. DESARROLLO DE LA PRÁCTICA -->
+                        <h2><i class="fas fa-laptop-code"></i> 5. Desarrollo de la Práctica: Creando una Campaña de Phishing con SET</h2>
+                        
+                        <div class="info-box">
+                            <p>Para llevar a cabo el ataque simulado, el primer paso fundamental es la preparación de la plataforma de envío. Un paso crítico en esta fase es registrarnos en <strong>Brevo</strong> utilizando exactamente la misma dirección de correo que planeamos usar para el ataque: <strong>soporte.interno2026@gmail.com</strong>.</p>
+                            <p>Al completar el registro y la verificación, Brevo identifica esta dirección como legítima y autorizada dentro de su plataforma. Esto nos permite utilizar su infraestructura para mandar el correo de phishing, ya que el servicio "ve" que el remitente está verificado y permite que el mensaje pase sus controles iniciales de seguridad.</p>
+                        </div>
+
+                        <!-- IMAGEN 1 -->
+                        <img src="img/actividad15/evidencia1.png" alt="Evidencia 1" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">Lo primero que haremos será ubicar e iniciar nuestra herramienta en nuestro entorno de ataque. En Kali Linux, abrimos el menú de aplicaciones, buscamos <strong>setoolkit</strong> y lo seleccionamos.</p>
+
+                        <!-- IMAGEN 2 -->
+                        <img src="img/actividad15/evidencia2.png" alt="Evidencia 2" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">Aquí abrimos la terminal y ejecutamos la herramienta con privilegios de superusuario escribiendo el comando <code>sudo setoolkit</code>. Acto seguido, ingresamos la contraseña de nuestra cuenta root (kali) para autorizar la ejecución.</p>
+
+                        <!-- IMAGEN 3 -->
+                        <img src="img/actividad15/evidencia3.png" alt="Evidencia 3" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">Una vez iniciada la herramienta, el sistema nos muestra los términos de servicio. Escribimos la letra <strong>"y"</strong> (yes) y presionamos Enter para aceptar y continuar.</p>
+
+                        <!-- IMAGEN 4 -->
+                        <img src="img/actividad15/evidencia4.png" alt="Evidencia 4" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">En el menú principal de <em>The Social-Engineer Toolkit</em>, seleccionamos la opción <strong>1</strong> correspondiente a <strong>Social-Engineering Attacks</strong> (Ataques de Ingeniería Social).</p>
+
+                        <!-- IMAGEN 5 -->
+                        <img src="img/actividad15/evidencia5.png" alt="Evidencia 5" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">Posteriormente, dentro del menú de vectores de ataque, elegimos la opción <strong>5</strong> para acceder al módulo <strong>Mass Mailer Attack</strong> (Ataque de envío masivo de correos).</p>
+
+                        <!-- IMAGEN 6 -->
+                        <img src="img/actividad15/evidencia6.png" alt="Evidencia 6" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">A continuación, la herramienta nos pregunta si deseamos enviar el correo a un objetivo individual o a una lista. Elegimos la opción <strong>1, E-Mail Attack Single Email Address</strong>, para dirigir nuestro ataque a un solo buzón de prueba.</p>
+
+                        <!-- IMAGEN 7 -->
+                        <img src="img/actividad15/evidencia7.png" alt="Evidencia 7" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">Para el cuerpo del mensaje, optamos por utilizar los recursos incluidos en SET. Seleccionamos la opción <strong>1</strong> para usar una <strong>Pre-Defined Template</strong> (Plantilla predefinida).</p>
+
+                        <!-- IMAGEN 8 -->
+                        <img src="img/actividad15/evidencia8.png" alt="Evidencia 8" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">De la lista de plantillas disponibles, escribimos <strong>5</strong> para seleccionar <strong>"Have you seen this?"</strong> (¿Has visto esto?). Esta plantilla es efectiva porque genera curiosidad y preocupación en el receptor, motivándolo a interactuar con el mensaje.</p>
+
+                        <!-- IMAGEN 9 -->
+                        <img src="img/actividad15/evidencia9.png" alt="Evidencia 9" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">Para que SET pueda enviar el correo a través del servidor legítimo, necesitamos credenciales de acceso. Nos dirigimos al panel de configuración de Brevo, en la sección de "SMTP y API", y hacemos clic en el botón <strong>"Generar una nueva clave SMTP"</strong>.</p>
+
+                        <!-- IMAGEN 10 -->
+                        <img src="img/actividad15/evidencia10.png" alt="Evidencia 10" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">Asignamos un nombre identificativo a nuestra clave, en este caso la nombramos <strong>"Ataque"</strong>, dejamos la variante estándar y damos clic en <strong>Generar</strong>.</p>
+
+                        <!-- IMAGEN 11 -->
+                        <img src="img/actividad15/evidencia11.png" alt="Evidencia 11" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">La plataforma nos arrojará una contraseña extensa y segura. Es crucial copiar y respaldar esta clave generada, ya que la utilizaremos como nuestra contraseña de autenticación SMTP en la terminal.</p>
+
+                        <!-- IMAGEN 12 -->
+                        <img src="img/actividad15/evidencia12.png" alt="Evidencia 12" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">Teniendo a la mano los datos de configuración proporcionados por Brevo (Servidor SMTP: smtp-relay.brevo.com, Puerto: 587, y nuestro usuario de inicio de sesión), regresamos a la terminal de Kali.</p>
+
+                        <!-- IMAGEN 13 -->
+                        <img src="img/actividad15/evidencia13.png" alt="Evidencia 13" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <p style="margin-top: 20px;">En este paso configuramos los parámetros finales del ataque en SEToolkit:</p>
+                        <ul class="glowing-list" style="margin-top: 15px;">
+                            <li><strong>From address:</strong> Definimos el correo falso que queremos que la víctima vea, por ejemplo: <em>soporte.interno2026@gmail.com</em>.</li>
+                            <li><strong>FROM NAME:</strong> Colocamos el alias <em>Soporte Tecnico</em> para dar legitimidad.</li>
+                            <li><strong>Username / Password for open-relay:</strong> Ingresamos nuestro usuario de Brevo y pegamos la clave SMTP generada en los pasos anteriores.</li>
+                            <li><strong>SMTP email server address & Port:</strong> Colocamos <em>smtp-relay.brevo.com</em> y el puerto <em>587</em>.</li>
+                            <li>Finalmente, indicamos que no deseamos bandera de alta prioridad ni adjuntar archivos (no / n). SET finalizará el proceso y enviará el correo con éxito.</li>
+                        </ul>
+
+                        <!-- IMAGEN 14 -->
+                        <img src="img/actividad15/evidencia14.png" alt="Evidencia 14" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <div class="tech-divider"></div>
+
+                        <!-- 6. RESULTADOS (AHORA ES PARTE DEL DESARROLLO) -->
+                        <div class="info-box">
+                            <p>Por último, revisamos el buzón de la cuenta objetivo. Comprobamos que el correo fue recibido exitosamente; sin embargo, las políticas de seguridad del proveedor de correo electrónico detectaron la anomalía en las cabeceras y clasificaron correctamente el mensaje en la carpeta de <strong>"Correo no deseado"</strong>, mostrando advertencias de seguridad al usuario.</p>
+                        </div>
+
+                        <!-- IMAGEN 15 -->
+                        <img src="img/actividad15/evidencia15.png" alt="Evidencia 15" style="width: 100%; max-width: 800px; display: block; margin: 20px auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
+                        <div class="tech-divider"></div>
+
+                        <!-- 6. ANÁLISIS DE IMPACTO -->
+                        <h2><i class="fas fa-chart-pie"></i> 6. Análisis de impacto (modelo CIA)</h2>
+                        <div class="info-box">
+                            <p>Si un ataque de esta naturaleza logra evadir los filtros de spam y engaña a un empleado para que interactúe con el mensaje, el impacto en la organización, evaluado bajo la tríada CIA, es el siguiente:</p>
+                            <ul class="glowing-list" style="margin-top: 15px;">
+                                <li><strong>Confidencialidad (Alto):</strong> Es el pilar más comprometido en el phishing. Si el usuario proporciona sus credenciales en un portal falso, el atacante obtiene acceso no autorizado a sistemas internos, información sensible, datos de clientes o propiedad intelectual.</li>
+                                <li><strong>Integridad (Medio - Alto):</strong> Con credenciales comprometidas o si el correo incluye una carga útil (payload) maliciosa, el atacante podría modificar registros, alterar configuraciones de red, o escalar privilegios dentro de la infraestructura corporativa, corrompiendo la fiabilidad de la información.</li>
+                                <li><strong>Disponibilidad (Medio):</strong> Si el phishing es el vector de entrada para un ataque de Ransomware, los sistemas críticos y líneas de producción podrían ser cifrados, interrumpiendo las operaciones de la empresa y causando tiempo de inactividad significativo.</li>
+                            </ul>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- 7. RECOMENDACIONES TÉCNICAS -->
+                        <h2><i class="fas fa-shield-alt"></i> 7. Recomendaciones técnicas</h2>
+                        <div class="info-box" style="border-color: var(--c-purple);">
+                            <p>Para mitigar el riesgo asociado a la suplantación de identidad y las campañas de phishing, se recomienda implementar los siguientes controles:</p>
+                            <ol class="glowing-list" style="margin-top: 15px;">
+                                <li><strong>Configuración de Registros de Autenticación de Correo:</strong> Implementar de manera estricta los protocolos SPF (Sender Policy Framework), DKIM (DomainKeys Identified Mail) y DMARC (Domain-based Message Authentication, Reporting, and Conformance). Esto asegurará que los dominios corporativos no puedan ser suplantados fácilmente por herramientas externas y ayudará a que los servidores destino rechacen correos falsificados.</li>
+                                <li><strong>Plataformas de Simulación y Concientización:</strong> El error humano es la principal vulnerabilidad en la ingeniería social. Es imperativo desplegar campañas internas continuas utilizando plataformas especializadas (como KnowBe4, Proofpoint o Cofense) para entrenar al personal en la identificación de correos sospechosos y medir el nivel de madurez de la organización ante estas amenazas.</li>
+                                <li><strong>Seguridad Perimetral de Correo (Secure Email Gateway - SEG):</strong> Reforzar las políticas del gateway de correo electrónico para analizar anomalías en las cabeceras (Header Analysis), bloquear dominios recién creados y aplicar sandboxing a enlaces y archivos adjuntos sospechosos antes de que lleguen a la bandeja de entrada del usuario.</li>
+                                <li><strong>Autenticación Multifactor (MFA):</strong> Requerir MFA obligatorio para todos los accesos a sistemas críticos. De este modo, incluso si el phishing logra vulnerar la confidencialidad de la contraseña, el atacante no podrá materializar el acceso sin el segundo factor de autenticación.</li>
+                            </ol>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- 8. TABLA DE HALLAZGOS -->
+                        <h2><i class="fas fa-table"></i> 8. Tabla de Hallazgos</h2>
+                        <div class="table-responsive">
+                            <table class="tech-table">
+                                <thead>
+                                    <tr>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); width: 10%;">ID</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); width: 20%;">Hallazgo</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); width: 10%;">Riesgo</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); width: 30%;">Descripción</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); width: 30%;">Mitigación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">H-01</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Uso de Relay Verificado</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;"><span style="color: #ff4444; font-weight: bold;">Alto</span></td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">El atacante usó una cuenta verificada en Brevo para saltar bloqueos de IP.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Bloqueo de dominios de relay gratuitos en el firewall corporativo.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">H-02</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Suplantación de Nombre</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;"><span style="color: var(--c-yellow); font-weight: bold;">Medio</span></td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">El alias "Soporte Tecnico" induce a error al usuario.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Implementar etiquetas de "Remitente Externo" en el cliente de correo.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">H-03</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Plantillas de Urgencia</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;"><span style="color: var(--c-yellow); font-weight: bold;">Medio</span></td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Uso de frases como "¿Has visto esto?" para forzar el clic.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Programas de concienciación en seguridad de la información.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <!-- REFERENCIAS -->
+                        <h2><i class="fas fa-book-open"></i> Referencias Bibliográficas</h2>
+                        <div class="info-box" style="border-color: var(--c-cyan);">
+                            <ul class="glowing-list">
+                                <li>TrustedSec. (n.d.). <em>The Social-Engineer Toolkit (SET)</em>. Recuperado de <a href="https://github.com/trustedsec/social-engineer-toolkit" target="_blank" style="color: var(--c-purple);">https://github.com/trustedsec/social-engineer-toolkit</a></li>
+                                <li>Chapple, M., Stewart, J. M., & Gibson, D. (2021). <em>CISSP (ISC)2 Certified Information Systems Security Professional Official Study Guide</em>. John Wiley & Sons. (Sección: Ingeniería Social y Modelo CIA).</li>
+                                <li>RFC 7489. (2015). <em>Domain-based Message Authentication, Reporting, and Conformance (DMARC)</em>. Internet Engineering Task Force (IETF).</li>
+                            </ul>
+                        </div>
+
+                    </article>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > EQUIPO 4 > ACTIVIDAD 15 > CAMPAÑA DE PHISHING SET > RED TEAM REPORT >
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>

