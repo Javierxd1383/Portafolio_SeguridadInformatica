@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 17 :: Evaluación de Vulnerabilidades con CVSS v3.1</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Fondo Animado -->
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <!-- Navegación -->
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> ACTIVIDADES</a>
+                <a href="proyectos.html" class="nav-btn color-3"> PROYECTOS</a>
+                <div class="nav-dropdown">
+                    <span class="nav-btn color-hof nav-dropdown-btn">
+                        <i class="fas fa-trophy"></i> HALL OF FAME
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </span>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-header">ROAD TO HALL OF FAME</div>
+                        <div class="dropdown-divider"></div>
+                        <a href="actividad8halloffame.html" class="dropdown-item">
+                            <i class="fas fa-database"></i> SQL Injection
+                            <span class="item-tag">ACTIVO</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 17 | GESTIÓN DE VULNERABILIDADES</div>
+                        <h1
+                            style="font-family:'Orbitron'; font-size: 2.0rem; margin-bottom: 10px; color: var(--c-yellow);">
+                            EVALUACIÓN DE RIESGOS CON CVSS V3.1</h1>
+
+                        <div class="team-box"
+                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid var(--c-yellow);">
+                            <h4 style="color: var(--c-yellow); margin-bottom: 10px;">DATOS DE LA ACTIVIDAD:</h4>
+                            <ul
+                                style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Alonso Castillo Omar Karim - <strong>179033</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Cruz Juárez Francisco Javier - <strong>177622</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Espinoza Aguilar Brian Salvador - <strong>175031</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Martínez Lara Santiago de la Cruz - <strong>177685</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Sánchez Ramírez Mayeli - <strong>173030</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Sánchez Zavala Alan Gilberto - <strong>177263</strong></li>
+                            </ul>
+                            <div
+                                style="font-size: 0.9rem; color: #ddd; display: flex; flex-direction: column; gap: 5px;">
+                                <p><strong>Maestro:</strong> Servando López Contreras</p>
+                                <p><strong>Materia:</strong> CNO V Seguridad Informática</p>
+                                <p><strong>Fecha:</strong> 16 de mayo 2026</p>
+                            </div>
+                        </div>
+
+                        <a href="Pdfs/act17-Equipo4.pdf" target="_blank" class="pdf-btn"
+                            style="text-decoration: none; display: inline-block; padding: 10px 20px; text-align: center; margin-top: 20px;">
+                            <i class="fas fa-file-pdf"></i> VER PDF ORIGINAL
+                        </a>
+                    </header>
+
+                    <article class="article-body">
+                        <h2><i class="fas fa-bullseye"></i> OBJETIVO GENERAL</h2>
+                        <div class="info-box">
+                            <p>Aplicar el modelo CVSS v3.1 para evaluar la gravedad de vulnerabilidades reales,
+                                interpretando correctamente sus métricas base y justificando la priorización del riesgo
+                                en un contexto organizacional.</p>
+                        </div>
+
+                        <h2><i class="fas fa-list-check"></i> OBJETIVOS ESPECÍFICOS</h2>
+                        <ul class="glowing-list">
+                            <li>Identificar y comprender las métricas base de CVSS (AV, AC, PR, UI, S, C, I, A).</li>
+                            <li>Construir correctamente una cadena vector CVSS a partir de un escenario técnico.</li>
+                            <li>Calcular e interpretar la puntuación de riesgo para priorizar acciones de mitigación.</li>
+                        </ul>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-book"></i> CONTENIDO</h2>
+                        <ul style="list-style: none; padding-left: 10px; font-family: monospace; color: #ccc; line-height: 1.8; margin-bottom: 30px;">
+                            <li>1. INTRODUCCIÓN .................................... 2</li>
+                            <li>2. ESCENARIO DE EVALUACIÓN .......................... 2</li>
+                            <li>3. DESARROLLO TÉCNICO ............................... 3</li>
+                            <li style="padding-left: 20px;">3.1 Construcción del Vector CVSS ................. 3</li>
+                            <li style="padding-left: 20px;">3.2 Justificación de las Métricas ................ 3</li>
+                            <li>4. INTERPRETACIÓN TÉCNICA .......................... 4</li>
+                            <li>5. CÁLCULO DE PUNTUACIÓN ........................... 5</li>
+                            <li style="padding-left: 20px;">Evidencia Visual ................................. 5</li>
+                            <li>6. CONCLUSIÓN ...................................... 6</li>
+                        </ul>
+
+                    <article class="article-body">
+                        <h2><i class="fas fa-info-circle"></i> 1. INTRODUCCIÓN</h2>
+                        <div class="info-box">
+                            <p>El objetivo de esta actividad es aplicar el estándar internacional <strong>CVSS v3.1 (Common Vulnerability Scoring System)</strong> para cuantificar la severidad de una vulnerabilidad detectada en un entorno web interno. Este proceso permite a las organizaciones priorizar la mitigación de riesgos basándose en datos técnicos objetivos y medibles.</p>
+                        </div>
+
+                        <h2><i class="fas fa-desktop"></i> 2. ESCENARIO DE EVALUACIÓN</h2>
+                        <div class="info-box" style="border-color: var(--c-cyan);">
+                            <p>Se presenta el siguiente caso de estudio para su análisis y evaluación técnica:</p>
+                            <p style="margin-top: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; color: var(--c-cyan);"><strong>Descripción del Escenario:</strong></p>
+                            <p style="margin-top: 10px; font-style: italic;">Una organización detecta una vulnerabilidad en un sistema web interno con las siguientes características:</p>
+                            <ol class="glowing-list" style="margin-top: 10px;">
+                                <li>Puede explotarse a <strong>través de la red</strong>.</li>
+                                <li>La explotación requiere <strong>baja complejidad</strong>.</li>
+                                <li>Se necesitan <strong>privilegios elevados</strong>.</li>
+                                <li><strong>No requiere interacción</strong> del usuario.</li>
+                                <li><strong>No cambia el alcance</strong>.</li>
+                                <li>El impacto en <strong>Confidencialidad, Integridad y Disponibilidad es Bajo</strong>.</li>
+                            </ol>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-tools"></i> 3. DESARROLLO TÉCNICO</h2>
+                        
+                        <h3 style="color: var(--c-cyan);">3.1 Construcción del Vector CVSS</h3>
+                        <p>Basado en los parámetros del escenario, se ha generado la siguiente cadena de vector, la cual resume de forma técnica todas las métricas base:</p>
+                        <div class="code-box" style="background: #000; padding: 15px; border-radius: 5px; border: 1px solid var(--c-cyan); font-family: monospace; color: var(--c-cyan); font-size: 1.1rem; text-align: center; margin: 15px 0;">
+                            Vector String: <span style="background: yellow; color: #000; padding: 2px 5px; font-weight: bold;">CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L</span>
+                        </div>
+
+                        <h3 style="color: var(--c-cyan); margin-top: 25px;">3.2 Justificación de las Métricas</h3>
+                        <div style="overflow-x: auto; margin-top: 15px;">
+                            <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #ccc; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="background: rgba(0, 150, 255, 0.2); text-align: left; color: #fff;">
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Métrica</th>
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Valor</th>
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Sigla</th>
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Razón Técnica</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">Vector de ataque</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Red</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">AV:N</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">La vulnerabilidad se explota de forma remota sobre el protocolo de red.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">Complejidad</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Bajo</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">AC:L</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">No existen barreras de seguridad adicionales que dificulten el ataque.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">Privilegios req.</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Alto</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">PR:H</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">El atacante debe estar autenticado con permisos de administrador.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">Interacción</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Ninguno</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">UI:N</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">La vulnerabilidad puede ejecutarse sin ayuda de terceros.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">Alcance</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Sin cambios</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">S:U</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">El impacto queda confinado estrictamente al sistema web afectado.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">Impacto CIA</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Bajo</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">C:L/I:L/A:L</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">La pérdida de confidencialidad, integridad y disponibilidad es parcial.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-microscope"></i> 4. INTERPRETACIÓN TÉCNICA</h2>
+                        <div class="sec">
+                            <p style="color: var(--c-cyan); margin-bottom: 15px;"><strong>Análisis cualitativo:</strong></p>
+                            <p>A pesar de que el requisito de <strong>privilegios elevados (PR:H)</strong> actúa como un control de seguridad inicial, la vulnerabilidad no pierde relevancia en una auditoría. En un entorno de producción, un atacante que logre comprometer una cuenta administrativa a través de otros vectores (como fuerza bruta o phishing) utilizaría este fallo para realizar <strong>movimientos laterales</strong> o alterar información interna del sistema sin dejar rastro de interacción con el usuario.</p>
+                            <p style="margin-top: 15px;">El perfil de atacante suele ser un <strong>insider (empleado deshonesto)</strong> o un actor externo persistente. Dado que el impacto es <strong>Bajo</strong> en las tres dimensiones de la seguridad, la explotación no implica un desastre total de la infraestructura, pero sí una degradación de la confianza en los datos manejados por la aplicación.</p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-calculator"></i> 5. CÁLCULO DE PUNTUACIÓN</h2>
+                        <div class="info-box">
+                            <p>Se utilizó la calculadora oficial del <strong>FIRST (Forum of Incident Response and Security Teams)</strong> para procesar el vector anterior.</p>
+                            <ul class="glowing-list" style="margin-top: 10px;">
+                                <li><strong>Puntuación Base:</strong> 4.3</li>
+                                <li><strong>Clasificación de Severidad:</strong> Media (Rango 4.0 - 6.9)</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="color: var(--c-cyan); margin-top: 25px;"><i class="fas fa-image"></i> Evidencia Visual</h3>
+                        
+                        <div style="margin-top: 20px;">
+                            <p style="color: var(--c-yellow); font-weight: bold; margin-bottom: 10px;">CAPTURA 1: CONFIGURACIÓN:</p>
+                            <div class="evidence-container" style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; border: 1px solid var(--c-cyan);">
+                                <img src="img/actividad17/evidencia1.png" alt="Configuración CVSS" style="width: 100%; border-radius: 5px; filter: drop-shadow(0 0 5px rgba(0,255,255,0.2));">
+                                <p style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 5px;">Interfaz de la calculadora FIRST con las métricas base seleccionadas.</p>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 30px;">
+                            <p style="color: var(--c-yellow); font-weight: bold; margin-bottom: 10px;">CAPTURA 2: RESULTADO:</p>
+                            <div class="evidence-container" style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; border: 1px solid var(--c-cyan);">
+                                <img src="img/actividad17/evidencia2.png" alt="Resultado Vector CVSS" style="width: 100%; border-radius: 5px; filter: drop-shadow(0 0 5px rgba(0,255,255,0.2));">
+                                <p style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 5px;">Cadena de Vector String generada automáticamente.</p>
+                            </div>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-shield-virus"></i> 6. CONCLUSIÓN</h2>
+                        <div class="info-box" style="border-left: 4px solid var(--c-yellow);">
+                            <p>La evaluación mediante el modelo <strong>CVSS v3.1</strong> arroja un resultado de <strong>4.3</strong>, situando esta vulnerabilidad en una categoría de <strong>Severidad Media</strong>.</p>
+                            <p style="margin-top: 15px;">Desde una perspectiva de gestión de riesgos, esta vulnerabilidad debe ser registrada en el inventario de seguridad de la organización y se recomienda su remediación una vez que las vulnerabilidades "Críticas" (9.0+) y "Altas" (7.0+) hayan sido mitigadas. La principal medida preventiva para este caso específico es el fortalecimiento del control de acceso y el monitoreo estricto de las cuentas con privilegios administrativos para evitar que esta brecha sea utilizada en ataques de mayor escala.</p>
+                        </div>
+
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > EQUIPO 4 > ACTIVIDAD 17 > EVALUACIÓN DE VULNERABILIDADES > CVSS V3.1 > RISK ASSESSMENT >
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

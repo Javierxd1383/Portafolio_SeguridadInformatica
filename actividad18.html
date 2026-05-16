@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 18 :: Análisis de Intrusiones con el Modelo Diamante</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .diamond-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .diamond-svg {
+            width: 350px;
+            height: 350px;
+            filter: drop-shadow(0 0 15px var(--c-cyan));
+        }
+
+        .diamond-node {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--c-cyan);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 0 10px var(--c-cyan);
+            transition: 0.3s;
+            width: 140px;
+        }
+
+        .diamond-node:hover {
+            transform: scale(1.1);
+            background: var(--c-cyan);
+            color: #000;
+        }
+
+        .node-adv { top: 0; left: 50%; transform: translateX(-50%); border-color: var(--c-yellow); box-shadow: 0 0 10px var(--c-yellow); }
+        .node-cap { top: 50%; left: 0; transform: translateY(-50%); border-color: var(--c-pink); box-shadow: 0 0 10px var(--c-pink); }
+        .node-inf { top: 50%; right: 0; transform: translateY(-50%); border-color: var(--c-green); box-shadow: 0 0 10px var(--c-green); }
+        .node-vic { bottom: 0; left: 50%; transform: translateX(-50%); border-color: var(--c-cyan); box-shadow: 0 0 10px var(--c-cyan); }
+
+        .killchain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .killchain-step {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .killchain-step.active {
+            border-color: var(--c-cyan);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .killchain-step i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--c-cyan);
+        }
+
+        .thread-box {
+            border-left: 3px solid var(--c-pink);
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> ACTIVIDADES</a>
+                <a href="proyectos.html" class="nav-btn color-3"> PROYECTOS</a>
+                <div class="nav-dropdown">
+                    <span class="nav-btn color-hof nav-dropdown-btn">
+                        <i class="fas fa-trophy"></i> HALL OF FAME
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </span>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-header">ROAD TO HALL OF FAME</div>
+                        <div class="dropdown-divider"></div>
+                        <a href="actividad8halloffame.html" class="dropdown-item">
+                            <i class="fas fa-database"></i> SQL Injection
+                            <span class="item-tag">ACTIVO</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 18 | INTEL & ANALYSIS</div>
+                        <h1 style="font-family:'Orbitron'; font-size: 2.0rem; margin-bottom: 10px; color: var(--c-cyan);">
+                            MODELO DIAMANTE Y CYBER KILL CHAIN</h1>
+
+                        <div class="team-box" style="border-left: 3px solid var(--c-cyan);">
+                            <h4 style="color: var(--c-cyan); margin-bottom: 10px;">DATOS DE LA ACTIVIDAD:</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #ddd; display: flex; flex-direction: column; gap: 5px;">
+                                    <li style="color: var(--c-cyan); font-weight: bold; margin-bottom: 5px;"><i class="fas fa-users"></i> INTEGRANTES:</li>
+                                    <li>• 179033 – Alonso Castillo Omar Karim</li>
+                                    <li>• 177622 – Cruz Juárez Francisco Javier</li>
+                                    <li>• 175031 – Espinoza Aguilar Brian Salvador</li>
+                                    <li>• 177685 – Martínez Lara Santiago de la Cruz</li>
+                                    <li>• 173030 – Sánchez Ramírez Mayeli</li>
+                                    <li>• 177263 – Sánchez Zavala Alan Gilberto</li>
+                                </ul>
+                                <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: #ddd; display: flex; flex-direction: column; gap: 10px;">
+                                    <li><strong style="color: var(--c-cyan);"><i class="fas fa-chalkboard-teacher"></i> MAESTRO:</strong><br>SERVANDO LOPEZ CONTRERAS</li>
+                                    <li><strong style="color: var(--c-cyan);"><i class="fas fa-book"></i> MATERIA:</strong><br>CNO V Seguridad Informática</li>
+                                    <li><strong style="color: var(--c-cyan);"><i class="fas fa-calendar-alt"></i> FECHA:</strong><br>16 de mayo 2026</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <a href="Pdfs/act18_Equipo4.pdf" target="_blank" class="pdf-btn"
+                            style="text-decoration: none; display: inline-block; padding: 10px 20px; text-align: center; margin-top: 20px;">
+                            <i class="fas fa-file-pdf"></i> VER PDF ORIGINAL
+                        </a>
+                    </header>
+
+                    <article class="article-body">
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-book"></i> CONTENIDO</h2>
+                        <ul style="list-style: none; padding-left: 10px; font-family: monospace; color: #ccc; line-height: 1.8; margin-bottom: 30px;">
+                            <li>INTRODUCCIÓN ...................................... 2</li>
+                            <li>COMPRENSIÓN DEL MODELO ............................. 2</li>
+                            <li>ANÁLISIS DE EVENTO ................................. 3</li>
+                            <li>RELACIÓN CON LA KILL CHAIN ........................ 4</li>
+                            <li>HILOS DE ACTIVIDAD ................................. 4</li>
+                            <li style="padding-left: 20px;">Hilo 1 ......................................... 5</li>
+                            <li style="padding-left: 20px;">Hilo 2 ......................................... 5</li>
+                            <li style="padding-left: 20px;">Relación entre ambos .......................... 5</li>
+                            <li>CONCLUSIÓN ........................................ 5</li>
+                        </ul>
+
+                    <article class="article-body">
+                        <h2><i class="fas fa-info-circle"></i> INTRODUCCIÓN</h2>
+                        <div class="info-box">
+                            <p>En la actualidad, las organizaciones se enfrentan constantemente a amenazas cibernéticas que pueden comprometer la seguridad de sus sistemas y de la información. Por ello, es importante contar con metodologías que permitan identificar y analizar los ataques de manera estructurada.</p>
+                            <p style="margin-top: 15px;">En esta actividad se aplica el <strong>Modelo Diamante de Análisis de Intrusiones</strong>, el cual permite relacionar elementos clave como el adversario, la víctima, la infraestructura y las capacidades utilizadas durante un incidente. Además, se complementa con la <strong>Cyber Kill Chain</strong> para comprender las diferentes etapas del ataque y detectar posibles patrones de comportamiento del atacante.</p>
+                        </div>
+
+                        <h2><i class="fas fa-gem"></i> COMPRENSIÓN DEL MODELO</h2>
+                        <div style="overflow-x: auto; margin-top: 15px;">
+                            <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #ccc; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="background: rgba(0, 255, 255, 0.1); text-align: left; color: var(--c-cyan);">
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); width: 20%;">Elemento</th>
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); width: 40%;">Descripción</th>
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); width: 40%;">Ejemplo Práctico</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); color: var(--c-yellow);"><strong>Adversario</strong></td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Es el actor o entidad responsable de utilizar una capacidad contra una víctima.</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Un grupo de ciberdelincuentes motivado por el beneficio económico que planea una campaña de ransomware contra hospitales.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); color: var(--c-pink);"><strong>Capacidad</strong></td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Se refiere a las herramientas, técnicas y tácticas que el adversario utiliza para llevar a cabo el ataque.</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">El uso de un malware de tipo troyano diseñado específicamente para evadir la detección de antivirus comerciales y cifrar archivos de manera ultra rápida.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); color: var(--c-green);"><strong>Infraestructura</strong></td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Es el medio físico o lógico que el adversario utiliza para establecer contacto con la víctima o para entregar sus capacidades.</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Un servidor de Comando y Control alquilado en la nube que el atacante usa para enviar órdenes al malware instalado en la computadora de la víctima.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); color: var(--c-cyan);"><strong>Víctima</strong></td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Es el objetivo del ataque. Puede ser una persona física, una organización, un sistema específico o incluso un sector económico completo.</td>
+                                        <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">El departamento de finanzas de una empresa multinacional que recibe correos electrónicos de phishing diseñados para robar credenciales de acceso a las cuentas bancarias corporativas.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-project-diagram"></i> ANÁLISIS DE EVENTO</h2>
+                        <div class="info-box" style="border-color: var(--c-cyan);">
+                            <p><strong>Escenario:</strong> Una organización detecta comportamiento anómalo en un equipo. El análisis revela:</p>
+                            <ol class="glowing-list" style="margin-top: 10px;">
+                                <li>La víctima detecta malware.</li>
+                                <li>El malware contiene dominios de Comando y Control (C2).</li>
+                                <li>Los dominios resuelven a direcciones IP externas.</li>
+                                <li>Logs muestran múltiples hosts conectándose a esas IP.</li>
+                                <li>WHOIS/IP revela posible origen del atacante.</li>
+                            </ol>
+                        </div>
+
+                        <div class="diamond-container">
+                            <svg class="diamond-svg" viewBox="0 0 100 100">
+                                <line x1="50" y1="10" x2="10" y2="50" stroke="var(--c-cyan)" stroke-width="0.5" />
+                                <line x1="10" y1="50" x2="50" y2="90" stroke="var(--c-cyan)" stroke-width="0.5" />
+                                <line x1="50" y1="90" x2="90" y2="50" stroke="var(--c-cyan)" stroke-width="0.5" />
+                                <line x1="90" y1="50" x2="50" y2="10" stroke="var(--c-cyan)" stroke-width="0.5" />
+                                <line x1="10" y1="50" x2="90" y2="50" stroke="var(--c-cyan)" stroke-width="0.2" stroke-dasharray="1" />
+                                <line x1="50" y1="10" x2="50" y2="90" stroke="var(--c-cyan)" stroke-width="0.2" stroke-dasharray="1" />
+                            </svg>
+                            <div class="diamond-node node-adv">ADVERSARIO<br><span style="font-size: 0.6rem; color: var(--c-yellow);">Actor Externo (C2)</span></div>
+                            <div class="diamond-node node-cap">CAPACIDAD<br><span style="font-size: 0.6rem; color: var(--c-pink);">Malware con C2</span></div>
+                            <div class="diamond-node node-inf">INFRAESTRUCTURA<br><span style="font-size: 0.6rem; color: var(--c-green);">Dominios & IPs Externas</span></div>
+                            <div class="diamond-node node-vic">VÍCTIMA<br><span style="font-size: 0.6rem; color: var(--c-cyan);">Host Inicial & Red</span></div>
+                        </div>
+
+                        <div style="overflow-x: auto; margin-top: 20px;">
+                            <table style="width: 100%; border-collapse: collapse; background: rgba(0, 150, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); color: #ccc; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="background: rgba(0, 150, 255, 0.2); text-align: left; color: #fff;">
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); width: 30%;">Metacaracterística</th>
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Descripción del evento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Marca de tiempo</strong></td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Momento exacto en que los sistemas de monitoreo (SIEM/EDR) disparan la alerta de tráfico inusual hacia el exterior, correlacionado con los registros históricos de los logs de los hosts internos involucrados.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Fase</strong></td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Comando y Control. El evento se sitúa en la etapa de post-explotación, donde el malware ya residente busca establecer un canal de comunicación persistente con la infraestructura del atacante para recibir instrucciones.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Resultado</strong></td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Compromiso activo de red. El ataque ha sido exitoso en su comunicación, la presencia de múltiples hosts internos contactando las mismas IP's externas confirma que la amenaza ha logrado propagarse o que el canal de control está plenamente operativo.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Dirección</strong></td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Saliente. Se observa un flujo de datos que se origina dentro del perímetro de la organización y se dirige hacia activos externos remotos, evadiendo potencialmente filtros de seguridad perimetral básicos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Metodología</strong></td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">El malware emplea nombres de dominio específicos contenidos en su código para resolver IP's externas, una técnica diseñada para mantener la conexión incluso si el atacante cambia sus servidores físicos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Recursos</strong></td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Código malicioso detectado, dominios de C2 identificados en el análisis forense, direcciones IP's externas vinculadas a los dominios y herramientas de inteligencia de amenazas como lo es WHOIS para rastrear al adversario.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="sec" style="margin-top: 30px;">
+                            <div style="display: flex; flex-direction: column; gap: 20px;">
+                                <p><strong>1. ¿Quién es el adversario en este escenario?</strong><br>
+                                El análisis de WHOIS/IP revela el posible origen del atacante. Se define como el actor externo responsable de controlar el malware y los dominios de Comando y Control (C2) para comprometer la organización.</p>
+                                
+                                <p><strong>2. ¿Cuál es la capacidad utilizada?</strong><br>
+                                La capacidad principal es un malware que ha sido instalado en el equipo de la víctima. Este software malicioso cuenta con la función específica de contener y ejecutar consultas a dominios de Comando y Control (C2) para recibir instrucciones externas.</p>
+                                
+                                <p><strong>3. ¿Qué tipo of infraestructura se emplea?</strong><br>
+                                • Nombres de dominio específicos.<br>
+                                • Direcciones IP externas.<br>
+                                • Servidores remotos que actúan como puntos de Comando y Control.</p>
+
+                                <p><strong>4. ¿Quién es la víctima primaria?</strong><br>
+                                La víctima primaria es el host inicial donde la organización detectó por primera vez el comportamiento anómalo y la presencia del malware. Aunque, la víctima se puede considerar que también es la organización ya que la red ha sido penetrada.</p>
+
+                                <p><strong>5. ¿Existe evidencia de movimiento lateral?</strong><br>
+                                Los logs muestran múltiples hosts conectándose a esas mismas direcciones IP externas. Esto nos muestra que el compromiso se ha extendido desde el equipo inicial hacia otros dispositivos dentro de la misma red interna.</p>
+                            </div>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-skull-crossbones"></i> RELACIÓN CON LA KILL CHAIN</h2>
+                        <div style="overflow-x: auto; margin-top: 15px;">
+                            <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #ccc; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="background: rgba(0, 150, 255, 0.2); text-align: left; color: #fff;">
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1); width: 25%;">Evento</th>
+                                        <th style="padding: 12px; border: 1px solid rgba(255,255,255,0.1);">Fase Kill Chain</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0, 150, 255, 0.1);">Detección de malware</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Instalación.</strong> El malware ya se encuentra dentro del sistema comprometido y ha sido identificado por las herramientas de seguridad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0, 150, 255, 0.1);">Envío de phishing</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Entrega (Delivery).</strong> El atacante utiliza correos electrónicos maliciosos para distribuir el malware hacia la víctima.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0, 150, 255, 0.1);">Conexión a C2</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Comando y Control (C2).</strong> El malware establece comunicación con servidores externos para recibir instrucciones del atacante.</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0, 150, 255, 0.1);">Ejecución del malware</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Explotación / Ejecución.</strong> El código malicioso se ejecuta dentro del host comprometido aprovechando vulnerabilidades o interacción del usuario.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2><i class="fas fa-project-diagram"></i> HILOS DE ACTIVIDAD</h2>
+                        <div class="info-box" style="border-left: 4px solid var(--c-pink);">
+                            <h4 style="color: var(--c-pink); margin-bottom: 10px;">Hilo 1</h4>
+                            <ol class="glowing-list" style="margin-left: 20px; margin-bottom: 20px;">
+                                <li>El administrador recibe un correo de phishing.</li>
+                                <li>El usuario abre el archivo o enlace malicioso.</li>
+                                <li>El malware se ejecuta en el equipo.</li>
+                                <li>El host comprometido establece conexión con el servidor C2.</li>
+                                <li>El atacante obtiene acceso remoto y control parcial del sistema.</li>
+                            </ol>
+
+                            <h4 style="color: var(--c-pink); margin-bottom: 10px;">Hilo 2</h4>
+                            <ol class="glowing-list" style="margin-left: 20px; margin-bottom: 20px;">
+                                <li>El atacante utiliza el equipo comprometido como proxy.</li>
+                                <li>Desde el host inicial se realizan conexiones hacia otros dispositivos internos.</li>
+                                <li>Un segundo equipo de la red es comprometido.</li>
+                                <li>El segundo host comienza también a comunicarse con el C2.</li>
+                                <li>Se amplía el alcance del ataque dentro de la organización.</li>
+                            </ol>
+
+                            <h4 style="color: var(--c-cyan); margin-bottom: 10px;">Relación entre ambos</h4>
+                            <p style="font-size: 0.95rem; line-height: 1.6;">El atacante utiliza la primera víctima como punto de apoyo para desplazarse lateralmente dentro de la red corporativa. Este proceso, conocido como <strong>pivoting</strong>, permite extender el ataque hacia otros sistemas internos utilizando conexiones legítimas desde el host comprometido inicialmente.</p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-flag-checkered"></i> CONCLUSIÓN</h2>
+                        <div class="info-box" style="border-top: 2px solid var(--c-cyan);">
+                            <p>La presente actividad permitió aplicar el <strong>Modelo Diamante de Análisis de Intrusiones</strong> como una metodología efectiva para identificar y correlacionar los elementos involucrados en un incidente de ciberseguridad. A través del análisis realizado, fue posible reconocer la relación entre el adversario, las capacidades empleadas, la infraestructura utilizada y las víctimas afectadas, proporcionando una visión más clara sobre el comportamiento del ataque.</p>
+                            <p style="margin-top: 15px;">Asimismo, la integración con la <strong>Cyber Kill Chain</strong> facilitó la comprensión de las distintas fases del incidente, desde el reconocimiento inicial hasta el establecimiento de comunicación con servidores de Comando y Control (C2), permitiendo identificar evidencias de propagación y movimiento lateral dentro de la red.</p>
+                            <p style="margin-top: 15px;">En conclusión, el uso de estos modelos fortalece el análisis forense y la respuesta ante incidentes, ya que permite estructurar la información de manera organizada, detectar patrones de amenaza y apoyar la toma de decisiones para mejorar las estrategias de prevención, monitoreo y protección de la infraestructura tecnológica de una organización.</p>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px; border: 1px solid var(--c-cyan); background: rgba(0, 255, 255, 0.05); padding: 15px; border-radius: 5px;">
+                            <p style="font-family: 'Orbitron'; font-size: 1.1rem; color: var(--c-cyan);">"En ciberseguridad, el conocimiento es la llave que convierte la información en defensa."</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > EQUIPO 4 > ACTIVIDAD 18 > MODELO DIAMANTE > CYBER KILL CHAIN > INTRUSION ANALYSIS > PIVOTING > APT THREATS >
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

