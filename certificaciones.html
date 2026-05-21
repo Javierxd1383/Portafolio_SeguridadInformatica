@@ -161,6 +161,20 @@
             filter: drop-shadow(0 0 15px var(--c-cyan));
         }
 
+        .badge-hexagon img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            z-index: 2;
+            filter: drop-shadow(0 0 12px rgba(0, 242, 255, 0.6));
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .badge-hexagon:hover img {
+            transform: scale(1.15) rotate(5deg);
+            filter: drop-shadow(0 0 25px var(--c-cyan)) drop-shadow(0 0 10px #fff);
+        }
+
         .meta-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -205,8 +219,35 @@
 
         .action-bar {
             display: flex;
-            gap: 15px;
+            gap: 25px;
             justify-content: center;
+            align-items: flex-end;
+        }
+
+        .badge-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-above-link {
+            width: 95px;
+            height: 95px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(255, 0, 127, 0.4));
+            animation: float-mini 3s ease-in-out infinite;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .badge-col:hover .badge-above-link {
+            transform: scale(1.12);
+            filter: drop-shadow(0 0 18px rgba(255, 0, 127, 0.8)) drop-shadow(0 0 5px #fff);
+        }
+
+        @keyframes float-mini {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         @keyframes float {
@@ -329,7 +370,7 @@
                     
                     <div id="intro" class="cert-content active">
                         <div class="badge-hexagon">
-                            <i class="fas fa-shield-halved"></i>
+                            <img src="img/img_badge/introduction-to-cybersecurity.png" alt="Badge">
                         </div>
                         <h2 style="text-align: center; font-family: 'Orbitron'; color: #fff; margin-bottom: 20px;">INTRODUCCIÓN A LA CIBERSEGURIDAD</h2>
                         
@@ -346,13 +387,16 @@
 
                         <div class="action-bar">
                             <a href="Pdfs/certificaciones/Francisco Javier_Cruz Juarez_Introduction_to_Cybersecurity.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> DOCUMENTO PDF</a>
-                            <a href="https://www.credly.com/badges/5e0695aa-d3fc-42f6-9f26-ab766242a57f/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            <div class="badge-col">
+                                <img src="img/img_badge/introduction-to-cybersecurity.png" alt="Badge" class="badge-above-link">
+                                <a href="https://www.credly.com/badges/5e0695aa-d3fc-42f6-9f26-ab766242a57f/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            </div>
                         </div>
                     </div>
 
                     <div id="redes" class="cert-content">
                         <div class="badge-hexagon">
-                            <i class="fas fa-network-wired"></i>
+                            <img src="img/img_badge/networking-basics.png" alt="Badge">
                         </div>
                         <h2 style="text-align: center; font-family: 'Orbitron'; color: #fff; margin-bottom: 20px;">CONCEPTOS BÁSICOS DE REDES</h2>
                         
@@ -369,13 +413,16 @@
 
                         <div class="action-bar">
                             <a href="Pdfs/certificaciones/Francisco Javier_Cruz Juarez_Conceptos_basicos_de_Redes.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> DOCUMENTO PDF</a>
-                            <a href="https://www.credly.com/badges/66444545-9d8c-4d8e-933a-f579ebccb465/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            <div class="badge-col">
+                                <img src="img/img_badge/networking-basics.png" alt="Badge" class="badge-above-link">
+                                <a href="https://www.credly.com/badges/66444545-9d8c-4d8e-933a-f579ebccb465/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            </div>
                         </div>
                     </div>
 
                     <div id="dispositivos" class="cert-content">
                         <div class="badge-hexagon">
-                            <i class="fas fa-server"></i>
+                            <img src="img/img_badge/networking-devices-and-initial-configuration.png" alt="Badge">
                         </div>
                         <h2 style="text-align: center; font-family: 'Orbitron'; color: #fff; margin-bottom: 20px;">DISPOSITIVOS DE RED Y CONFIGURACIÓN INICIAL</h2>
                         
@@ -392,13 +439,16 @@
 
                         <div class="action-bar">
                             <a href="Pdfs/certificaciones/Francisco Javier_Cruz Juarez_Dispositivos_de_Red_y_Configuracion_inicial.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> DOCUMENTO PDF</a>
-                            <a href="https://www.credly.com/badges/25e18468-7bb1-409d-97ea-0428727dc9a0/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            <div class="badge-col">
+                                <img src="img/img_badge/networking-devices-and-initial-configuration.png" alt="Badge" class="badge-above-link">
+                                <a href="https://www.credly.com/badges/25e18468-7bb1-409d-97ea-0428727dc9a0/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            </div>
                         </div>
                     </div>
 
                     <div id="terminales" class="cert-content">
                         <div class="badge-hexagon">
-                            <i class="fas fa-shield-virus"></i>
+                            <img src="img/img_badge/endpoint-security.png" alt="Badge">
                         </div>
                         <h2 style="text-align: center; font-family: 'Orbitron'; color: #fff; margin-bottom: 20px;">SEGURIDAD EN TERMINALES (ENDPOINT SECURITY)</h2>
                         
@@ -415,13 +465,16 @@
 
                         <div class="action-bar">
                             <a href="Pdfs/certificaciones/Francisco Javier_Cruz Juarez_Seguridad_de_Terminales.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> DOCUMENTO PDF</a>
-                            <a href="https://www.credly.com/badges/e884c42b-746b-472c-967b-30959b799bda/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            <div class="badge-col">
+                                <img src="img/img_badge/endpoint-security.png" alt="Badge" class="badge-above-link">
+                                <a href="https://www.credly.com/badges/e884c42b-746b-472c-967b-30959b799bda/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            </div>
                         </div>
                     </div>
 
                     <div id="amenazas" class="cert-content">
                         <div class="badge-hexagon">
-                            <i class="fas fa-biohazard"></i>
+                            <img src="img/img_badge/cyber-threat-management.png" alt="Badge">
                         </div>
                         <h2 style="text-align: center; font-family: 'Orbitron'; color: #fff; margin-bottom: 20px;">GESTIÓN DE AMENAZAS CIBERNÉTICAS</h2>
                         
@@ -438,13 +491,16 @@
 
                         <div class="action-bar">
                             <a href="Pdfs/certificaciones/Francisco Javier_Cruz Juarez_Gestion_de_Amenazas_Ciberneticas.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> DOCUMENTO PDF</a>
-                            <a href="https://www.credly.com/badges/6629426f-c637-44aa-8def-100efb7af0b0/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            <div class="badge-col">
+                                <img src="img/img_badge/cyber-threat-management.png" alt="Badge" class="badge-above-link">
+                                <a href="https://www.credly.com/badges/6629426f-c637-44aa-8def-100efb7af0b0/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            </div>
                         </div>
                     </div>
 
                     <div id="junior" class="cert-content">
                         <div class="badge-hexagon">
-                            <i class="fas fa-user-shield"></i>
+                            <img src="img/img_badge/junior-cybersecurity-analyst-career-path.1.png" alt="Badge">
                         </div>
                         <h2 style="text-align: center; font-family: 'Orbitron'; color: #fff; margin-bottom: 20px;">ANALISTA JUNIOR EN CIBERSEGURIDAD</h2>
                         
@@ -461,13 +517,16 @@
 
                         <div class="action-bar">
                             <a href="Pdfs/certificaciones/Francisco Javier_Cruz Juarez_Carrera_Profesional_de_Analista_Junior_en_Ciberseguridad.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> DOCUMENTO PDF</a>
-                            <a href="https://www.credly.com/badges/a2405577-0442-47a9-b06d-963053a2860e/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            <div class="badge-col">
+                                <img src="img/img_badge/junior-cybersecurity-analyst-career-path.1.png" alt="Badge" class="badge-above-link">
+                                <a href="https://www.credly.com/badges/a2405577-0442-47a9-b06d-963053a2860e/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            </div>
                         </div>
                     </div>
 
                     <div id="hacker" class="cert-content">
                         <div class="badge-hexagon">
-                            <i class="fas fa-user-secret"></i>
+                            <img src="img/img_badge/ethical-hacker.png" alt="Badge">
                         </div>
                         <h2 style="text-align: center; font-family: 'Orbitron'; color: #fff; margin-bottom: 20px;">HACKER ÉTICO (ETHICAL HACKER)</h2>
                         
@@ -484,7 +543,10 @@
 
                         <div class="action-bar">
                             <a href="Pdfs/certificaciones/Francisco Javier_Cruz Juarez_Hacker_Etico.pdf" target="_blank" class="pdf-btn"><i class="fas fa-file-pdf"></i> DOCUMENTO PDF</a>
-                            <a href="https://www.credly.com/badges/a3b936fc-3e83-4510-9cad-11cd99281e78/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            <div class="badge-col">
+                                <img src="img/img_badge/ethical-hacker.png" alt="Badge" class="badge-above-link">
+                                <a href="https://www.credly.com/badges/a3b936fc-3e83-4510-9cad-11cd99281e78/public_url" target="_blank" class="pdf-btn" style="border-color: var(--c-pink); color: var(--c-pink);"><i class="fas fa-external-link-alt"></i> VER BADGE</a>
+                            </div>
                         </div>
                     </div>
                 </div>
