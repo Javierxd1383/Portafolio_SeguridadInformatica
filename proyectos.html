@@ -23,19 +23,37 @@
         <nav class="neon-nav">
             <div class="nav-logo">JAVIER<span class="bad">XD1383</span></div>
             <div class="nav-items">
-                <a href="index.html" class="nav-btn color-1"> INICIO</a>
+                <!-- Dropdown INICIO (Cyan) -->
+                <div class="nav-dropdown dropdown-cyan">
+                    <a href="index.html#home" class="nav-btn color-1 nav-dropdown-btn" style="text-decoration: none;">
+                        <i class="fas fa-home"></i> INICIO
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-header">SECCIONES</div>
+                        <div class="dropdown-divider"></div>
+                        <a href="index.html#home" class="dropdown-item"><i class="fas fa-home"></i> Inicio / Top</a>
+                        <a href="index.html#about" class="dropdown-item"><i class="fas fa-folder-open"></i> Presentación</a>
+                        <a href="index.html#profile" class="dropdown-item"><i class="fas fa-user-circle"></i> Perfil Estudiante</a>
+                        <a href="index.html#tech" class="dropdown-item"><i class="fas fa-cogs"></i> Info Técnica</a>
+                        <a href="index.html#contact" class="dropdown-item"><i class="fas fa-satellite-dish"></i> Contacto</a>
+                    </div>
+                </div>
+                
                 <a href="actividades.html" class="nav-btn color-4"> ACTIVIDADES</a>
                 <a href="proyectos.html" class="nav-btn color-3 active-nav"> PROYECTOS</a>
-                <div class="nav-dropdown">
-                    <a href="hall-of-fame.html" class="nav-btn color-hof nav-dropdown-btn"
-                        style="text-decoration: none;">
+                <a href="certificaciones.html" class="nav-btn color-2"> CERTIFICADOS</a>
+                
+                <!-- Dropdown HALL OF FAME (Green) -->
+                <div class="nav-dropdown dropdown-green">
+                    <a href="hall-of-fame.html" class="nav-btn color-hof nav-dropdown-btn" style="text-decoration: none;">
                         <i class="fas fa-trophy"></i> HALL OF FAME
                         <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </a>
                     <div class="nav-dropdown-menu">
                         <div class="dropdown-header">ROAD TO HALL OF FAME</div>
                         <div class="dropdown-divider"></div>
-                        <a href="actividad8.html" class="dropdown-item">
+                        <a href="actividad8halloffame.html" class="dropdown-item">
                             <i class="fas fa-database"></i> SQL Injection
                             <span class="item-tag">ACTIVO</span>
                         </a>
